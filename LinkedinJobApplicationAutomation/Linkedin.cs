@@ -168,17 +168,14 @@ namespace LinkedinJobApplicationAutomation.Config
                                     try
                                     {
                                         DisplayWriteResults("########1########-1-########");
-                                        CheckRadioButtons();
+                                        CheckInput();
                                         driver.FindElement(By.CssSelector("button[aria-label='Continue to next step']")).Click();
                                         Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
                                         DisplayWriteResults("########1########-2-########");
-                                        CheckRadioButtons();
+                                        CheckInput();
                                         driver.FindElement(By.CssSelector("button[aria-label='Submit application']")).Click();
                                         Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-                                        //string comPercentage = driver.FindElement(By.XPath("html/body/div[3]/div/div/div[2]/div/div/span")).Text;
-                                        //DisplayWriteResults("###-->>>2 Pages" + percenNumber);
-                                        //int percenNumber = int.Parse(comPercentage.Substring(0, comPercentage.IndexOf("%")));
-                                        //string result = ApplyProcess(percenNumber, offerPage);
+                                        
                                         lineToWrite = jobProperties + " | ";// + result;
                                         DisplayWriteResults(lineToWrite);
                                     }
@@ -187,19 +184,17 @@ namespace LinkedinJobApplicationAutomation.Config
                                         try
                                         {
                                             DisplayWriteResults("#####((2))##### 1 #####");
-                                            CheckRadioButtons();
+                                            CheckInput();
                                             Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
                                             driver.FindElement(By.CssSelector("button[aria-label='Review your application']")).Click();
 
                                             Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
                                             DisplayWriteResults("#####((2))##### 2 #####");
-                                            CheckRadioButtons();
-                                            
+                                            CheckInput();
+
                                             driver.FindElement(By.CssSelector("button[aria-label='Submit application']")).Click();
                                             Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-                                            //string comPercentage = driver.FindElement(By.XPath("html/body/div[3]/div/div/div[2]/div/div/span")).Text;
-                                            //int percenNumber = int.Parse(comPercentage.Substring(0, comPercentage.IndexOf("%")));
-                                            //string result = ApplyProcess(percenNumber, offerPage);
+                                          
                                             lineToWrite = jobProperties + " | ";// + result;
                                             DisplayWriteResults(lineToWrite);
                                         }
@@ -208,16 +203,14 @@ namespace LinkedinJobApplicationAutomation.Config
                                             try
                                             {
                                                 DisplayWriteResults("#####((3))##### 1 #####");
-                                                CheckRadioButtons();
+                                                CheckInput();
                                                 driver.FindElement(By.CssSelector("button[aria-label='Continue to next step']")).Click();
                                                 Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
                                                 DisplayWriteResults("#####((3))##### 2 #####");
-                                                CheckRadioButtons();
-                                                
+                                                CheckInput();
+
                                                 driver.FindElement(By.CssSelector("button[aria-label='Submit application']")).Click();
-                                                //string comPercentage = driver.FindElement(By.XPath("html/body/div[3]/div/div/div[2]/div/div/span")).Text;
-                                                //int percenNumber = int.Parse(comPercentage.Substring(0, comPercentage.IndexOf("%")));
-                                                //string result = ApplyProcess(percenNumber, offerPage);
+                                               
                                                 lineToWrite = jobProperties + " | ";// + result;
                                                 DisplayWriteResults(lineToWrite);
                                             }
@@ -226,14 +219,14 @@ namespace LinkedinJobApplicationAutomation.Config
                                                 try
                                                 {
                                                     DisplayWriteResults("#####((4))##### 1 #####");
-                                                    CheckRadioButtons();
+                                                    CheckInput();
                                                     Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
                                                     driver.FindElement(By.CssSelector("button[aria-label='Review your application']")).Click();
 
                                                     Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
                                                     DisplayWriteResults("#####((4))##### 2 #####");
-                                                    CheckRadioButtons();
-                                                    
+                                                    CheckInput();
+
                                                     driver.FindElement(By.CssSelector("button[aria-label='Submit application']")).Click();
                                                     Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
                                                     //string comPercentage = driver.FindElement(By.XPath("html/body/div[3]/div/div/div[2]/div/div/span")).Text;
@@ -272,6 +265,31 @@ namespace LinkedinJobApplicationAutomation.Config
             }
 
             //Utils.Donate(this);
+        }
+        public void CheckInput()
+        {
+            // Find all elements that match the specified selector
+            var inputElements = driver.FindElements(By.ClassName("artdeco-text-input--input"));
+
+            // Check if any elements were found
+            if (inputElements.Count > 0)
+            {
+                // The element exists, perform desired actions
+                var inputElement = inputElements[0]; // Use the first matching element, or iterate through the list if needed
+
+                // Clear the existing value (optional)
+                inputElement.Clear();
+
+                // Enter a new value into the input element
+                inputElement.SendKeys("Your value here");
+            }
+            else
+            {
+                // The element does not exist
+                // Handle the absence of the element accordingly
+                Console.WriteLine("Input element not found.");
+            }
+
         }
         public string CheckRadioButtons()
         {

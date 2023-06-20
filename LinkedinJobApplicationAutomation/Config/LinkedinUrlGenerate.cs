@@ -13,10 +13,14 @@ namespace LinkedinJobApplicationAutomation.Config
             var path = new List<string>();
             foreach (var location in Config.Location)
             {
+                int jobExperienceIndex = Config.ExperienceLevels.Count;
                 foreach (var keyword in Config.Keywords)
                 {
-                    var url = Constants.LinkJobUrl + "?f_AL=true&keywords=" + keyword + this.jobType() + this.remote() + this.checkJobLocation(location) + this.jobExp() + this.datePosted() + this.salary() + this.sortBy();
-                    path.Add(url);
+                    for (int i = 0; i < jobExperienceIndex; i++)
+                    {
+                        var url = Constants.LinkJobUrl + "?f_AL=true&keywords=" + keyword + this.jobType() + this.remote() + this.checkJobLocation(location) + this.jobExp(i) + this.datePosted() + this.salary() + this.sortBy();
+                        path.Add(url);
+                    }
                 }
             }
             return path;
@@ -50,10 +54,10 @@ namespace LinkedinJobApplicationAutomation.Config
             return jobLoc;
         }
 
-        public string jobExp()
+        public string jobExp(int jobIndex)
         {
             var jobtExpArray = Config.ExperienceLevels;
-            var firstJobExp = jobtExpArray[0];
+            var firstJobExp = jobtExpArray[jobIndex];
             var jobExp = "";
             switch (firstJobExp)
             {
