@@ -12,7 +12,7 @@ namespace LinkedinJobApplicationAutomation.Config
         // Optional! run browser in headless mode, no browser screen will be shown it will work in background.
         public static bool Headless = false;
         // Optional! for Firefox enter profile dir to run the bot without logging in your account each time
-        public static string FirefoxProfileRootDir = @"";
+        public static string FirefoxProfileRootDir = @"C:\Users\90507\AppData\Roaming\Mozilla\Firefox\Profiles\0cv53qd2.default-release-1687006000021";
         // If you left above field empty enter your Linkedin password and username below
         // Linkedin credits
         public static string Email = "";
@@ -22,7 +22,7 @@ namespace LinkedinJobApplicationAutomation.Config
         public static string LinkedinBotProPasswrod = "";
         // location you want to search the jobs - ex : new List<string> { "Poland", "Germany", "Netherlands", "Austria", "Switzerland" }
         // continent locations: new List<string> { "Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia" }
-        public static List<string> Location = new List<string> { "Switzerland","Germany","Austria","Italy" };
+        public static List<string> Location = new List<string> { "Belgium","Netherlands" };
         // keywords related with your job search
         public static List<string> Keywords = new List<string> { ".NET" };
         // keywords = new List<string> { "programming" }
