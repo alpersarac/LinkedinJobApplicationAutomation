@@ -234,13 +234,6 @@ namespace LinkedinJobApplicationAutomation.Config
             
         }
 
-        public int getStepsCount()
-        {
-            //string elementText = driver.FindElement(By.CssSelector("div.jobs-easy-apply-content")).GetAttribute("aria-label");
-            //string[] parts = elementText.Split(" at ");
-            //string percentValue = parts[1].Replace(" percent.", "").Trim();
-            return 0;
-        }
 
         public string ContinueNextStep()
         {
@@ -256,11 +249,6 @@ namespace LinkedinJobApplicationAutomation.Config
             }
             return currentValue;
         }
-        public void NextStep()
-        {
-            driver.FindElement(By.CssSelector("button[aria-label='Submit application']")).Click();
-            Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-        }
         public bool SubmitApplication(string jobProperties, string offerPage)
         {
             bool isApplied = false;
@@ -270,10 +258,13 @@ namespace LinkedinJobApplicationAutomation.Config
             {
                 driver.FindElement(By.CssSelector("button[aria-label='Submit application']")).Click();
                 Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.Slow));
-                Console.WriteLine("######SubmitApplication#####");
-                string lineToWrite = jobProperties + " | " + "* 🥳 Just Applied to this job: " + offerPage;
+                
+                string lineToWrite = jobProperties + " | " + "* ## SUCCESS ##: " + offerPage;
                 DisplayWriteResults(lineToWrite);
+                
+                Console.WriteLine(("Successful Job App Count ##-->") + (++Config.successfulJobApplicationCounter)+"<--##");
                 isApplied= true;
+
             }
             return isApplied;
         }
@@ -289,31 +280,7 @@ namespace LinkedinJobApplicationAutomation.Config
             }
            return SubmitApplication(jobProperties, offerPage);
         }
-        public void CheckInput()
-        {
-            // Find all elements that match the specified selector
-            //var inputElements = driver.FindElements(By.ClassName("artdeco-text-input--input"));
-            //
-            //// Check if any elements were found
-            //if (inputElements.Count > 0)
-            //{
-            //    // The element exists, perform desired actions
-            //    var inputElement = inputElements[0]; // Use the first matching element, or iterate through the list if needed
-            //
-            //    // Clear the existing value (optional)
-            //    inputElement.Clear();
-            //
-            //    // Enter a new value into the input element
-            //    inputElement.SendKeys("Your value here");
-            //}
-            //else
-            //{
-            //    // The element does not exist
-            //    // Handle the absence of the element accordingly
-            //    Console.WriteLine("Input element not found.");
-            //}
-
-        }
+        
         public string CheckRadioButtons()
         {
             try
@@ -341,41 +308,7 @@ namespace LinkedinJobApplicationAutomation.Config
 
 
         }
-        public string ApplyProcess(int percentage, string offerPage)
-        {
-            int applyPages = (int)Math.Floor(100 / (double)percentage);
-            string result = "";
-            string radioEx = "";
-
-            try
-            {
-                for (int page = 0; page < applyPages - 2; page++)
-                {
-                    driver.FindElement(By.CssSelector("button[aria-label='Continue to next step']")).Click();
-                    radioEx = CheckRadioButtons();
-                    Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-                }
-
-                driver.FindElement(By.CssSelector("button[aria-label='Review your application']")).Click();
-                Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-
-                if (!Config.FollowCompanies)
-                {
-                    driver.FindElement(By.CssSelector("label[for='follow-company-checkbox']")).Click();
-                    Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-                }
-
-                driver.FindElement(By.CssSelector("button[aria-label='Submit application']")).Click();
-                Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-
-                result = "* 🥳 Just Applied to this job: " + offerPage + " | " + radioEx;
-            }
-            catch
-            {
-                result = "* 🥵 " + applyPages + " Pages, couldn't apply to this job! Extra info needed. Link: " + offerPage;
-            }
-            return result;
-        }
+       
         public IWebElement EasyApplyButton()
         {
             try

@@ -22,7 +22,7 @@ namespace LinkedinJobApplicationAutomation.Config
         public static string LinkedinBotProPasswrod = "";
         // location you want to search the jobs - ex : new List<string> { "Poland", "Germany", "Netherlands", "Austria", "Switzerland" }
         // continent locations: new List<string> { "Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia" }
-        public static List<string> Location = new List<string> { "Belgium","Netherlands" };
+        public static List<string> Location = new List<string> { "Netherlands","Norway" };
         // keywords related with your job search
         public static List<string> Keywords = new List<string> { ".NET" };
         // keywords = new List<string> { "programming" }
@@ -53,6 +53,8 @@ namespace LinkedinJobApplicationAutomation.Config
         public static string CountryCode = "tr";
         // Your phone number without identifier - ex: "123456789"
         public static string PhoneNumber = "";
+
+        public static int successfulJobApplicationCounter = 0;
     }
 
 }
