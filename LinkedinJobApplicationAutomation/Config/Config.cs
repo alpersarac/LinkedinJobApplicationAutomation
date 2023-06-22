@@ -24,7 +24,7 @@ namespace LinkedinJobApplicationAutomation.Config
         // continent locations: new List<string> { "Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia" }
         public static List<string> Location = new List<string> { "Switzerland","Austria","Germany",};
         // keywords related with your job search
-        public static List<string> Keywords = new List<string> { ".net" };
+        public static List<string> Keywords = new List<string> { ".net","\"Relocation\"" };
         // keywords = new List<string> { "programming" }
         // job experience Level - ex: new List<string> { "Internship", "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" }
         public static List<string> ExperienceLevels = new List<string> { "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" };

@@ -165,7 +165,7 @@ namespace LinkedinJobApplicationAutomation.Config
                                         string previousValueOfPercent = "";
                                         for (int i = 0; i < 15; i++)
                                         {
-                                            Console.WriteLine($"######---->{i + 1}.Page<----######");
+                                            Console.WriteLine($"---->{i + 1}.Page<----");
                                             currentValueOfPercent = ContinueNextStep();
                                             EnterCityName();
                                             if (currentValueOfPercent != previousValueOfPercent)
@@ -181,8 +181,6 @@ namespace LinkedinJobApplicationAutomation.Config
                                             {
                                                 break;
                                             }
-                                            
-
                                         }
                                     }
                                 }
@@ -193,9 +191,7 @@ namespace LinkedinJobApplicationAutomation.Config
                             }
                             else
                             {
-                                Console.WriteLine("🥳 Already applied! Job");
-                                //lineToWrite = jobProperties + " | " + "* 🥳 Already applied! Job: " + offerPage;
-                                //DisplayWriteResults(lineToWrite);
+                                Console.WriteLine("----> Already applied! Job");
                             }
                             if (linkApplyButton != null)
                             {
@@ -207,7 +203,6 @@ namespace LinkedinJobApplicationAutomation.Config
                 }
                 catch (Exception e)
                 {
-                    // Handle the exception here
                     Console.WriteLine("XXXXXXXXXXXXXXX //SMALL EXCEPTION: " + url);
                     Console.WriteLine("Error: " + e.ToString());
                 }
@@ -235,7 +230,7 @@ namespace LinkedinJobApplicationAutomation.Config
             }
             catch (Exception)
             {
-                Console.WriteLine("##Error while Entring City");
+                //Console.WriteLine("##Error while Entring City");
             }
             
         }
