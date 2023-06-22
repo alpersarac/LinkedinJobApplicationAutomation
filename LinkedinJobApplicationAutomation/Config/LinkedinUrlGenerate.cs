@@ -18,14 +18,24 @@ namespace LinkedinJobApplicationAutomation.Config
                 {
                     for (int i = 0; i < jobExperienceIndex; i++)
                     {
-                        var url = Constants.LinkJobUrl + "?f_AL=true&keywords=" + keyword + this.jobType() + this.remote() + this.checkJobLocation(location) + this.jobExp(i) + this.datePosted() + this.salary() + this.sortBy();
+                        var url = Constants.LinkJobUrl + "?"+isEasyApply(true)+"&keywords=" + keyword + this.jobType() + this.remote() + this.checkJobLocation(location) + this.jobExp(i) + this.datePosted() + this.salary() + this.sortBy();
                         path.Add(url);
                     }
                 }
             }
             return path;
         }
-
+        public string isEasyApply(bool isEasyApply)
+        {
+            if (isEasyApply)
+            {
+                return "f_AL=true";
+            }
+            else
+            {
+                return "";
+            }
+        }
         public string checkJobLocation(string job)
         {
             var jobLoc = "&location=" + job;

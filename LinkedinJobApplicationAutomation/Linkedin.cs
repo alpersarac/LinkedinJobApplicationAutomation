@@ -121,7 +121,7 @@ namespace LinkedinJobApplicationAutomation.Config
 
                     urlWords = Utils.urlToKeywords(url);
                     string lineToWrite = "\n Category: " + urlWords[0] + ", Location: " + urlWords[1] + ", Applying " + totalJobs + " jobs.";
-                    DisplayWriteResults(lineToWrite);
+                    //DisplayWriteResults(lineToWrite);
 
                     for (int page = 0; page < totalPages; page++)
                     {
@@ -149,7 +149,7 @@ namespace LinkedinJobApplicationAutomation.Config
 
                             string jobProperties = GetJobProperties(countJobs);
                             IWebElement button = EasyApplyButton();
-
+                            IWebElement linkApplyButton = LinkApplyButton();
                             if (button != null)
                             {
                                 button.Click();
@@ -165,7 +165,7 @@ namespace LinkedinJobApplicationAutomation.Config
                                         string previousValueOfPercent = "";
                                         for (int i = 0; i < 15; i++)
                                         {
-                                            DisplayWriteResults($"######---->{i + 1}.Page<----######");
+                                            Console.WriteLine($"######---->{i + 1}.Page<----######");
                                             currentValueOfPercent = ContinueNextStep();
                                             EnterCityName();
                                             if (currentValueOfPercent != previousValueOfPercent)
@@ -193,7 +193,13 @@ namespace LinkedinJobApplicationAutomation.Config
                             }
                             else
                             {
-                                lineToWrite = jobProperties + " | " + "* 🥳 Already applied! Job: " + offerPage;
+                                Console.WriteLine("🥳 Already applied! Job");
+                                //lineToWrite = jobProperties + " | " + "* 🥳 Already applied! Job: " + offerPage;
+                                //DisplayWriteResults(lineToWrite);
+                            }
+                            if (linkApplyButton != null)
+                            {
+                                lineToWrite = jobProperties + " | " + "* EXTERNAL LINK APPLICATION: " + offerPage;
                                 DisplayWriteResults(lineToWrite);
                             }
                         }
@@ -318,6 +324,19 @@ namespace LinkedinJobApplicationAutomation.Config
             }
             catch
             {
+                return null;
+            }
+        }
+        public IWebElement LinkApplyButton()
+        {
+            try
+            {
+                IWebElement linkApplyButton = driver.FindElement(By.XPath("//span[text()='Apply']"));
+                return linkApplyButton;
+            }
+            catch (Exception)
+            {
+
                 return null;
             }
         }
