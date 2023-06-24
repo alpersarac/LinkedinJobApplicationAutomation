@@ -103,113 +103,123 @@ namespace LinkedinJobApplicationAutomation.Config
         }
         public void LinkJobApply()
         {
-            GenerateUrls();
-            int countApplied = 0;
-            int countJobs = 0;
-
-            List<string> urlData = Utils.getUrlDataFile();
-
-            foreach (string url in urlData)
+            try
             {
-                List<string> urlWords = new List<string>();
-                try
+                GenerateUrls();
+                int countApplied = 0;
+                int countJobs = 0;
+
+                List<string> urlData = Utils.getUrlDataFile();
+
+                foreach (string url in urlData)
                 {
-                    driver.Url = url;
-
-                    string totalJobs = driver.FindElement(By.XPath("//small")).Text;
-                    int totalPages = Utils.jobsToPages(totalJobs);
-
-                    urlWords = Utils.urlToKeywords(url);
-                    string lineToWrite = "\n Category: " + urlWords[0] + ", Location: " + urlWords[1] + ", Applying " + totalJobs + " jobs.";
-                    //DisplayWriteResults(lineToWrite);
-
-                    for (int page = 0; page < totalPages; page++)
+                    List<string> urlWords = new List<string>();
+                    try
                     {
-                        int currentPageJobs = Constants.JobsPerPage * page;
-                        var currentUrl = url + "&start=" + currentPageJobs;
-                        driver.Url = currentUrl;
-                        Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+                        driver.Url = url;
 
-                        ReadOnlyCollection<IWebElement> offersPerPage = driver.FindElements(By.XPath("//li[@data-occludable-job-id]"));
+                        string totalJobs = driver.FindElement(By.XPath("//small")).Text;
+                        int totalPages = Utils.jobsToPages(totalJobs);
 
-                        List<long> offerIds = new List<long>();
-                        foreach (IWebElement offer in offersPerPage)
+                        urlWords = Utils.urlToKeywords(url);
+                        string lineToWrite = "\n Category: " + urlWords[0] + ", Location: " + urlWords[1] + ", Applying " + totalJobs + " jobs.";
+                        //DisplayWriteResults(lineToWrite);
+
+                        for (int page = 0; page < totalPages; page++)
                         {
-                            string offerId = offer.GetAttribute("data-occludable-job-id");
-                            offerIds.Add(long.Parse(offerId.Split(':').Last()));
-                        }
-
-                        foreach (long jobID in offerIds)
-                        {
-                            string offerPage = "https://www.linkedin.com/jobs/view/" + jobID;
-                            driver.Url = offerPage;
+                            int currentPageJobs = Constants.JobsPerPage * page;
+                            var currentUrl = url + "&start=" + currentPageJobs;
+                            driver.Url = currentUrl;
                             Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
 
-                            countJobs++;
+                            ReadOnlyCollection<IWebElement> offersPerPage = driver.FindElements(By.XPath("//li[@data-occludable-job-id]"));
 
-                            string jobProperties = GetJobProperties(countJobs);
-                            IWebElement button = EasyApplyButton();
-                            IWebElement linkApplyButton = LinkApplyButton();
-                            if (button != null)
+                            List<long> offerIds = new List<long>();
+                            foreach (IWebElement offer in offersPerPage)
                             {
-                                button.Click();
+                                string offerId = offer.GetAttribute("data-occludable-job-id");
+                                offerIds.Add(long.Parse(offerId.Split(':').Last()));
+                            }
+
+                            foreach (long jobID in offerIds)
+                            {
+                                string offerPage = "https://www.linkedin.com/jobs/view/" + jobID;
+                                driver.Url = offerPage;
                                 Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-                                countApplied++;
-                                try
+
+                                countJobs++;
+
+                                string jobProperties = GetJobProperties(countJobs);
+                                IWebElement button = EasyApplyButton();
+                                IWebElement linkApplyButton = LinkApplyButton();
+                                if (button != null)
                                 {
-                                    bool isApplied = SubmitApplication(jobProperties, offerPage);
-                                    if (!isApplied)
+                                    button.Click();
+                                    Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+                                    countApplied++;
+                                    try
                                     {
-                                        int counter = 0;
-                                        string currentValueOfPercent = "";
-                                        string previousValueOfPercent = "";
-                                        for (int i = 0; i < 15; i++)
+                                        bool isApplied = SubmitApplication(jobProperties, offerPage);
+                                        if (!isApplied)
                                         {
-                                            Console.WriteLine($"---->{i + 1}.Page<----");
-                                            currentValueOfPercent = ContinueNextStep();
-                                            EnterCityName();
-                                            if (currentValueOfPercent != previousValueOfPercent)
+                                            int counter = 0;
+                                            string currentValueOfPercent = "";
+                                            string previousValueOfPercent = "";
+                                            for (int i = 0; i < 15; i++)
                                             {
-                                                previousValueOfPercent = currentValueOfPercent;
-                                            }
-                                            else
-                                            {
-                                                break;
-                                            }
-                                            
-                                            if (ReviewTheApplication(jobProperties, offerPage,ref counter))
-                                            {
-                                                break;
+                                                Console.WriteLine($"---->{i + 1}.Page<----");
+                                                currentValueOfPercent = ContinueNextStep();
+                                                EnterCityName();
+                                                if (currentValueOfPercent != previousValueOfPercent)
+                                                {
+                                                    previousValueOfPercent = currentValueOfPercent;
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+
+                                                if (ReviewTheApplication(jobProperties, offerPage, ref counter))
+                                                {
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
+                                    catch
+                                    {
+
+                                    }
                                 }
-                                catch
+                                else
                                 {
-                                   
+                                    Console.WriteLine("----> Already applied! Job");
                                 }
-                            }
-                            else
-                            {
-                                Console.WriteLine("----> Already applied! Job");
-                            }
-                            if (linkApplyButton != null)
-                            {
-                                lineToWrite = jobProperties + " | " + "* EXTERNAL LINK APPLICATION: " + offerPage;
-                                DisplayWriteResults(lineToWrite);
+                                if (linkApplyButton != null)
+                                {
+                                    lineToWrite = jobProperties + " | " + "* EXTERNAL LINK APPLICATION: " + offerPage;
+                                    DisplayWriteResults(lineToWrite);
+                                }
                             }
                         }
                     }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("XXXXXXXXXXXXXXX //SMALL EXCEPTION: " + url);
-                    Console.WriteLine("Error: " + e.ToString());
-                }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("XXXXXXXXXXXXXXX //SMALL EXCEPTION: " + url);
+                        Console.WriteLine("Error: " + e.ToString());
+                    }
 
-                Console.WriteLine("Category: " + urlWords[0] + "," + urlWords[1] + " applied: " + countApplied +
-                    " jobs out of " + countJobs + ".");
+                    Console.WriteLine("Category: " + urlWords[0] + "," + urlWords[1] + " applied: " + countApplied +
+                        " jobs out of " + countJobs + ".");
+                }
             }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex);
+                Console.WriteLine(ex.Message);
+            }
+
 
             //Utils.Donate(this);
         }

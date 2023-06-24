@@ -22,14 +22,14 @@ namespace LinkedinJobApplicationAutomation.Config
         public static string LinkedinBotProPasswrod = "";
         // location you want to search the jobs - ex : new List<string> { "Poland", "Germany", "Netherlands", "Austria", "Switzerland" }
         // continent locations: new List<string> { "Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia" }
-        public static List<string> Location = new List<string> { "Switzerland","Austria","Germany",};
+        public static List<string> Location = new List<string> { "Switzerland","Austria","Germany","Spain","Poland","Finland"};
         // keywords related with your job search
-        public static List<string> Keywords = new List<string> { ".net","\"Relocation\"" };
+        public static List<string> Keywords = new List<string> { ".net","C#" };
         // keywords = new List<string> { "programming" }
         // job experience Level - ex: new List<string> { "Internship", "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" }
         public static List<string> ExperienceLevels = new List<string> { "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" };
         // job posted date - ex: new List<string> { "Any Time", "Past Month", "Past Week", "Past 24 hours" } - select only one
-        public static List<string> DatePosted = new List<string> { "Past Week" };
+        public static List<string> DatePosted = new List<string> { "Past 24 hours" };
         // DatePosted = new List<string> { "Past 24 hours" }
         // job type - ex: new List<string> { "Full-time", "Part-time", "Contract", "Temporary", "Volunteer", "Intership", "Other" }
         public static List<string> JobType = new List<string> { "Full-time" };
@@ -53,7 +53,7 @@ namespace LinkedinJobApplicationAutomation.Config
         public static string CountryCode = "tr";
         // Your phone number without identifier - ex: "123456789"
         public static string PhoneNumber = "";
-
+        // Total successful job application count
         public static int successfulJobApplicationCounter = 0;
     }
 
