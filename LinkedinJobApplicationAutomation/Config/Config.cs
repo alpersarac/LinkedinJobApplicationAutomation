@@ -22,9 +22,9 @@ namespace LinkedinJobApplicationAutomation.Config
         public static string LinkedinBotProPasswrod = "";
         // location you want to search the jobs - ex : new List<string> { "Poland", "Germany", "Netherlands", "Austria", "Switzerland" }
         // continent locations: new List<string> { "Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia" }
-        public static List<string> Location = new List<string> { "Switzerland","Austria","Germany","Spain","Poland","Finland"};
+        public static List<string> Location = new List<string> { "Austria", "Germany", "Switzerland","Spain","Poland","Finland",};
         // keywords related with your job search
-        public static List<string> Keywords = new List<string> { ".net","C#" };
+        public static List<string> Keywords = new List<string> { ".NET" };
         // keywords = new List<string> { "programming" }
         // job experience Level - ex: new List<string> { "Internship", "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" }
         public static List<string> ExperienceLevels = new List<string> { "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" };

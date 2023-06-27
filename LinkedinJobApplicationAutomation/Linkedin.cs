@@ -54,8 +54,8 @@ namespace LinkedinJobApplicationAutomation.Config
             try
             {
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                //var usernameField = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("username")));
-                var usernameField = driver.FindElement(By.Id("username"));
+                var usernameField = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("username")));
+                //var usernameField = driver.FindElement(By.Id("username"));
                 usernameField.SendKeys(linkedinEmail);
 
                 var passwordField = driver.FindElement(By.Id("password"));
@@ -127,79 +127,91 @@ namespace LinkedinJobApplicationAutomation.Config
 
                         for (int page = 0; page < totalPages; page++)
                         {
-                            int currentPageJobs = Constants.JobsPerPage * page;
-                            var currentUrl = url + "&start=" + currentPageJobs;
-                            driver.Url = currentUrl;
-                            Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-
-                            ReadOnlyCollection<IWebElement> offersPerPage = driver.FindElements(By.XPath("//li[@data-occludable-job-id]"));
-
-                            List<long> offerIds = new List<long>();
-                            foreach (IWebElement offer in offersPerPage)
+                            try
                             {
-                                string offerId = offer.GetAttribute("data-occludable-job-id");
-                                offerIds.Add(long.Parse(offerId.Split(':').Last()));
-                            }
+                                int currentPageJobs = Constants.JobsPerPage * page;
+                                var currentUrl = url + "&start=" + currentPageJobs;
+                                driver.Url = currentUrl;
+                                Thread.Sleep(TimeSpan.FromSeconds(10));
 
-                            foreach (long jobID in offerIds)
-                            {
-                                string offerPage = "https://www.linkedin.com/jobs/view/" + jobID;
-                                driver.Url = offerPage;
-                                Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+                                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                                ReadOnlyCollection<IWebElement> offersPerPage = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath("//li[@data-occludable-job-id]")));
 
-                                countJobs++;
+                                //ReadOnlyCollection<IWebElement> offersPerPage = driver.FindElements(By.XPath("//li[@data-occludable-job-id]"));
 
-                                string jobProperties = GetJobProperties(countJobs);
-                                IWebElement button = EasyApplyButton();
-                                IWebElement linkApplyButton = LinkApplyButton();
-                                if (button != null)
+                                List<long> offerIds = new List<long>();
+                                foreach (IWebElement offer in offersPerPage)
                                 {
-                                    button.Click();
-                                    Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-                                    countApplied++;
-                                    try
-                                    {
-                                        bool isApplied = SubmitApplication(jobProperties, offerPage);
-                                        if (!isApplied)
-                                        {
-                                            int counter = 0;
-                                            string currentValueOfPercent = "";
-                                            string previousValueOfPercent = "";
-                                            for (int i = 0; i < 15; i++)
-                                            {
-                                                Console.WriteLine($"---->{i + 1}.Page<----");
-                                                currentValueOfPercent = ContinueNextStep();
-                                                EnterCityName();
-                                                if (currentValueOfPercent != previousValueOfPercent)
-                                                {
-                                                    previousValueOfPercent = currentValueOfPercent;
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
+                                    string offerId = offer.GetAttribute("data-occludable-job-id");
+                                    if(!AppliedBefore(offer))
+                                        offerIds.Add(long.Parse(offerId.Split(':').Last()));
+                                }
 
-                                                if (ReviewTheApplication(jobProperties, offerPage, ref counter))
+                                foreach (long jobID in offerIds)
+                                {
+                                    string offerPage = "https://www.linkedin.com/jobs/view/" + jobID;
+                                    driver.Url = offerPage;
+                                    Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+
+                                    countJobs++;
+
+                                    string jobProperties = GetJobProperties(countJobs);
+                                    IWebElement button = EasyApplyButton();
+                                    IWebElement linkApplyButton = LinkApplyButton();
+                                    if (button != null)
+                                    {
+                                        button.Click();
+                                        Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+                                        countApplied++;
+                                        try
+                                        {
+                                            bool isApplied = SubmitApplication(jobProperties, offerPage);
+                                            if (!isApplied)
+                                            {
+                                                int counter = 0;
+                                                string currentValueOfPercent = "";
+                                                string previousValueOfPercent = "";
+                                                for (int i = 0; i < 15; i++)
                                                 {
-                                                    break;
+                                                    Console.WriteLine($"---->{i + 1}.Page<----");
+                                                    currentValueOfPercent = ContinueNextStep();
+                                                    EnterCityName();
+                                                    if (currentValueOfPercent != previousValueOfPercent)
+                                                    {
+                                                        previousValueOfPercent = currentValueOfPercent;
+                                                    }
+                                                    else
+                                                    {
+                                                        break;
+                                                    }
+
+                                                    if (ReviewTheApplication(jobProperties, offerPage, ref counter))
+                                                    {
+                                                        break;
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                    catch
-                                    {
+                                        catch
+                                        {
 
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("----> Already applied! Job");
+                                    }
+                                    if (linkApplyButton != null)
+                                    {
+                                        lineToWrite = jobProperties + " | " + "* EXTERNAL LINK APPLICATION: " + offerPage;
+                                        DisplayWriteResults(lineToWrite);
                                     }
                                 }
-                                else
-                                {
-                                    Console.WriteLine("----> Already applied! Job");
-                                }
-                                if (linkApplyButton != null)
-                                {
-                                    lineToWrite = jobProperties + " | " + "* EXTERNAL LINK APPLICATION: " + offerPage;
-                                    DisplayWriteResults(lineToWrite);
-                                }
+                            }
+                            catch (Exception e)
+                            {
+
+                                Console.WriteLine("XX11XXXXXXXXXXX //SMALL EXCEPTION: " + url);
                             }
                         }
                     }
@@ -222,6 +234,32 @@ namespace LinkedinJobApplicationAutomation.Config
 
 
             //Utils.Donate(this);
+        }
+        public bool AppliedBefore(IWebElement offer)
+        {
+            try
+            {
+                IWebElement appliedElement = offer.FindElement(By.XPath(".//li[contains(@class, 'job-card-container__footer-item') and contains(@class, 'inline-flex') and contains(@class, 'align-items-center')]"));
+
+                string innerText = appliedElement.Text;
+
+                if (innerText.Contains("Applied"))
+                {
+                    Console.WriteLine("Applied");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("not Applied");
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("not Applied exception");
+                return false;
+            }
+           
         }
 
         private void EnterCityName()

@@ -61,8 +61,8 @@ namespace LinkedinJobApplicationAutomation.Config
                     break;
             }
 
-            //return jobLoc;
-            return "";
+            return jobLoc;
+            //return "";
         }
 
         public string jobExp(int jobIndex)
@@ -204,8 +204,8 @@ namespace LinkedinJobApplicationAutomation.Config
                     salary = "&salary=8";
                     break;
             }
-            //return salary;
-            return "";
+            return salary;
+            //return "";
         }
 
         public string sortBy()
