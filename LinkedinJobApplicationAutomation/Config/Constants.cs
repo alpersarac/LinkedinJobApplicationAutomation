@@ -13,9 +13,18 @@ namespace LinkedinJobApplicationAutomation.Config
         public const string GlobalLogicUrl = "https://www.globallogic.com/career-search-page/";
         public const int JobsPerPage = 25;
         public const int CaptaTime = 15;
-        public const int Fast = 1;
+        public const int Fast = 2;
         public const int Medium = 3;
         public const int Slow = 3;
         public const int BotSpeed = Fast;
+        public const int PagePreferenceConstant = (int)PagePreference.FirstTen;
+        public enum PagePreference { 
+            FirstFive =5,
+            FirstTen=10,
+            FirstTwenty=20,
+            FirstThirdty=30,
+            FirstForty=40,
+            All=0
+        };
     }
 }

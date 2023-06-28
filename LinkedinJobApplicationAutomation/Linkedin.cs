@@ -119,8 +119,15 @@ namespace LinkedinJobApplicationAutomation.Config
                         driver.Url = url;
 
                         string totalJobs = driver.FindElement(By.XPath("//small")).Text;
-                        int totalPages = Utils.jobsToPages(totalJobs);
-
+                        int totalPages = 0;
+                        if (Constants.PagePreferenceConstant == (int)Constants.PagePreference.All)
+                        {
+                            totalPages = Utils.jobsToPages(totalJobs);
+                        }
+                        else
+                        {
+                            totalPages = Constants.PagePreferenceConstant;
+                        }
                         urlWords = Utils.urlToKeywords(url);
                         string lineToWrite = "\n Category: " + urlWords[0] + ", Location: " + urlWords[1] + ", Applying " + totalJobs + " jobs.";
                         //DisplayWriteResults(lineToWrite);
@@ -130,14 +137,11 @@ namespace LinkedinJobApplicationAutomation.Config
                             try
                             {
                                 int currentPageJobs = Constants.JobsPerPage * page;
-                                var currentUrl = url + "&start=" + currentPageJobs;
+                                var currentUrl = url; //+ "&start=" + currentPageJobs;
                                 driver.Url = currentUrl;
-                                Thread.Sleep(TimeSpan.FromSeconds(10));
-
+                                
                                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                                 ReadOnlyCollection<IWebElement> offersPerPage = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath("//li[@data-occludable-job-id]")));
-
-                                //ReadOnlyCollection<IWebElement> offersPerPage = driver.FindElements(By.XPath("//li[@data-occludable-job-id]"));
 
                                 List<long> offerIds = new List<long>();
                                 foreach (IWebElement offer in offersPerPage)
@@ -212,7 +216,7 @@ namespace LinkedinJobApplicationAutomation.Config
                             {
 
                                 Console.WriteLine("XX11XXXXXXXXXXX //SMALL EXCEPTION: " + url);
-                            }
+                            }   
                         }
                     }
                     catch (Exception e)
