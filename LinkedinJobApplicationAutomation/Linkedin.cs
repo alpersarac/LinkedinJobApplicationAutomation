@@ -140,7 +140,7 @@ namespace LinkedinJobApplicationAutomation.Config
                                 var currentUrl = url; //+ "&start=" + currentPageJobs;
                                 driver.Url = currentUrl;
                                 
-                                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(7));
                                 ReadOnlyCollection<IWebElement> offersPerPage = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath("//li[@data-occludable-job-id]")));
 
                                 List<long> offerIds = new List<long>();
