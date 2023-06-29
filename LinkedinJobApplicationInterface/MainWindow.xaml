@@ -1,0 +1,30 @@
+﻿<Window x:Class="LinkedinJobApplicationInterface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LinkedinJobApplicationInterface"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Background="#F0F0F0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Login Form -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox x:Name="UsernameTextBox" Width="200" Height="30" Margin="0,0,0,10" Text="Username"
+                     Background="#FFFFFF" BorderBrush="#CCCCCC" BorderThickness="1" />
+            <PasswordBox x:Name="PasswordBox" Width="200" Height="30" Margin="0,0,0,10"
+                         Background="#FFFFFF" BorderBrush="#CCCCCC" BorderThickness="1" />
+            <Button x:Name="LoginButton" Content="Login" Width="100" Height="30" Click="LoginButton_Click"
+                    Background="#007ACC" Foreground="White" BorderBrush="#007ACC" BorderThickness="1" />
+        </StackPanel>
+
+        <!-- Footer -->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20">
+            <TextBlock Text="© 2023 Linkedin Application App. All rights reserved." HorizontalAlignment="Center" Foreground="#666666" />
+        </StackPanel>
+    </Grid>
+</Window>
