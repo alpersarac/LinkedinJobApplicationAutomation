@@ -101,6 +101,25 @@ namespace LinkedinJobApplicationAutomation.Config
                 Console.WriteLine(e.Message);
             }
         }
+        public int GetPageCount()
+        {
+            string lastPageValue = string.Empty;
+            int lastPage = 0;
+            try
+            {
+                IWebElement lastPageElement = driver.FindElement(By.CssSelector(".artdeco-pagination__pages--number li:last-child span"));
+                lastPageValue = lastPageElement.Text;
+                int.TryParse(lastPageValue, out lastPage);
+            }
+            catch (NoSuchElementException)
+            {
+                Console.WriteLine("page count exception");
+                // Handle the case where the last page element is not found
+                // You can provide an alternative behavior or error handling here
+            }
+            return lastPage;
+
+        }
         public void LinkJobApply()
         {
             try
@@ -120,16 +139,16 @@ namespace LinkedinJobApplicationAutomation.Config
                         driver.Url = url;
 
                         string totalJobs = driver.FindElement(By.XPath("//small")).Text;
-                        int totalPages = 0;
+                        int totalPages = GetPageCount();
                         //totalPages = Utils.jobsToPages(totalJobs);
-                        if (Constants.PagePreferenceConstant == (int)Constants.PagePreference.All)
-                        {
-                            totalPages = Utils.jobsToPages(totalJobs);
-                        }
-                        else
-                        {
-                            totalPages = Constants.PagePreferenceConstant;
-                        }
+                        //if (Constants.PagePreferenceConstant == (int)Constants.PagePreference.All)
+                        //{
+                        //    totalPages = Utils.jobsToPages(totalJobs);
+                        //}
+                        //else
+                        //{
+                        //    totalPages = Constants.PagePreferenceConstant;
+                        //}
                         urlWords = Utils.urlToKeywords(url);
                         string lineToWrite = "\n Category: " + urlWords[0] + ", Location: " + urlWords[1] + ", Applying " + totalJobs + " jobs.";
                         //DisplayWriteResults(lineToWrite);
@@ -257,6 +276,25 @@ namespace LinkedinJobApplicationAutomation.Config
 
 
             //Utils.Donate(this);
+        }
+        public bool AcceptTermAndConditions()
+        {
+            try
+            {
+                IWebElement checkboxElement = driver.FindElement(By.CssSelector("div[data-test-text-selectable-option='0'] input[type='checkbox']"));
+                if (!checkboxElement.Selected)
+                {
+                    checkboxElement.Click();
+                    return true;
+                }
+                return false;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+                // Handle the case where the checkbox element is not found
+                // You can provide an alternative behavior or error handling here
+            }
         }
         public bool AppliedBefore(IWebElement offer)
         {
