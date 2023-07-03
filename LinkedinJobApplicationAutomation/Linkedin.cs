@@ -110,8 +110,9 @@ namespace LinkedinJobApplicationAutomation.Config
                 int countJobs = 0;
 
                 List<string> urlData = Utils.getUrlDataFile();
+                var disctinctedUrl=urlData.Distinct();
 
-                foreach (string url in urlData)
+                foreach (string url in disctinctedUrl)
                 {
                     List<string> urlWords = new List<string>();
                     try
@@ -120,6 +121,7 @@ namespace LinkedinJobApplicationAutomation.Config
 
                         string totalJobs = driver.FindElement(By.XPath("//small")).Text;
                         int totalPages = 0;
+                        //totalPages = Utils.jobsToPages(totalJobs);
                         if (Constants.PagePreferenceConstant == (int)Constants.PagePreference.All)
                         {
                             totalPages = Utils.jobsToPages(totalJobs);
@@ -137,27 +139,44 @@ namespace LinkedinJobApplicationAutomation.Config
                             try
                             {
                                 int currentPageJobs = Constants.JobsPerPage * page;
-                                var currentUrl = url; //+ "&start=" + currentPageJobs;
+                                var currentUrl = url+ "&start=" + currentPageJobs;
                                 driver.Url = currentUrl;
-                                
-                                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(7));
-                                ReadOnlyCollection<IWebElement> offersPerPage = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath("//li[@data-occludable-job-id]")));
+                                Thread.Sleep(TimeSpan.FromSeconds(5));
+
 
                                 List<long> offerIds = new List<long>();
-                                foreach (IWebElement offer in offersPerPage)
+                                try
                                 {
-                                    string offerId = offer.GetAttribute("data-occludable-job-id");
-                                    if(!AppliedBefore(offer))
-                                        offerIds.Add(long.Parse(offerId.Split(':').Last()));
+                                    //var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(7));
+                                    //ReadOnlyCollection<IWebElement> offersPerPage = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath("//li[@data-occludable-job-id]")));
+                                    ReadOnlyCollection<IWebElement> offersPerPage = driver.FindElements(By.XPath("//li[@data-occludable-job-id]"));
+                                    Console.WriteLine("offersPerPage count "+ offersPerPage.Count);
+                                    Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+                                    foreach (IWebElement offer in offersPerPage)
+                                    {
+                                        string offerId = offer.GetAttribute("data-occludable-job-id");
+                                        if (!AppliedBefore(offer))
+                                            offerIds.Add(long.Parse(offerId.Split(':').Last()));
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+
+                                    Console.WriteLine("OfferPage Excetion !!!");
+                                }
+                                if (offerIds.Count == 0)
+                                {
+                                    break;
                                 }
 
                                 foreach (long jobID in offerIds)
                                 {
                                     string offerPage = "https://www.linkedin.com/jobs/view/" + jobID;
                                     driver.Url = offerPage;
-                                    Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+                                    Thread.Sleep(TimeSpan.FromSeconds(5));
 
                                     countJobs++;
+                                   
 
                                     string jobProperties = GetJobProperties(countJobs);
                                     IWebElement button = EasyApplyButton();
@@ -198,7 +217,7 @@ namespace LinkedinJobApplicationAutomation.Config
                                         }
                                         catch
                                         {
-
+                                            Console.WriteLine("Unable to fill all fields");
                                         }
                                     }
                                     else
@@ -260,10 +279,9 @@ namespace LinkedinJobApplicationAutomation.Config
             }
             catch (Exception)
             {
-                Console.WriteLine("not Applied exception");
+                Console.WriteLine("Applied Check Exception");
                 return false;
             }
-           
         }
 
         private void EnterCityName()
@@ -310,8 +328,8 @@ namespace LinkedinJobApplicationAutomation.Config
             if (elements.Count > 0)
             {
                 driver.FindElement(By.CssSelector("button[aria-label='Submit application']")).Click();
-                Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.Slow));
-                
+                Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+
                 string lineToWrite = jobProperties + " | " + "* ## SUCCESS ##: " + offerPage;
                 DisplayWriteResults(lineToWrite);
                 
@@ -330,8 +348,10 @@ namespace LinkedinJobApplicationAutomation.Config
             {
                 counter++;
                 driver.FindElement(By.CssSelector("button[aria-label='Review your application']")).Click();
+                Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
             }
-           return SubmitApplication(jobProperties, offerPage);
+            Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+            return SubmitApplication(jobProperties, offerPage);
         }
         
         public string CheckRadioButtons()
@@ -406,51 +426,51 @@ namespace LinkedinJobApplicationAutomation.Config
                 Console.WriteLine("Warning in getting jobTitle: " + e.Message.Substring(0, 50));
                 jobTitle = "";
             }
-            try
-            {
-                jobCompany = driver.FindElement(By.XPath("//a[contains(@class, 'ember-view t-black t-normal')]")).GetAttribute("innerHTML").Trim();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Warning in getting jobCompany: " + e.Message.Substring(0, 50));
-                jobCompany = "";
-            }
-            try
-            {
-                jobLocation = driver.FindElement(By.XPath("//span[contains(@class, 'bullet')]")).GetAttribute("innerHTML").Trim();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Warning in getting jobLocation: " + e.Message.Substring(0, 50));
-                jobLocation = "";
-            }
-            try
-            {
-                jobWorkPlace = driver.FindElement(By.XPath("//span[contains(@class, 'workplace-type')]")).GetAttribute("innerHTML").Trim();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Warning in getting jobWorkPlace: " + e.Message.Substring(0, 50));
-                jobWorkPlace = "";
-            }
-            try
-            {
-                jobPostedDate = driver.FindElement(By.XPath("//span[contains(@class, 'posted-date')]")).GetAttribute("innerHTML").Trim();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Warning in getting jobPostedDate: " + e.Message.Substring(0, 50));
-                jobPostedDate = "";
-            }
-            try
-            {
-                jobApplications = driver.FindElement(By.XPath("//span[contains(@class, 'applicant-count')]")).GetAttribute("innerHTML").Trim();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Warning in getting jobApplications: " + e.Message.Substring(0, 50));
-                jobApplications = "";
-            }
+            //try
+            //{
+            //    jobCompany = driver.FindElement(By.XPath("//a[contains(@class, 'ember-view t-black t-normal')]")).GetAttribute("innerHTML").Trim();
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Warning in getting jobCompany: " + e.Message.Substring(0, 50));
+            //    jobCompany = "";
+            //}
+            //try
+            //{
+            //    jobLocation = driver.FindElement(By.XPath("//span[contains(@class, 'bullet')]")).GetAttribute("innerHTML").Trim();
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Warning in getting jobLocation: " + e.Message.Substring(0, 50));
+            //    jobLocation = "";
+            //}
+            //try
+            //{
+            //    jobWorkPlace = driver.FindElement(By.XPath("//span[contains(@class, 'workplace-type')]")).GetAttribute("innerHTML").Trim();
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Warning in getting jobWorkPlace: " + e.Message.Substring(0, 50));
+            //    jobWorkPlace = "";
+            //}
+            //try
+            //{
+            //    jobPostedDate = driver.FindElement(By.XPath("//span[contains(@class, 'posted-date')]")).GetAttribute("innerHTML").Trim();
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Warning in getting jobPostedDate: " + e.Message.Substring(0, 50));
+            //    jobPostedDate = "";
+            //}
+            //try
+            //{
+            //    jobApplications = driver.FindElement(By.XPath("//span[contains(@class, 'applicant-count')]")).GetAttribute("innerHTML").Trim();
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Warning in getting jobApplications: " + e.Message.Substring(0, 50));
+            //    jobApplications = "";
+            //}
 
             textToWrite = count + " | " + jobTitle + " | " + jobCompany + " | " + jobLocation + " | " + jobWorkPlace + " | " + jobPostedDate + " | " + jobApplications;
             return textToWrite;

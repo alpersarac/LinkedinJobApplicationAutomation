@@ -91,7 +91,8 @@ namespace LinkedinJobApplicationAutomation.Config
                     jobExp = "&f_E=6";
                     break;
             }
-            return jobExp;
+            //return jobExp;
+            return "&";
         }
 
         public string datePosted()
@@ -101,16 +102,16 @@ namespace LinkedinJobApplicationAutomation.Config
             var datePosted = "";
             switch (firstDatePosted)
             {
-                case "24 hours":
+                case "Past 24 Hours":
                     datePosted = "&f_TPR=r86400";
                     break;
-                case "1 week":
+                case "Past Week":
                     datePosted = "&f_TPR=r604800";
                     break;
-                case "1 month":
+                case "Past Month":
                     datePosted = "&f_TPR=r2419200";
                     break;
-                case "Any time":
+                case "Any Time":
                     datePosted = "&f_TPR=r0";
                     break;
             }
