@@ -104,7 +104,7 @@ namespace LinkedinJobApplicationAutomation.Config
         public int GetPageCount()
         {
             string lastPageValue = string.Empty;
-            int lastPage = 0;
+            int lastPage = 1;
             try
             {
                 IWebElement lastPageElement = driver.FindElement(By.CssSelector(".artdeco-pagination__pages--number li:last-child span"));
@@ -137,7 +137,7 @@ namespace LinkedinJobApplicationAutomation.Config
                     try
                     {
                         driver.Url = url;
-
+                        Thread.Sleep(TimeSpan.FromSeconds(5));
                         string totalJobs = driver.FindElement(By.XPath("//small")).Text;
                         int totalPages = GetPageCount();
                         //totalPages = Utils.jobsToPages(totalJobs);
@@ -151,8 +151,7 @@ namespace LinkedinJobApplicationAutomation.Config
                         //}
                         urlWords = Utils.urlToKeywords(url);
                         string lineToWrite = "\n Category: " + urlWords[0] + ", Location: " + urlWords[1] + ", Applying " + totalJobs + " jobs.";
-                        //DisplayWriteResults(lineToWrite);
-
+                       
                         for (int page = 0; page < totalPages; page++)
                         {
                             try
@@ -166,9 +165,12 @@ namespace LinkedinJobApplicationAutomation.Config
                                 List<long> offerIds = new List<long>();
                                 try
                                 {
-                                    //var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(7));
-                                    //ReadOnlyCollection<IWebElement> offersPerPage = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath("//li[@data-occludable-job-id]")));
-                                    ReadOnlyCollection<IWebElement> offersPerPage = driver.FindElements(By.XPath("//li[@data-occludable-job-id]"));
+                                    
+                                    ReadOnlyCollection<IWebElement> offersPerPage = driver.FindElements(By.XPath("//li[@data-occsludable-job-id]"));
+                                    if (offersPerPage.Count==0)
+                                    {
+                                        offersPerPage = driver.FindElements(By.XPath("//li[@data-occludable-job-id]"));
+                                    }                                                                   
                                     Console.WriteLine("offersPerPage count "+ offersPerPage.Count);
                                     Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
                                     foreach (IWebElement offer in offersPerPage)
@@ -198,6 +200,7 @@ namespace LinkedinJobApplicationAutomation.Config
                                    
 
                                     string jobProperties = GetJobProperties(countJobs);
+                                    Utils.prYellow($"{jobProperties} --> Page number {page} out of {totalPages}");
                                     IWebElement button = EasyApplyButton();
                                     IWebElement linkApplyButton = LinkApplyButton();
                                     if (button != null)
@@ -274,7 +277,7 @@ namespace LinkedinJobApplicationAutomation.Config
                 Console.WriteLine(ex.Message);
             }
 
-
+            Utils.prGreen("It is all DONE!!!!!!!");
             //Utils.Donate(this);
         }
         public bool AcceptTermAndConditions()
@@ -363,6 +366,8 @@ namespace LinkedinJobApplicationAutomation.Config
             bool isApplied = false;
             Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
             IReadOnlyCollection<IWebElement> elements = driver.FindElements(By.CssSelector("button[aria-label='Submit application']"));
+            Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+
             if (elements.Count > 0)
             {
                 driver.FindElement(By.CssSelector("button[aria-label='Submit application']")).Click();
@@ -381,10 +386,11 @@ namespace LinkedinJobApplicationAutomation.Config
         {
             Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
             ReadOnlyCollection<IWebElement> buttons = driver.FindElements(By.CssSelector("button[aria-label='Review your application']"));
-
+            Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
             if (buttons.Count>0)
             {
                 counter++;
+                Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
                 driver.FindElement(By.CssSelector("button[aria-label='Review your application']")).Click();
                 Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
             }
@@ -473,15 +479,15 @@ namespace LinkedinJobApplicationAutomation.Config
             //    Console.WriteLine("Warning in getting jobCompany: " + e.Message.Substring(0, 50));
             //    jobCompany = "";
             //}
-            //try
-            //{
-            //    jobLocation = driver.FindElement(By.XPath("//span[contains(@class, 'bullet')]")).GetAttribute("innerHTML").Trim();
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine("Warning in getting jobLocation: " + e.Message.Substring(0, 50));
-            //    jobLocation = "";
-            //}
+            try
+            {
+                jobLocation = driver.FindElement(By.XPath("//span[contains(@class, 'bullet')]")).GetAttribute("innerHTML").Trim();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Warning in getting jobLocation: " + e.Message.Substring(0, 50));
+                jobLocation = "";
+            }
             //try
             //{
             //    jobWorkPlace = driver.FindElement(By.XPath("//span[contains(@class, 'workplace-type')]")).GetAttribute("innerHTML").Trim();
@@ -510,7 +516,9 @@ namespace LinkedinJobApplicationAutomation.Config
             //    jobApplications = "";
             //}
 
-            textToWrite = count + " | " + jobTitle + " | " + jobCompany + " | " + jobLocation + " | " + jobWorkPlace + " | " + jobPostedDate + " | " + jobApplications;
+            textToWrite = $"{count} ### Location: {jobLocation} ### Title: {jobTitle}";
+            //textToWrite = count + " | " + jobTitle + " | " + jobCompany + " | " + jobLocation + " | " + jobWorkPlace + " | " + jobPostedDate + " | " + jobApplications;
+
             return textToWrite;
         }
         public void DisplayWriteResults(string lineToWrite)

@@ -45,7 +45,9 @@ namespace LinkedinJobApplicationAutomation.Config
                     jobLoc += "&geoId=102393603";
                     break;
                 case "europe":
-                    jobLoc += "&geoId=100506914";
+                    //jobLoc += "&geoId=100506914";
+                    jobLoc += "&geoId=91000000";
+                    
                     break;
                 case "northamerica":
                     jobLoc += "&geoId=102221843&";

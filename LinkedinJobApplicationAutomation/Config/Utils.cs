@@ -36,17 +36,26 @@ namespace LinkedinJobApplicationAutomation.Config
 
         public static void prRed(string prt)
         {
-            Console.WriteLine($"\033[91m{prt}\033[00m");
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"{prt}");
+            Console.ResetColor();
         }
 
         public static void prGreen(string prt)
         {
-            Console.WriteLine($"\033[92m{prt}\033[00m");
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"{prt}");
+            Console.ResetColor();
         }
 
         public static void prYellow(string prt)
         {
-            Console.WriteLine($"\033[93m{prt}\033[00m");
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"{prt}");
+            Console.ResetColor();
         }
 
         public static List<string> getUrlDataFile()
