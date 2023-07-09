@@ -1,4 +1,5 @@
-﻿using LinkedinJAASerialGenerator;
+﻿using LinkedinJAASerial;
+using LinkedinJAASerialGenerator;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,12 +24,12 @@ namespace LinkedinJobApplier
             try
             {
                 string licenseKey = tbxLicence.Text;
-                string email = tbxEmail.Text;
-                bool isLicenceVerified = LicenseKeyVerifier.VerifyLicenseKey(email, licenseKey);
-                if (isLicenceVerified)
+                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(licenseKey);
+                if (!parsedLicenseTable.isactive)
                 {
                     // Encrypt and save the license key
                     LicenseKeyManager.SaveLicenseKey(licenseKey);
+                    LicenseKeyManager.UpdateActiveStatusLicence(parsedLicenseTable);
                     MessageBox.Show("Registration is successful");
                     this.Close();
                 }

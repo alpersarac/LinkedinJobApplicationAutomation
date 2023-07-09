@@ -42,12 +42,21 @@ namespace LinkedinJobApplier
             
             return licenceTable;
         }
-        public static bool GetExpiryDate(string licenseKey)
+        public static bool UpdateActiveStatusLicence(LicenceTable licenseKey)
         {
-            bool isExpired = LicenseKeyVerifier.CheckLicenseKeyExpiration(licenseKey);
+            licenseKey.isactive=true;
+            DatabaseConnector.UpdateLicenceTable(licenseKey);
 
-            return isExpired;
+            return true;
         }
+        public static bool setOnlineStatus(LicenceTable licenseKey,bool isOnline)
+        {
+            licenseKey.isonline = isOnline;
+            DatabaseConnector.UpdateLicenceTable(licenseKey);
+
+            return true;
+        }
+
 
     }
 }

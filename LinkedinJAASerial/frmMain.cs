@@ -31,7 +31,7 @@ namespace LinkedinJAASerial
             {
                 rtbxLicence.Text = "";
                 string serialKey = LicenseKeyVerifier.GenerateLicenseKey(tbxEmail.Text);
-                DatabaseConnector.InsertLicenceTable(new LicenceTable { email = tbxEmail.Text, isactive = true, isdeleted = false, serialkey = serialKey });
+                DatabaseConnector.InsertLicenceTable(new LicenceTable { email = tbxEmail.Text, isactive = false, isdeleted = false, serialkey = serialKey, expirydate=DateTime.Now.AddDays(30) });
                 rtbxLicence.Text = serialKey;
 
             }

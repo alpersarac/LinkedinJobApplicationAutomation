@@ -40,6 +40,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isactive = reader.GetBoolean("isactive");
                                 licenceTable.isdeleted = reader.GetBoolean("isdeleted");
                                 licenceTable.isonline = reader.GetBoolean("isonline");
+                                licenceTable.expirydate = reader.GetDateTime("expirydate");
 
                                 licenceTables.Add(licenceTable);
                             }
@@ -79,6 +80,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isactive = reader.GetBoolean("isactive");
                                 licenceTable.isdeleted = reader.GetBoolean("isdeleted");
                                 licenceTable.isonline = reader.GetBoolean("isonline");
+                                licenceTable.expirydate = reader.GetDateTime("expirydate");
                             }
                         }
                     }
@@ -116,6 +118,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isactive = reader.GetBoolean("isactive");
                                 licenceTable.isdeleted = reader.GetBoolean("isdeleted");
                                 licenceTable.isonline = reader.GetBoolean("isonline");
+                                licenceTable.expirydate = reader.GetDateTime("expirydate");
                             }
                         }
                     }
@@ -153,6 +156,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isactive = reader.GetBoolean("isactive");
                                 licenceTable.isdeleted = reader.GetBoolean("isdeleted");
                                 licenceTable.isonline = reader.GetBoolean("isonline");
+                                licenceTable.expirydate = reader.GetDateTime("expirydate");
 
                                 licenceTables.Add(licenceTable);
                             }
@@ -192,6 +196,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isactive = reader.GetBoolean("isactive");
                                 licenceTable.isdeleted = reader.GetBoolean("isdeleted");
                                 licenceTable.isonline = reader.GetBoolean("isonline");
+                                licenceTable.expirydate = reader.GetDateTime("expirydate");
 
                                 licenceTables.Add(licenceTable);
                             }
@@ -259,7 +264,7 @@ namespace LinkedinJAASerial
             {
                 using (MySqlConnection connection = GetConnection())
                 {
-                    string query = "INSERT INTO LicenceTable (email, serialkey, isactive, isdeleted, isonline) VALUES (@email, @serialkey, @isactive, @isdeleted, @isonline)";
+                    string query = "INSERT INTO LicenceTable (email, serialkey, isactive, isdeleted, isonline, expirydate) VALUES (@email, @serialkey, @isactive, @isdeleted, @isonline, @expirydate)";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@email", licenceTable.email);
@@ -267,6 +272,7 @@ namespace LinkedinJAASerial
                         command.Parameters.AddWithValue("@isactive", licenceTable.isactive);
                         command.Parameters.AddWithValue("@isdeleted", licenceTable.isdeleted);
                         command.Parameters.AddWithValue("@isonline", licenceTable.isonline);
+                        command.Parameters.AddWithValue("@expirydate", licenceTable.expirydate);
 
                         command.ExecuteNonQuery();
                     }
@@ -284,7 +290,7 @@ namespace LinkedinJAASerial
             {
                 using (MySqlConnection connection = GetConnection())
                 {
-                    string query = "UPDATE LicenceTable SET email = @email, serialkey = @serialkey, isactive = @isactive, isdeleted = @isdeleted, isonline = @isonline WHERE id = @id";
+                    string query = "UPDATE LicenceTable SET email = @email, serialkey = @serialkey, isactive = @isactive, isdeleted = @isdeleted, isonline = @isonline, expirydate = @expirydate WHERE id = @id";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", licenceTable.id);
@@ -293,6 +299,7 @@ namespace LinkedinJAASerial
                         command.Parameters.AddWithValue("@isactive", licenceTable.isactive);
                         command.Parameters.AddWithValue("@isdeleted", licenceTable.isdeleted);
                         command.Parameters.AddWithValue("@isonline", licenceTable.isonline);
+                        command.Parameters.AddWithValue("@expirydate", licenceTable.expirydate);
 
                         command.ExecuteNonQuery();
                     }
@@ -324,28 +331,7 @@ namespace LinkedinJAASerial
                 Console.WriteLine("An error occurred while deleting LicenceTable: " + ex.Message);
             }
         }
-
-        public static void UpdateLicenceTableOnlineStatus(int id, bool isOnline)
-        {
-            try
-            {
-                using (MySqlConnection connection = GetConnection())
-                {
-                    string query = "UPDATE LicenceTable SET isonline = @isonline WHERE id = @id";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@id", id);
-                        command.Parameters.AddWithValue("@isonline", isOnline);
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occurred while updating LicenceTable online status: " + ex.Message);
-            }
-        }
     }
+
 
 }
