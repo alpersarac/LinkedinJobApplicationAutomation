@@ -5,7 +5,13 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedinJobApplicationAutomation", "LinkedinJobApplicationAutomation\LinkedinJobApplicationAutomation.csproj", "{46AC218E-0B4E-4664-A231-D43D380D6605}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedinJobApplicationInterface", "LinkedinJobApplicationInterface\LinkedinJobApplicationInterface.csproj", "{269D7CA0-090A-482B-9645-0DE4E98BC526}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedinJAASerial", "LinkedinJAASerial\LinkedinJAASerial.csproj", "{F170EFEB-D63E-4B7D-AF65-00E919B25D5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedinJobApplier", "LinkedinJobApplier\LinkedinJobApplier.csproj", "{3B7B75AF-110D-44F6-800B-9CB50DF955AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialHandler", "SerialHandler\SerialHandler.csproj", "{94D57A27-251C-457B-9E74-DD9448EFF5C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "Helper\Helper.csproj", "{FE384AE9-9097-43BA-857A-D7A43F30E493}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +23,22 @@ Global
 		{46AC218E-0B4E-4664-A231-D43D380D6605}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46AC218E-0B4E-4664-A231-D43D380D6605}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46AC218E-0B4E-4664-A231-D43D380D6605}.Release|Any CPU.Build.0 = Release|Any CPU
-		{269D7CA0-090A-482B-9645-0DE4E98BC526}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{269D7CA0-090A-482B-9645-0DE4E98BC526}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{269D7CA0-090A-482B-9645-0DE4E98BC526}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{269D7CA0-090A-482B-9645-0DE4E98BC526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F170EFEB-D63E-4B7D-AF65-00E919B25D5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F170EFEB-D63E-4B7D-AF65-00E919B25D5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F170EFEB-D63E-4B7D-AF65-00E919B25D5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F170EFEB-D63E-4B7D-AF65-00E919B25D5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B7B75AF-110D-44F6-800B-9CB50DF955AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B7B75AF-110D-44F6-800B-9CB50DF955AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B7B75AF-110D-44F6-800B-9CB50DF955AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B7B75AF-110D-44F6-800B-9CB50DF955AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94D57A27-251C-457B-9E74-DD9448EFF5C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94D57A27-251C-457B-9E74-DD9448EFF5C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94D57A27-251C-457B-9E74-DD9448EFF5C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94D57A27-251C-457B-9E74-DD9448EFF5C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE384AE9-9097-43BA-857A-D7A43F30E493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE384AE9-9097-43BA-857A-D7A43F30E493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE384AE9-9097-43BA-857A-D7A43F30E493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE384AE9-9097-43BA-857A-D7A43F30E493}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
