@@ -73,8 +73,13 @@ namespace LinkedinJobApplicationAutomation.Config
                 Console.WriteLine(e.Message);
             }
         }
+        public IWebDriver getWebDriver()
+        {
+            return driver;
+        }
         public void LinkJobApply()
         {
+            
             try
             {
                 Utils.GenerateUrls();
