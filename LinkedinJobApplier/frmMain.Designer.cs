@@ -36,22 +36,22 @@
             this.lblPassword = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.grbxCredentials = new System.Windows.Forms.GroupBox();
-            this.grbxPreferences = new System.Windows.Forms.GroupBox();
-            this.lbxLocations = new System.Windows.Forms.ListBox();
-            this.btnAddCountry = new System.Windows.Forms.Button();
-            this.tbxLocation = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.chbxRememberMe = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.grbxPreferences = new System.Windows.Forms.GroupBox();
+            this.btnClearKeywords = new System.Windows.Forms.Button();
+            this.btnClearLocation = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbxDatePosted = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbxKeywords = new System.Windows.Forms.TextBox();
             this.btnAddKeyword = new System.Windows.Forms.Button();
             this.lbxKeywords = new System.Windows.Forms.ListBox();
-            this.chbxRememberMe = new System.Windows.Forms.CheckBox();
-            this.cbxDatePosted = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblCount = new System.Windows.Forms.Label();
-            this.btnClearLocation = new System.Windows.Forms.Button();
-            this.btnClearKeywords = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbxLocation = new System.Windows.Forms.TextBox();
+            this.btnAddCountry = new System.Windows.Forms.Button();
+            this.lbxLocations = new System.Windows.Forms.ListBox();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.btnStopApplying = new System.Windows.Forms.Button();
             this.grbxCredentials.SuspendLayout();
             this.grbxPreferences.SuspendLayout();
@@ -61,7 +61,7 @@
             // 
             this.btnStartApplying.ForeColor = System.Drawing.Color.DarkGreen;
             this.btnStartApplying.Location = new System.Drawing.Point(35, 192);
-            this.btnStartApplying.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnStartApplying.Margin = new System.Windows.Forms.Padding(4);
             this.btnStartApplying.Name = "btnStartApplying";
             this.btnStartApplying.Size = new System.Drawing.Size(132, 79);
             this.btnStartApplying.TabIndex = 0;
@@ -118,7 +118,6 @@
             // 
             // grbxCredentials
             // 
-            this.grbxCredentials.Controls.Add(this.chbxRememberMe);
             this.grbxCredentials.Controls.Add(this.label2);
             this.grbxCredentials.Controls.Add(this.tbxEmail);
             this.grbxCredentials.Controls.Add(this.btnSave);
@@ -128,12 +127,34 @@
             this.grbxCredentials.ForeColor = System.Drawing.Color.DarkGreen;
             this.grbxCredentials.Location = new System.Drawing.Point(12, 12);
             this.grbxCredentials.Name = "grbxCredentials";
-            this.grbxCredentials.Size = new System.Drawing.Size(336, 152);
+            this.grbxCredentials.Size = new System.Drawing.Size(336, 130);
             this.grbxCredentials.TabIndex = 6;
             this.grbxCredentials.TabStop = false;
             // 
+            // chbxRememberMe
+            // 
+            this.chbxRememberMe.AutoSize = true;
+            this.chbxRememberMe.Location = new System.Drawing.Point(541, 447);
+            this.chbxRememberMe.Name = "chbxRememberMe";
+            this.chbxRememberMe.Size = new System.Drawing.Size(146, 20);
+            this.chbxRememberMe.TabIndex = 7;
+            this.chbxRememberMe.Text = "Remember my settings";
+            this.chbxRememberMe.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.ForeColor = System.Drawing.Color.DarkGreen;
+            this.label2.Location = new System.Drawing.Point(10, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(188, 16);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "LinkedIn Username and Password";
+            // 
             // grbxPreferences
             // 
+            this.grbxPreferences.Controls.Add(this.chbxRememberMe);
             this.grbxPreferences.Controls.Add(this.btnClearKeywords);
             this.grbxPreferences.Controls.Add(this.btnClearLocation);
             this.grbxPreferences.Controls.Add(this.label4);
@@ -153,55 +174,49 @@
             this.grbxPreferences.TabIndex = 7;
             this.grbxPreferences.TabStop = false;
             // 
-            // lbxLocations
+            // btnClearKeywords
             // 
-            this.lbxLocations.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lbxLocations.FormattingEnabled = true;
-            this.lbxLocations.ItemHeight = 16;
-            this.lbxLocations.Location = new System.Drawing.Point(15, 68);
-            this.lbxLocations.Name = "lbxLocations";
-            this.lbxLocations.Size = new System.Drawing.Size(279, 100);
-            this.lbxLocations.TabIndex = 0;
+            this.btnClearKeywords.Location = new System.Drawing.Point(541, 175);
+            this.btnClearKeywords.Name = "btnClearKeywords";
+            this.btnClearKeywords.Size = new System.Drawing.Size(75, 28);
+            this.btnClearKeywords.TabIndex = 11;
+            this.btnClearKeywords.Text = "Clear";
+            this.btnClearKeywords.UseVisualStyleBackColor = true;
+            this.btnClearKeywords.Click += new System.EventHandler(this.btnClearKeywords_Click);
             // 
-            // btnAddCountry
+            // btnClearLocation
             // 
-            this.btnAddCountry.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btnAddCountry.Location = new System.Drawing.Point(219, 38);
-            this.btnAddCountry.Name = "btnAddCountry";
-            this.btnAddCountry.Size = new System.Drawing.Size(75, 26);
-            this.btnAddCountry.TabIndex = 2;
-            this.btnAddCountry.Text = "Add";
-            this.btnAddCountry.UseVisualStyleBackColor = true;
-            this.btnAddCountry.Click += new System.EventHandler(this.btnAddCountry_Click);
+            this.btnClearLocation.Location = new System.Drawing.Point(219, 174);
+            this.btnClearLocation.Name = "btnClearLocation";
+            this.btnClearLocation.Size = new System.Drawing.Size(75, 28);
+            this.btnClearLocation.TabIndex = 10;
+            this.btnClearLocation.Text = "Clear";
+            this.btnClearLocation.UseVisualStyleBackColor = true;
+            this.btnClearLocation.Click += new System.EventHandler(this.btnClearLocation_Click);
             // 
-            // tbxLocation
+            // label4
             // 
-            this.tbxLocation.ForeColor = System.Drawing.Color.DarkGreen;
-            this.tbxLocation.Location = new System.Drawing.Point(15, 40);
-            this.tbxLocation.Name = "tbxLocation";
-            this.tbxLocation.Size = new System.Drawing.Size(196, 21);
-            this.tbxLocation.TabIndex = 3;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 216);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 16);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Date Posted:";
             // 
-            // label1
+            // cbxDatePosted
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label1.Location = new System.Drawing.Point(12, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 16);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Locations:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.White;
-            this.label2.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label2.Location = new System.Drawing.Point(10, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(188, 16);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "LinkedIn Username and Password";
+            this.cbxDatePosted.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxDatePosted.FormattingEnabled = true;
+            this.cbxDatePosted.Items.AddRange(new object[] {
+            "Any Time",
+            "Past Month",
+            "Past Week",
+            "Past 24 Hours"});
+            this.cbxDatePosted.Location = new System.Drawing.Point(15, 235);
+            this.cbxDatePosted.Name = "cbxDatePosted";
+            this.cbxDatePosted.Size = new System.Drawing.Size(121, 24);
+            this.cbxDatePosted.TabIndex = 8;
+            this.cbxDatePosted.SelectedIndexChanged += new System.EventHandler(this.cbxDatePosted_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -242,68 +257,53 @@
             this.lbxKeywords.Size = new System.Drawing.Size(279, 100);
             this.lbxKeywords.TabIndex = 5;
             // 
-            // chbxRememberMe
+            // label1
             // 
-            this.chbxRememberMe.AutoSize = true;
-            this.chbxRememberMe.Location = new System.Drawing.Point(224, 123);
-            this.chbxRememberMe.Name = "chbxRememberMe";
-            this.chbxRememberMe.Size = new System.Drawing.Size(106, 20);
-            this.chbxRememberMe.TabIndex = 7;
-            this.chbxRememberMe.Text = "Remember Me";
-            this.chbxRememberMe.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.DarkGreen;
+            this.label1.Location = new System.Drawing.Point(12, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 16);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Locations:";
             // 
-            // cbxDatePosted
+            // tbxLocation
             // 
-            this.cbxDatePosted.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxDatePosted.FormattingEnabled = true;
-            this.cbxDatePosted.Items.AddRange(new object[] {
-            "Any Time",
-            "Past Month",
-            "Past Week",
-            "Past 24 Hours"});
-            this.cbxDatePosted.Location = new System.Drawing.Point(15, 235);
-            this.cbxDatePosted.Name = "cbxDatePosted";
-            this.cbxDatePosted.Size = new System.Drawing.Size(121, 24);
-            this.cbxDatePosted.TabIndex = 8;
-            this.cbxDatePosted.SelectedIndexChanged += new System.EventHandler(this.cbxDatePosted_SelectedIndexChanged);
+            this.tbxLocation.ForeColor = System.Drawing.Color.DarkGreen;
+            this.tbxLocation.Location = new System.Drawing.Point(15, 40);
+            this.tbxLocation.Name = "tbxLocation";
+            this.tbxLocation.Size = new System.Drawing.Size(196, 21);
+            this.tbxLocation.TabIndex = 3;
             // 
-            // label4
+            // btnAddCountry
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 216);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 16);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Date Posted:";
+            this.btnAddCountry.ForeColor = System.Drawing.Color.DarkGreen;
+            this.btnAddCountry.Location = new System.Drawing.Point(219, 38);
+            this.btnAddCountry.Name = "btnAddCountry";
+            this.btnAddCountry.Size = new System.Drawing.Size(75, 26);
+            this.btnAddCountry.TabIndex = 2;
+            this.btnAddCountry.Text = "Add";
+            this.btnAddCountry.UseVisualStyleBackColor = true;
+            this.btnAddCountry.Click += new System.EventHandler(this.btnAddCountry_Click);
             // 
-            // lblCount
+            // lbxLocations
             // 
-            this.lblCount.AutoSize = true;
-            this.lblCount.Location = new System.Drawing.Point(43, 384);
-            this.lblCount.Name = "lblCount";
-            this.lblCount.Size = new System.Drawing.Size(40, 16);
-            this.lblCount.TabIndex = 8;
-            this.lblCount.Text = "label5";
+            this.lbxLocations.ForeColor = System.Drawing.Color.DarkGreen;
+            this.lbxLocations.FormattingEnabled = true;
+            this.lbxLocations.ItemHeight = 16;
+            this.lbxLocations.Location = new System.Drawing.Point(15, 68);
+            this.lbxLocations.Name = "lbxLocations";
+            this.lbxLocations.Size = new System.Drawing.Size(279, 100);
+            this.lbxLocations.TabIndex = 0;
             // 
-            // btnClearLocation
+            // lblStatus
             // 
-            this.btnClearLocation.Location = new System.Drawing.Point(219, 174);
-            this.btnClearLocation.Name = "btnClearLocation";
-            this.btnClearLocation.Size = new System.Drawing.Size(75, 28);
-            this.btnClearLocation.TabIndex = 10;
-            this.btnClearLocation.Text = "Clear";
-            this.btnClearLocation.UseVisualStyleBackColor = true;
-            this.btnClearLocation.Click += new System.EventHandler(this.btnClearLocation_Click);
-            // 
-            // btnClearKeywords
-            // 
-            this.btnClearKeywords.Location = new System.Drawing.Point(541, 175);
-            this.btnClearKeywords.Name = "btnClearKeywords";
-            this.btnClearKeywords.Size = new System.Drawing.Size(75, 28);
-            this.btnClearKeywords.TabIndex = 11;
-            this.btnClearKeywords.Text = "Clear";
-            this.btnClearKeywords.UseVisualStyleBackColor = true;
-            this.btnClearKeywords.Click += new System.EventHandler(this.btnClearKeywords_Click);
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(9, 469);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(38, 16);
+            this.lblStatus.TabIndex = 8;
+            this.lblStatus.Text = "status";
             // 
             // btnStopApplying
             // 
@@ -324,14 +324,14 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1064, 495);
             this.Controls.Add(this.btnStopApplying);
-            this.Controls.Add(this.lblCount);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.grbxPreferences);
             this.Controls.Add(this.grbxCredentials);
             this.Controls.Add(this.btnStartApplying);
             this.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";
@@ -368,7 +368,7 @@
         private System.Windows.Forms.CheckBox chbxRememberMe;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbxDatePosted;
-        private System.Windows.Forms.Label lblCount;
+        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnClearKeywords;
         private System.Windows.Forms.Button btnClearLocation;
         private System.Windows.Forms.Button btnStopApplying;

@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace LinkedinJobApplicationAutomation.Config
+namespace LinkedinJobApplier.Config
 {
     public static class Utils
     {

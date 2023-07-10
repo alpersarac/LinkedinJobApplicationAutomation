@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkedinJobApplicationAutomation.Config
+namespace LinkedinJobApplier.Config
 {
     public static class Constants
     {

@@ -1,6 +1,6 @@
 ﻿using LinkedinJAASerial;
 using LinkedinJAASerialGenerator;
-using LinkedinJobApplicationAutomation.Config;
+using LinkedinJobApplier.Config;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -17,14 +17,14 @@ namespace LinkedinJobApplier
 {
     public partial class frmMain : Form
     {
-        CancellationTokenSource cts = null;
-        IWebDriver driver = null;
-        Linkedin linkedin=null;
+        CancellationTokenSource cancellationTokenSource = null;
+        Thread statusUpdateThread = null;
         public frmMain()
         {
             InitializeComponent();
         }
 
+        delegate void UpdateStatusLabelDelegate(string text);
         private void frmMain_Load(object sender, EventArgs e)
         {
             frmLicence frmLicence = new frmLicence();
@@ -35,15 +35,22 @@ namespace LinkedinJobApplier
 
                 // Parse the license key into LicenceTable object
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey);
-
-                if (parsedLicenseTable.expirydate < DateTime.Now)
+                if (parsedLicenseTable!=null)
                 {
-                    this.Hide();
-                    frmLicence.ShowDialog();
-                }
-                LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
+                    if (parsedLicenseTable.expirydate < DateTime.Now)
+                    {
+                        this.Hide();
+                        frmLicence.ShowDialog();
+                    }
+                    LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
 
-                SetDefaultItems();
+                    SetDefaultItems();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to connect DB");
+                }
+                
             }
             catch (Exception)
             {
@@ -57,14 +64,75 @@ namespace LinkedinJobApplier
             try
             {
                 cbxDatePosted.SelectedIndex = 0;
-                Config.DatePosted.Clear();
-                Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
+                Config.Config.DatePosted.Clear();
+                Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
+
+                UserDataManager userDataManager = new UserDataManager();
+
+                userDataManager.LoadUserData();
+                if (userDataManager.Status)
+                {
+                    // Access the user data
+                    tbxEmail.Text = userDataManager.Username;
+                    Config.Config.Email = tbxEmail.Text;
+                    tbxPassword.Text = userDataManager.Password;
+                    Config.Config.Password = tbxPassword.Text;
+                    cbxDatePosted.SelectedIndex= userDataManager.ComboBoxSelectedIndex;
+                    chbxRememberMe.Checked = userDataManager.RememberMe;
+                    foreach (var location in userDataManager.Locations)
+                    {
+                        if (!string.IsNullOrEmpty(location))
+                        {
+                            lbxLocations.Items.Add(location);
+                            Config.Config.Location.Add(tbxLocation.Text);
+                        }
+                    }
+                    foreach (var keyword in userDataManager.Keywords)
+                    {
+                        if (!string.IsNullOrEmpty(keyword))
+                        {
+                            Config.Config.Keywords.Add(tbxLocation.Text);
+                            lbxKeywords.Items.Add(keyword);
+                        }
+                    }
+                    
+                }
+
+                
             }
             catch (Exception)
             {
 
             }
 
+        }
+        private void UpdateStatusLabel(string text)
+        {
+            if (lblStatus.InvokeRequired)
+            {
+                lblStatus.Invoke(new UpdateStatusLabelDelegate(UpdateStatusLabel), text);
+            }
+            else
+            {
+                lblStatus.Text = text;
+            }
+        }
+
+        // Method to update the label in a separate thread
+        private void UpdateStatusLabelThread()
+        {
+            while (true)
+            {
+                // Get the successful job application count from Config
+                int count = Config.Config.successfulJobApplicationCounter;
+
+                // Update the label with the count
+                string labelText = $"Applied: {count} jobs";
+                UpdateStatusLabel(labelText);
+
+                // Delay for a specific duration before updating again
+                Thread.Sleep(1000);
+            }
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -75,6 +143,23 @@ namespace LinkedinJobApplier
                 // Parse the license key into LicenceTable object
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey);
                 LicenseKeyManager.setOnlineStatus(parsedLicenseTable, false);
+
+
+                if (chbxRememberMe.Checked)
+                {
+                    UserDataManager userDataManager = new UserDataManager();
+                    userDataManager.Username = tbxEmail.Text;
+                    userDataManager.Password = tbxPassword.Text;
+                    userDataManager.Status = true;
+                    userDataManager.RememberMe = chbxRememberMe.Checked;
+                    userDataManager.Locations = lbxLocations.Items.Cast<string>().ToList();
+                    userDataManager.ComboBoxSelectedIndex = cbxDatePosted.SelectedIndex;
+                    userDataManager.Keywords= lbxKeywords.Items.Cast<string>().ToList();
+
+                    // Save the user data to a file
+                    userDataManager.SaveUserData();
+
+                }
             }
             catch (Exception)
             {
@@ -84,26 +169,40 @@ namespace LinkedinJobApplier
         }
         private async void btnStartApplying_Click(object sender, EventArgs e)
         {
+            Config.Config.Email = tbxEmail.Text;
+            Config.Config.Password = tbxPassword.Text;
+            Console.WriteLine(Config.Config.Keywords);
+            Console.WriteLine(Config.Config.Location);
+
+            foreach (var location in lbxLocations.Items.Cast<string>().ToList())
+            {
+                if (!string.IsNullOrEmpty(location))
+                { 
+                    Config.Config.Location.Add(tbxLocation.Text);
+                }
+            }
+            foreach (var keyword in lbxKeywords.Items.Cast<string>().ToList())
+            {
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    Config.Config.Keywords.Add(tbxLocation.Text);
+                }
+            }
             try
             {
-                // Create a cancellation token source
-                cts = new CancellationTokenSource();
-
-                // Run the task in a separate thread
+                cancellationTokenSource = new CancellationTokenSource();
+                var cancellationToken = cancellationTokenSource.Token;
+                statusUpdateThread = new Thread(UpdateStatusLabelThread);
+                statusUpdateThread.Start();
+                // Start the Task with the cancellation token
                 var task = Task.Run(() =>
                 {
-                    // Your task logic here
-                    linkedin = new Linkedin();
-                    linkedin.LinkJobApply();
+                    Linkedin linkedin = new Linkedin();
+                    linkedin.LinkJobApply(cancellationToken);
+                    
+                });
 
-                    // Check if cancellation is requested
-                    if (cts.Token.IsCancellationRequested)
-                    {
-                        linkedin.getWebDriver().Quit();
-                        throw new OperationCanceledException(cts.Token);
 
-                    }
-                }, cts.Token);
             }
             catch (Exception)
             {
@@ -115,8 +214,9 @@ namespace LinkedinJobApplier
         {
             try
             {
+               
                 lbxLocations.Items.Add(tbxLocation.Text);
-                Config.Location.Add(tbxLocation.Text);
+                Config.Config.Location.Add(tbxLocation.Text);
                 tbxLocation.Text = "";
             }
             catch (Exception)
@@ -130,7 +230,7 @@ namespace LinkedinJobApplier
             try
             {
                 lbxKeywords.Items.Add(tbxKeywords.Text);
-                Config.Keywords.Add(tbxKeywords.Text);
+                Config.Config.Keywords.Add(tbxKeywords.Text);
                 tbxKeywords.Text = "";
             }
             catch (Exception)
@@ -144,8 +244,9 @@ namespace LinkedinJobApplier
         {
             try
             {
-                Config.Email = tbxEmail.Text;
-                Config.Password = tbxPassword.Text;
+                Config.Config.Email = tbxEmail.Text;
+                Config.Config.Password = tbxPassword.Text;
+                Console.WriteLine(Config.Config.Location);
             }
             catch (Exception)
             {
@@ -157,8 +258,8 @@ namespace LinkedinJobApplier
         {
             try
             {
-                Config.DatePosted.Clear();
-                Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
+                Config.Config.DatePosted.Clear();
+                Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
             }
             catch (Exception)
             {
@@ -179,13 +280,14 @@ namespace LinkedinJobApplier
         {
             try
             {
-                cts.Cancel();
+                statusUpdateThread?.Abort();
+                // Request cancellation of the task
+                cancellationTokenSource.Cancel();
             }
             catch (Exception)
             {
-               
+                // Handle any exceptions if needed
             }
-           
         }
     }
 }

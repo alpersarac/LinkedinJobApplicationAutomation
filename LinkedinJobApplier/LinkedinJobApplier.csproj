@@ -61,6 +61,8 @@
     <Compile Include="Config\Constants.cs" />
     <Compile Include="Config\Linkedin.cs" />
     <Compile Include="Config\LinkedinUrlGenerate.cs" />
+    <Compile Include="Config\test.cs" />
+    <Compile Include="Config\UserDataManager.cs" />
     <Compile Include="Config\Utils.cs" />
     <Compile Include="frmLicence.cs">
       <SubType>Form</SubType>
