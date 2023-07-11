@@ -50,7 +50,7 @@ namespace LinkedinJobApplier
                     else
                     {
                         LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
-                        lblRemainingDays.Text =$"Remaining days: {(DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd")}";
+                        lblRemainingDays.Text =$"Remaining days: {Convert.ToInt32((DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd"))}";
                         SetDefaultItems();
                     }
 
@@ -128,6 +128,7 @@ namespace LinkedinJobApplier
                     userDataManager.ComboBoxSelectedIndex = cbxDatePosted.SelectedIndex;
                     userDataManager.Keywords = lbxKeywords.Items.Cast<string>().ToList();
                     userDataManager.City = tbxCity.Text;
+                    userDataManager.SalaryExpectation = tbxSalary.Text;
 
                     // Save the user data to a file
                     userDataManager.SaveUserData();
@@ -249,6 +250,8 @@ namespace LinkedinJobApplier
             Config.Config.Email = tbxEmail.Text;
             Config.Config.Password = tbxPassword.Text;
             Config.Config.ExperienceLevels.Add(cbxDatePosted.SelectedText);
+            Config.Config.City = tbxCity.Text;
+            Config.Config.SalaryExpectation = tbxSalary.Text;
             foreach (var location in lbxLocations.Items.Cast<string>().ToList())
             {
                 if (!string.IsNullOrEmpty(location))
@@ -290,6 +293,7 @@ namespace LinkedinJobApplier
                     cbxDatePosted.SelectedIndex = userDataManager.ComboBoxSelectedIndex;
                     chbxRememberMe.Checked = userDataManager.RememberMe;
                     tbxCity.Text = userDataManager.City;
+                    tbxSalary.Text = userDataManager.SalaryExpectation;
 
                     foreach (var location in userDataManager.Locations)
                     {

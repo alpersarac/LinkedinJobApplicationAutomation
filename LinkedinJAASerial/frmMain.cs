@@ -1,4 +1,4 @@
-﻿using Helper.FileReader;
+﻿using Helper;
 using LinkedinJAASerialGenerator;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,11 @@ namespace LinkedinJAASerial
         {
             try
             {
-                if (string.IsNullOrEmpty(tbxEmail.Text))
+                if (!Checker.CheckEmail(tbxEmail.Text))
+                {
+                    MessageBox.Show("Please enter a valid email");
+                }
+                else if (string.IsNullOrEmpty(tbxEmail.Text))
                 {
                     MessageBox.Show("Enter an email address");
                 }
@@ -111,6 +115,19 @@ namespace LinkedinJAASerial
             //
             //ConnectionStringDecryptor decryptor = new ConnectionStringDecryptor(password);
             //string ConnectionString = decryptor.DecryptConnectionStringFromString(connectionString);
+        }
+
+        private void btnDecrypt_Click(object sender, EventArgs e)
+        {
+           
+
+        }
+
+       
+        private void btnEncrpt_Click_1(object sender, EventArgs e)
+        {
+            
+            rhtbxEncrypted.Text= BasicEncryption.EncryptConnectionString(tbxEncryptLicence.Text);
         }
     }
 }

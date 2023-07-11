@@ -1,5 +1,4 @@
-﻿using Helper.FileReader;
-using LinkedinJAASerial.FileReader;
+﻿using Helper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -11,17 +10,13 @@ namespace LinkedinJAASerial
 {
     public static class DatabaseConnector
     {
-        private static string ConnectionString = "";
+        
+        private static readonly string ConnectionString = "Vhuyhu=vto0.iuhhvtogdwdedvh.frp;Sruw=6639;Gdwdedvh=vto0964864;Xlg=vto0964864;Szg=VtGeguyLvq;";
+
         static DatabaseConnector()
         {
-            string filePath = "encrypted-connectionstring.bin";
-            string password = "Alper23";
-
-            //ConnectionStringEncryptor encryptor = new ConnectionStringEncryptor(password);
-            //encryptor.EncryptAndSaveConnectionString(ConnectionString, filePath);
-
-            ConnectionStringDecryptor decryptor = new ConnectionStringDecryptor(password);
-            ConnectionString = decryptor.DecryptConnectionStringFromFile(filePath);
+            string decodedConnectionString = BasicEncryption.DecryptConnectionString(ConnectionString);
+            ConnectionString=decodedConnectionString;
         }
 
         public static MySqlConnection GetConnection()

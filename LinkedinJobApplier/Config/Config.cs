@@ -21,6 +21,10 @@ namespace LinkedinJobApplier.Config
 
         // These settings are for running Linkedin job apply bot
         public static string LinkedinBotProPasswrod = "";
+
+        //Custom Fields
+        public static string City = "";
+        public static string SalaryExpectation = "";
         // location you want to search the jobs - ex : new List<string> { "Poland", "Germany", "Netherlands", "Austria", "Switzerland" }
         // continent locations: new List<string> { "Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia" }
         public static List<string> Location = new List<string>();

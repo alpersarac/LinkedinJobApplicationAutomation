@@ -186,7 +186,8 @@ namespace LinkedinJobApplier.Config
                                                     Console.WriteLine($"----> Step {i + 1} <----");
                                                     currentValueOfPercent = Utils.ContinueNextStep(driver);
                                                     Utils.EnterCityName(driver);
-
+                                                    Utils.EnterSalaryExpectations(driver);
+                                                    Utils.CheckTermsAndConditionsCheckbox(driver);
                                                     if (currentValueOfPercent != previousValueOfPercent)
                                                     {
                                                         previousValueOfPercent = currentValueOfPercent;

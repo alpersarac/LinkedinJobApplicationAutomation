@@ -42,7 +42,7 @@
             // tbxLicence
             // 
             this.tbxLicence.Location = new System.Drawing.Point(14, 31);
-            this.tbxLicence.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbxLicence.Margin = new System.Windows.Forms.Padding(4);
             this.tbxLicence.Name = "tbxLicence";
             this.tbxLicence.Size = new System.Drawing.Size(362, 21);
             this.tbxLicence.TabIndex = 0;
@@ -51,7 +51,7 @@
             // 
             this.btnRegister.BackColor = System.Drawing.Color.LightGreen;
             this.btnRegister.Location = new System.Drawing.Point(288, 59);
-            this.btnRegister.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRegister.Margin = new System.Windows.Forms.Padding(4);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(88, 28);
             this.btnRegister.TabIndex = 1;
@@ -132,10 +132,11 @@
             this.Controls.Add(this.tbxLicence);
             this.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmLicence";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Licence";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmLicence_FormClosing);
             this.Load += new System.EventHandler(this.frmLicence_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

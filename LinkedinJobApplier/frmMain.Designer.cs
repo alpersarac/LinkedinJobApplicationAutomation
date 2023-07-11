@@ -35,9 +35,13 @@
             this.tbxPassword = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.grbxCredentials = new System.Windows.Forms.GroupBox();
+            this.lblPasswordInfo = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.chbxRememberMe = new System.Windows.Forms.CheckBox();
             this.grbxPreferences = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbxCity = new System.Windows.Forms.TextBox();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.btnClearKeywords = new System.Windows.Forms.Button();
             this.btnClearLocation = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -50,12 +54,12 @@
             this.tbxLocation = new System.Windows.Forms.TextBox();
             this.btnAddCountry = new System.Windows.Forms.Button();
             this.lbxLocations = new System.Windows.Forms.ListBox();
-            this.lblStatus = new System.Windows.Forms.Label();
             this.btnStopApplying = new System.Windows.Forms.Button();
-            this.tbxCity = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblPasswordInfo = new System.Windows.Forms.Label();
             this.lblRemainingDays = new System.Windows.Forms.Label();
+            this.tbxSalary = new System.Windows.Forms.TextBox();
+            this.lblSalaryExpectation = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.grbxCredentials.SuspendLayout();
             this.grbxPreferences.SuspendLayout();
             this.SuspendLayout();
@@ -124,6 +128,16 @@
             this.grbxCredentials.TabIndex = 6;
             this.grbxCredentials.TabStop = false;
             // 
+            // lblPasswordInfo
+            // 
+            this.lblPasswordInfo.AutoSize = true;
+            this.lblPasswordInfo.Font = new System.Drawing.Font("Century Gothic", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPasswordInfo.Location = new System.Drawing.Point(6, 103);
+            this.lblPasswordInfo.Name = "lblPasswordInfo";
+            this.lblPasswordInfo.Size = new System.Drawing.Size(209, 13);
+            this.lblPasswordInfo.TabIndex = 10;
+            this.lblPasswordInfo.Text = "We don\'t store your password for your safety";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -147,6 +161,10 @@
             // 
             // grbxPreferences
             // 
+            this.grbxPreferences.Controls.Add(this.label7);
+            this.grbxPreferences.Controls.Add(this.label6);
+            this.grbxPreferences.Controls.Add(this.lblSalaryExpectation);
+            this.grbxPreferences.Controls.Add(this.tbxSalary);
             this.grbxPreferences.Controls.Add(this.label5);
             this.grbxPreferences.Controls.Add(this.tbxCity);
             this.grbxPreferences.Controls.Add(this.lblStatus);
@@ -169,6 +187,31 @@
             this.grbxPreferences.Size = new System.Drawing.Size(698, 473);
             this.grbxPreferences.TabIndex = 7;
             this.grbxPreferences.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(163, 216);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(76, 16);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "City you live:";
+            // 
+            // tbxCity
+            // 
+            this.tbxCity.Location = new System.Drawing.Point(166, 238);
+            this.tbxCity.Name = "tbxCity";
+            this.tbxCity.Size = new System.Drawing.Size(174, 21);
+            this.tbxCity.TabIndex = 12;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(6, 451);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(38, 16);
+            this.lblStatus.TabIndex = 8;
+            this.lblStatus.Text = "status";
             // 
             // btnClearKeywords
             // 
@@ -259,9 +302,9 @@
             this.label1.ForeColor = System.Drawing.Color.DarkGreen;
             this.label1.Location = new System.Drawing.Point(12, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 16);
+            this.label1.Size = new System.Drawing.Size(81, 16);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Locations:";
+            this.label1.Text = "Job locations:";
             // 
             // tbxLocation
             // 
@@ -292,15 +335,6 @@
             this.lbxLocations.Size = new System.Drawing.Size(279, 100);
             this.lbxLocations.TabIndex = 0;
             // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(6, 451);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(38, 16);
-            this.lblStatus.TabIndex = 8;
-            this.lblStatus.Text = "status";
-            // 
             // btnStopApplying
             // 
             this.btnStopApplying.ForeColor = System.Drawing.Color.OrangeRed;
@@ -313,32 +347,6 @@
             this.btnStopApplying.UseVisualStyleBackColor = true;
             this.btnStopApplying.Click += new System.EventHandler(this.btnStopApplying_Click);
             // 
-            // tbxCity
-            // 
-            this.tbxCity.Location = new System.Drawing.Point(166, 238);
-            this.tbxCity.Name = "tbxCity";
-            this.tbxCity.Size = new System.Drawing.Size(174, 21);
-            this.tbxCity.TabIndex = 12;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(163, 216);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(31, 16);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "City:";
-            // 
-            // lblPasswordInfo
-            // 
-            this.lblPasswordInfo.AutoSize = true;
-            this.lblPasswordInfo.Font = new System.Drawing.Font("Century Gothic", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPasswordInfo.Location = new System.Drawing.Point(6, 103);
-            this.lblPasswordInfo.Name = "lblPasswordInfo";
-            this.lblPasswordInfo.Size = new System.Drawing.Size(209, 13);
-            this.lblPasswordInfo.TabIndex = 10;
-            this.lblPasswordInfo.Text = "We don\'t store your password for your safety";
-            // 
             // lblRemainingDays
             // 
             this.lblRemainingDays.AutoSize = true;
@@ -347,6 +355,42 @@
             this.lblRemainingDays.Size = new System.Drawing.Size(49, 16);
             this.lblRemainingDays.TabIndex = 14;
             this.lblRemainingDays.Text = "Licence";
+            // 
+            // tbxSalary
+            // 
+            this.tbxSalary.Location = new System.Drawing.Point(369, 238);
+            this.tbxSalary.Name = "tbxSalary";
+            this.tbxSalary.Size = new System.Drawing.Size(174, 21);
+            this.tbxSalary.TabIndex = 14;
+            // 
+            // lblSalaryExpectation
+            // 
+            this.lblSalaryExpectation.AutoSize = true;
+            this.lblSalaryExpectation.Location = new System.Drawing.Point(366, 216);
+            this.lblSalaryExpectation.Name = "lblSalaryExpectation";
+            this.lblSalaryExpectation.Size = new System.Drawing.Size(112, 16);
+            this.lblSalaryExpectation.TabIndex = 15;
+            this.lblSalaryExpectation.Text = "Salary Expectation:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Silver;
+            this.label6.Location = new System.Drawing.Point(163, 262);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(107, 16);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Ex: Istanbul, Turkey";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Silver;
+            this.label7.Location = new System.Drawing.Point(366, 262);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(55, 16);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Ex: 65000";
             // 
             // frmMain
             // 
@@ -406,6 +450,10 @@
         private System.Windows.Forms.TextBox tbxCity;
         private System.Windows.Forms.Label lblPasswordInfo;
         private System.Windows.Forms.Label lblRemainingDays;
+        private System.Windows.Forms.Label lblSalaryExpectation;
+        private System.Windows.Forms.TextBox tbxSalary;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }
 

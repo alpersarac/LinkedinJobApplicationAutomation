@@ -15,6 +15,7 @@ namespace LinkedinJobApplier
 {
     public partial class frmLicence : Form
     {
+        bool isRegistered = false;
         public frmLicence()
         {
             InitializeComponent();
@@ -35,11 +36,13 @@ namespace LinkedinJobApplier
                     //LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
                     LicenseKeyManager.SetMacAddress(parsedLicenseTable,NetworkHelper.GetMacAddress());
                     MessageBox.Show("Registration is successful");
+                    isRegistered = true;
                     this.Close();
                 }
                 else
                 {
                     MessageBox.Show("Registration key is wrong");
+                    isRegistered = false;
                 }
 
             }
@@ -57,6 +60,20 @@ namespace LinkedinJobApplier
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void frmLicence_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (isRegistered)
+            {
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    // Cancel the closing operation
+                    Console.WriteLine("Closing");
+                    e.Cancel = true;
+                }
+            }
+            
         }
     }
 }

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace LinkedinJAASerialGenerator
 {
-
     public class LicenseKeyVerifier
     {
         private const int LicenseValidityPeriodInDays = 30;
@@ -64,6 +63,4 @@ namespace LinkedinJAASerialGenerator
             return isExpired;
         }
     }
-
-
 }

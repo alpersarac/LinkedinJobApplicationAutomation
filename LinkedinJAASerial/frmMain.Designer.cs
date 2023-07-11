@@ -32,6 +32,8 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbxDays = new System.Windows.Forms.ComboBox();
             this.rtbxLicence = new System.Windows.Forms.RichTextBox();
             this.lblEmail = new System.Windows.Forms.Label();
             this.tbxEmail = new System.Windows.Forms.TextBox();
@@ -50,13 +52,16 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btnGenerateConnectionStringFile = new System.Windows.Forms.Button();
-            this.cbxDays = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.rhtbxEncrypted = new System.Windows.Forms.RichTextBox();
+            this.tbxEncryptLicence = new System.Windows.Forms.TextBox();
+            this.btnDecrypt = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // backgroundWorker1
@@ -69,6 +74,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
@@ -91,6 +97,30 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Generation";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 16);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Days:";
+            // 
+            // cbxDays
+            // 
+            this.cbxDays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxDays.FormattingEnabled = true;
+            this.cbxDays.Items.AddRange(new object[] {
+            "3",
+            "7",
+            "14",
+            "21",
+            "30"});
+            this.cbxDays.Location = new System.Drawing.Point(50, 30);
+            this.cbxDays.Name = "cbxDays";
+            this.cbxDays.Size = new System.Drawing.Size(70, 24);
+            this.cbxDays.TabIndex = 18;
             // 
             // rtbxLicence
             // 
@@ -248,9 +278,9 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(6, 45);
+            this.richTextBox1.Location = new System.Drawing.Point(6, 35);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(547, 308);
+            this.richTextBox1.Size = new System.Drawing.Size(547, 281);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             // 
@@ -264,29 +294,43 @@
             this.btnGenerateConnectionStringFile.UseVisualStyleBackColor = true;
             this.btnGenerateConnectionStringFile.Click += new System.EventHandler(this.btnGenerateConnectionStringFile_Click);
             // 
-            // cbxDays
+            // tabPage5
             // 
-            this.cbxDays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxDays.FormattingEnabled = true;
-            this.cbxDays.Items.AddRange(new object[] {
-            "3",
-            "7",
-            "14",
-            "21",
-            "30"});
-            this.cbxDays.Location = new System.Drawing.Point(50, 30);
-            this.cbxDays.Name = "cbxDays";
-            this.cbxDays.Size = new System.Drawing.Size(70, 24);
-            this.cbxDays.TabIndex = 18;
+            this.tabPage5.Controls.Add(this.rhtbxEncrypted);
+            this.tabPage5.Controls.Add(this.tbxEncryptLicence);
+            this.tabPage5.Controls.Add(this.btnDecrypt);
+            this.tabPage5.Location = new System.Drawing.Point(4, 25);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(560, 358);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Decryption";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // rhtbxEncrypted
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 16);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "Days:";
+            this.rhtbxEncrypted.Location = new System.Drawing.Point(6, 62);
+            this.rhtbxEncrypted.Name = "rhtbxEncrypted";
+            this.rhtbxEncrypted.Size = new System.Drawing.Size(547, 128);
+            this.rhtbxEncrypted.TabIndex = 2;
+            this.rhtbxEncrypted.Text = "";
+            // 
+            // tbxEncryptLicence
+            // 
+            this.tbxEncryptLicence.Location = new System.Drawing.Point(6, 6);
+            this.tbxEncryptLicence.Name = "tbxEncryptLicence";
+            this.tbxEncryptLicence.Size = new System.Drawing.Size(547, 21);
+            this.tbxEncryptLicence.TabIndex = 1;
+            // 
+            // btnDecrypt
+            // 
+            this.btnDecrypt.Location = new System.Drawing.Point(6, 33);
+            this.btnDecrypt.Name = "btnDecrypt";
+            this.btnDecrypt.Size = new System.Drawing.Size(547, 23);
+            this.btnDecrypt.TabIndex = 0;
+            this.btnDecrypt.Text = "Encrypt";
+            this.btnDecrypt.UseVisualStyleBackColor = true;
+            this.btnDecrypt.Click += new System.EventHandler(this.btnEncrpt_Click_1);
             // 
             // frmMain
             // 
@@ -307,6 +351,8 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -335,6 +381,10 @@
         private System.Windows.Forms.Button btnGenerateConnectionStringFile;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbxDays;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.RichTextBox rhtbxEncrypted;
+        private System.Windows.Forms.TextBox tbxEncryptLicence;
+        private System.Windows.Forms.Button btnDecrypt;
     }
 }
 

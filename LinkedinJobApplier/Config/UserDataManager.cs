@@ -16,6 +16,7 @@ namespace LinkedinJobApplier.Config
         public string Username { get; set; }
         public string Password { get; set; }
         public string City { get; set; }
+        public string SalaryExpectation { get; set; }
         public bool Status { get; set; }
         public List<string> Locations { get; set; }
         public List<string> Keywords { get; set; }
@@ -30,7 +31,8 @@ namespace LinkedinJobApplier.Config
 
         public void SaveUserData()
         {
-            string dataToSave = $"{Username}|{Password}|{Status}|{string.Join(",", Locations)}|{string.Join(",", Keywords)}|{ComboBoxSelectedIndex}|{RememberMe}|{City}";
+            string dataToSave = $"{Username}|{Password}|{Status}|{string.Join(",", Locations)}|{string.Join(",", Keywords)}|{ComboBoxSelectedIndex}|{RememberMe}|{City}" +
+                $"|{SalaryExpectation}";
             File.WriteAllText(FilePath, dataToSave);
         }
 
@@ -40,7 +42,7 @@ namespace LinkedinJobApplier.Config
             {
                 string data = File.ReadAllText(FilePath);
                 string[] parts = data.Split('|');
-                if (parts.Length != 8)
+                if (parts.Length != 9)
                 {
                     throw new InvalidDataException("Invalid data format in the file.");
                 }
@@ -53,6 +55,7 @@ namespace LinkedinJobApplier.Config
                 ComboBoxSelectedIndex = int.Parse(parts[5]);
                 RememberMe = bool.Parse(parts[6]);
                 City = parts[7];
+                SalaryExpectation = parts[8];
             }
         }
     }
