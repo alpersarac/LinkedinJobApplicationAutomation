@@ -1,5 +1,4 @@
 ﻿
-using LinkedinJobApplicationAutomation.Config;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -13,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinkedinJobApplicationAutomation.Config
+namespace LinkedinJobApplier.Config
 {
     public class Linkedin
     {
@@ -66,20 +65,28 @@ namespace LinkedinJobApplicationAutomation.Config
 
                 Console.WriteLine("Logged in to LinkedIn.");
                 Console.WriteLine("CAPTCHA DELAY");
-                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(Constants.CaptaTime));
+                //System.Threading.Thread.Sleep(TimeSpan.FromSeconds(Constants.CaptaTime));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                Cleanup();
+                Environment.Exit(0);
             }
         }
+
+        private void Cleanup()
+        {
+            driver.Quit();
+            driver.Dispose();
+        }
+
         public IWebDriver getWebDriver()
         {
             return driver;
         }
-        public void LinkJobApply()
+        public void LinkJobApply(CancellationToken cancellationToken)
         {
-            
             try
             {
                 Utils.GenerateUrls();
@@ -87,21 +94,25 @@ namespace LinkedinJobApplicationAutomation.Config
                 int countJobs = 0;
 
                 List<string> urlData = Utils.getUrlDataFile();
-                var disctinctedUrl = urlData.Distinct();
+                var distinctUrls = urlData.Distinct();
 
-                foreach (string url in disctinctedUrl)
+                foreach (string url in distinctUrls)
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                        break;
+
                     List<string> urlWords = new List<string>();
                     try
                     {
                         driver.Url = url;
                         Thread.Sleep(TimeSpan.FromSeconds(5));
+
                         string totalJobs = driver.FindElement(By.XPath("//small")).Text;
                         int totalPages = Utils.GetPageCount(driver);
                         totalPages = Utils.jobsToPages(totalJobs);
 
                         urlWords = Utils.urlToKeywords(url);
-                        string lineToWrite = "\n Category: " + urlWords[0] + ", Location: " + urlWords[1] + ", Applying " + totalJobs + " jobs.";
+                        string lineToWrite = "\nCategory: " + urlWords[0] + ", Location: " + urlWords[1] + ", Applying to " + totalJobs + " jobs.";
 
                         for (int page = 0; page < totalPages; page++)
                         {
@@ -112,18 +123,17 @@ namespace LinkedinJobApplicationAutomation.Config
                                 driver.Url = currentUrl;
                                 Thread.Sleep(TimeSpan.FromSeconds(5));
 
-
                                 List<long> offerIds = new List<long>();
                                 try
                                 {
-
                                     ReadOnlyCollection<IWebElement> offersPerPage = driver.FindElements(By.XPath("//li[@data-occsludable-job-id]"));
                                     if (offersPerPage.Count == 0)
                                     {
                                         offersPerPage = driver.FindElements(By.XPath("//li[@data-occludable-job-id]"));
                                     }
-                                    Console.WriteLine("offersPerPage count " + offersPerPage.Count);
+                                    Console.WriteLine("Number of offers on this page: " + offersPerPage.Count);
                                     Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+
                                     foreach (IWebElement offer in offersPerPage)
                                     {
                                         string offerId = offer.GetAttribute("data-occludable-job-id");
@@ -133,32 +143,35 @@ namespace LinkedinJobApplicationAutomation.Config
                                 }
                                 catch (Exception ex)
                                 {
+                                    Console.WriteLine("Exception occurred while fetching offer details from the page!");
+                                }
 
-                                    Console.WriteLine("OfferPage Excetion !!!");
-                                }
                                 if (offerIds.Count == 0)
-                                {
                                     break;
-                                }
 
                                 foreach (long jobID in offerIds)
                                 {
+                                    if (cancellationToken.IsCancellationRequested)
+                                        break;
+
                                     string offerPage = "https://www.linkedin.com/jobs/view/" + jobID;
                                     driver.Url = offerPage;
                                     Thread.Sleep(TimeSpan.FromSeconds(5));
 
                                     countJobs++;
 
-
                                     string jobProperties = Utils.GetJobProperties(countJobs, driver);
-                                    Utils.prYellow($"{jobProperties} --> Page number {page} out of {totalPages}");
+                                    Utils.prYellow($"{jobProperties} --> Page {page + 1} of {totalPages}");
+
                                     IWebElement button = Utils.EasyApplyButton(driver);
                                     IWebElement linkApplyButton = Utils.LinkApplyButton(driver);
-                                    if (button != null&& linkApplyButton==null)
+
+                                    if (button != null && linkApplyButton == null)
                                     {
                                         button.Click();
                                         Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
                                         countApplied++;
+
                                         try
                                         {
                                             bool isApplied = Utils.SubmitApplication(jobProperties, offerPage, driver);
@@ -167,12 +180,14 @@ namespace LinkedinJobApplicationAutomation.Config
                                                 int counter = 0;
                                                 string currentValueOfPercent = "";
                                                 string previousValueOfPercent = "";
+
                                                 for (int i = 0; i < 15; i++)
                                                 {
-                                                    Console.WriteLine($"---->{i + 1}.Page<----");
+                                                    Console.WriteLine($"----> Step {i + 1} <----");
                                                     currentValueOfPercent = Utils.ContinueNextStep(driver);
                                                     Utils.EnterCityName(driver);
-                                                    //Utils.ClickAllRadioButtonsAndSelectRandomOptions(driver);
+                                                    Utils.EnterSalaryExpectations(driver);
+                                                    Utils.CheckTermsAndConditionsCheckbox(driver);
                                                     if (currentValueOfPercent != previousValueOfPercent)
                                                     {
                                                         previousValueOfPercent = currentValueOfPercent;
@@ -196,8 +211,9 @@ namespace LinkedinJobApplicationAutomation.Config
                                     }
                                     else
                                     {
-                                        Console.WriteLine("----> Already applied! Job");
+                                        Console.WriteLine("Already applied to this job!");
                                     }
+
                                     if (linkApplyButton != null)
                                     {
                                         lineToWrite = jobProperties + " | " + "* EXTERNAL LINK APPLICATION: " + offerPage;
@@ -207,32 +223,33 @@ namespace LinkedinJobApplicationAutomation.Config
                             }
                             catch (Exception e)
                             {
-
-                                Console.WriteLine("XX11XXXXXXXXXXX //SMALL EXCEPTION: " + url);
+                                Console.WriteLine("Exception occurred on Page " + page + ": " + url);
                             }
                         }
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("XXXXXXXXXXXXXXX //SMALL EXCEPTION: " + url);
+                        Console.WriteLine("Exception occurred while processing URL: " + url);
                         Console.WriteLine("Error: " + e.ToString());
                     }
 
-                    Console.WriteLine("Category: " + urlWords[0] + "," + urlWords[1] + " applied: " + countApplied +
+                    Console.WriteLine("Category: " + urlWords[0] + ", " + urlWords[1] + " - Applied: " + countApplied +
                         " jobs out of " + countJobs + ".");
                 }
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine(ex);
                 Console.WriteLine(ex.Message);
             }
+            finally
+            {
+                Cleanup();
+            }
 
-            Utils.prGreen("It is all DONE!!!!!!!");
-            
+            Utils.prGreen("All tasks completed!");
         }
-        
+
     }
 }
 

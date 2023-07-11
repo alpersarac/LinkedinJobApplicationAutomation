@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace LinkedinJobApplicationAutomation.Config
+namespace LinkedinJobApplier.Config
 {
     public static class Utils
     {
@@ -430,13 +430,73 @@ namespace LinkedinJobApplicationAutomation.Config
                 return false;
             }
         }
+        public static void CheckTermsAndConditionsCheckbox(IWebDriver driver)
+        {
+            try
+            {
+                string desiredLabel = "agree";
+                IReadOnlyCollection<IWebElement> labelElements = driver.FindElements(By.CssSelector("label"));
+
+                foreach (IWebElement labelElement in labelElements)
+                {
+                    string labelInnerText = labelElement.Text.ToLower();
+
+                    if (labelInnerText.Contains(desiredLabel))
+                    {
+                        IWebElement checkboxElement = labelElement.FindElement(By.XPath("./preceding-sibling::input[@type='checkbox']"));
+
+                        if (checkboxElement != null)
+                        {
+                            IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+                            jsExecutor.ExecuteScript("arguments[0].click();", checkboxElement);
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Handle exception
+            }
+        }
+
+
+        public static void EnterSalaryExpectations(IWebDriver driver)
+        {
+            try
+            {
+                string desiredLabel = "salary";
+                IReadOnlyCollection<IWebElement> labelElements = driver.FindElements(By.CssSelector("label"));
+                string salaryExpectations = Config.SalaryExpectation;
+                foreach (IWebElement labelElement in labelElements)
+                {
+                    string labelInnerText = labelElement.Text.ToLower();
+
+                    if (labelInnerText.Contains(desiredLabel))
+                    {
+                        IWebElement inputElement = labelElement.FindElement(By.XPath("./following-sibling::input[@type='text']"));
+
+                        inputElement.Clear();
+                        inputElement.SendKeys(salaryExpectations);
+                        inputElement.SendKeys(Keys.Tab);
+                        break;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Salary Exception");
+
+            }
+
+        }
 
         public static void EnterCityName(IWebDriver driver)
         {
             try
             {
                 IWebElement comboboxElement = driver.FindElement(By.CssSelector("input[role='combobox'][id*='city']"));
-                string desiredValue = "Yalova, Turkey";
+                string desiredValue = Config.City;
 
                 if (comboboxElement != null)
                 {
@@ -491,23 +551,5 @@ namespace LinkedinJobApplicationAutomation.Config
                 Console.WriteLine("cb ex");
             }
         }
-        public static bool AcceptTermAndConditions(IWebDriver driver)
-        {
-            try
-            {
-                IWebElement checkboxElement = driver.FindElement(By.CssSelector("div[data-test-text-selectable-option='0'] input[type='checkbox']"));
-                if (!checkboxElement.Selected)
-                {
-                    checkboxElement.Click();
-                    return true;
-                }
-                return false;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-        }
-
     }
 }

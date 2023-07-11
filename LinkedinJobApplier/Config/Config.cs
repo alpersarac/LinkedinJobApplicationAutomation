@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkedinJobApplicationAutomation.Config
+namespace LinkedinJobApplier.Config
 {
     public static class Config
     {
@@ -12,7 +12,8 @@ namespace LinkedinJobApplicationAutomation.Config
         // Optional! run browser in headless mode, no browser screen will be shown it will work in background.
         public static bool Headless = false;
         // Optional! for Firefox enter profile dir to run the bot without logging in your account each time
-        public static string FirefoxProfileRootDir = @"C:\Users\90507\AppData\Roaming\Mozilla\Firefox\Profiles\0cv53qd2.default-release-1687006000021";
+        //public static string FirefoxProfileRootDir = @"C:\Users\90507\AppData\Roaming\Mozilla\Firefox\Profiles\0cv53qd2.default-release-1687006000021";
+        public static string FirefoxProfileRootDir = @"";
         // If you left above field empty enter your Linkedin password and username below
         // Linkedin credits
         public static string Email = "";
@@ -20,11 +21,15 @@ namespace LinkedinJobApplicationAutomation.Config
 
         // These settings are for running Linkedin job apply bot
         public static string LinkedinBotProPasswrod = "";
+
+        //Custom Fields
+        public static string City = "";
+        public static string SalaryExpectation = "";
         // location you want to search the jobs - ex : new List<string> { "Poland", "Germany", "Netherlands", "Austria", "Switzerland" }
         // continent locations: new List<string> { "Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia" }
-        public static List<string> Location = new List<string> {  };
+        public static List<string> Location = new List<string>();
         // keywords related with your job search
-        public static List<string> Keywords = new List<string> { "C%23",".NET" };
+        public static List<string> Keywords = new List<string>();
         // keywords = new List<string> { "programming" }
         // job experience Level - ex: new List<string> { "Internship", "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" }
         public static List<string> ExperienceLevels = new List<string> { "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" };
@@ -56,5 +61,4 @@ namespace LinkedinJobApplicationAutomation.Config
         // Total successful job application count
         public static int successfulJobApplicationCounter = 0;
     }
-
 }

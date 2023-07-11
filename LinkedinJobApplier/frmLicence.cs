@@ -1,4 +1,5 @@
-﻿using LinkedinJAASerial;
+﻿using Helper;
+using LinkedinJAASerial;
 using LinkedinJAASerialGenerator;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace LinkedinJobApplier
 {
     public partial class frmLicence : Form
     {
+        bool isRegistered = false;
         public frmLicence()
         {
             InitializeComponent();
@@ -24,18 +26,23 @@ namespace LinkedinJobApplier
             try
             {
                 string licenseKey = tbxLicence.Text;
-                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(licenseKey);
-                if (!parsedLicenseTable.isactive)
+                bool isConnectionOK = false;
+                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(licenseKey,ref isConnectionOK);
+                if (!parsedLicenseTable.isonline)
                 {
                     // Encrypt and save the license key
                     LicenseKeyManager.SaveLicenseKey(licenseKey);
-                    LicenseKeyManager.UpdateActiveStatusLicence(parsedLicenseTable);
+                    //LicenseKeyManager.UpdateActiveStatusLicence(parsedLicenseTable);
+                    //LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
+                    LicenseKeyManager.SetMacAddress(parsedLicenseTable,NetworkHelper.GetMacAddress());
                     MessageBox.Show("Registration is successful");
+                    isRegistered = true;
                     this.Close();
                 }
                 else
                 {
                     MessageBox.Show("Registration key is wrong");
+                    isRegistered = false;
                 }
 
             }
@@ -53,6 +60,20 @@ namespace LinkedinJobApplier
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void frmLicence_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (isRegistered)
+            {
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    // Cancel the closing operation
+                    Console.WriteLine("Closing");
+                    e.Cancel = true;
+                }
+            }
+            
         }
     }
 }

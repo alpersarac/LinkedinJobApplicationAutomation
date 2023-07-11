@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkedinJobApplicationAutomation.Config
+namespace LinkedinJobApplier.Config
 {
     public class LinkedinUrlGenerate
     {
@@ -16,11 +16,11 @@ namespace LinkedinJobApplicationAutomation.Config
                 int jobExperienceIndex = Config.ExperienceLevels.Count;
                 foreach (var keyword in Config.Keywords)
                 {
-                    for (int i = 0; i < jobExperienceIndex; i++)
-                    {
-                        var url = Constants.LinkJobUrl + "?f_AL=true&keywords=" + keyword + this.jobType() + this.remote() + this.checkJobLocation(location) + this.jobExp(i) + this.datePosted() + this.salary() + this.sortBy();
+                    //for (int i = 0; i < jobExperienceIndex; i++)
+                    //{
+                        var url = Constants.LinkJobUrl + "?f_AL=true&keywords=" + keyword + this.jobType() + this.remote() + this.checkJobLocation(location) + this.jobExp(0) + this.datePosted() + this.salary() + this.sortBy();
                         path.Add(url);
-                    }
+                    //}
                 }
             }
             return path;
@@ -69,6 +69,7 @@ namespace LinkedinJobApplicationAutomation.Config
 
         public string jobExp(int jobIndex)
         {
+            return "&";
             var jobtExpArray = Config.ExperienceLevels;
             var firstJobExp = jobtExpArray[jobIndex];
             var jobExp = "";

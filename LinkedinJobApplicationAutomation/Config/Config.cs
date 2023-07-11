@@ -15,14 +15,14 @@ namespace LinkedinJobApplicationAutomation.Config
         public static string FirefoxProfileRootDir = @"C:\Users\90507\AppData\Roaming\Mozilla\Firefox\Profiles\0cv53qd2.default-release-1687006000021";
         // If you left above field empty enter your Linkedin password and username below
         // Linkedin credits
-        public static string Email = "";
-        public static string Password = "";
+        public static string Email = "Alper.sarac42@gmail.com";
+        public static string Password = "Alper.77";
 
         // These settings are for running Linkedin job apply bot
         public static string LinkedinBotProPasswrod = "";
         // location you want to search the jobs - ex : new List<string> { "Poland", "Germany", "Netherlands", "Austria", "Switzerland" }
         // continent locations: new List<string> { "Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia" }
-        public static List<string> Location = new List<string> {  "Norway", "Denkmark", "Latvia", "Malta","Lithuania", "Ireland", "United Kingdom", "Canada", "Switzerland","Austria", "Finland", "Austria",  "Germany",  "Poland"};
+        public static List<string> Location = new List<string> { "Switzerland", "Austria", "Finland", "Germany", "Poland", "Norway", "Denkmark", "Latvia", "Malta","Lithuania", "Ireland", "United Kingdom"};
         // keywords related with your job search
         public static List<string> Keywords = new List<string> { "C%23",".NET" };
         // keywords = new List<string> { "programming" }
