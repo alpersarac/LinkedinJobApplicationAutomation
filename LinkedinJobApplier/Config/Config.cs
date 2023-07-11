@@ -12,7 +12,8 @@ namespace LinkedinJobApplier.Config
         // Optional! run browser in headless mode, no browser screen will be shown it will work in background.
         public static bool Headless = false;
         // Optional! for Firefox enter profile dir to run the bot without logging in your account each time
-        public static string FirefoxProfileRootDir = @"C:\Users\90507\AppData\Roaming\Mozilla\Firefox\Profiles\0cv53qd2.default-release-1687006000021";
+        //public static string FirefoxProfileRootDir = @"C:\Users\90507\AppData\Roaming\Mozilla\Firefox\Profiles\0cv53qd2.default-release-1687006000021";
+        public static string FirefoxProfileRootDir = @"";
         // If you left above field empty enter your Linkedin password and username below
         // Linkedin credits
         public static string Email = "";

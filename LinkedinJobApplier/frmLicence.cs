@@ -24,12 +24,14 @@ namespace LinkedinJobApplier
             try
             {
                 string licenseKey = tbxLicence.Text;
-                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(licenseKey);
-                if (!parsedLicenseTable.isactive)
+                bool isConnectionOK = false;
+                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(licenseKey,ref isConnectionOK);
+                if (!parsedLicenseTable.isonline)
                 {
                     // Encrypt and save the license key
                     LicenseKeyManager.SaveLicenseKey(licenseKey);
                     LicenseKeyManager.UpdateActiveStatusLicence(parsedLicenseTable);
+                    LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
                     MessageBox.Show("Registration is successful");
                     this.Close();
                 }

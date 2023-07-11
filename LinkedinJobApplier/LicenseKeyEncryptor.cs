@@ -36,9 +36,10 @@ namespace LinkedinJobApplier
             return licenseKey;
         }
 
-        public static LicenceTable ParseLicenseKey(string licenseKey)
+        public static LicenceTable ParseLicenseKey(string licenseKey,ref bool isConnectionOK)
         {
-            LicenceTable licenceTable = DatabaseConnector.GetLicenceTableBySerialKey(licenseKey);
+            
+            LicenceTable licenceTable = DatabaseConnector.GetLicenceTableBySerialKey(licenseKey,ref isConnectionOK);
             
             return licenceTable;
         }

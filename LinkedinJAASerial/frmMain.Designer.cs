@@ -44,13 +44,19 @@
             this.tbxLicence = new System.Windows.Forms.TextBox();
             this.btnSearchLicence = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.btnStats = new System.Windows.Forms.Button();
-            this.listbStats = new System.Windows.Forms.ListBox();
             this.lblActiveCount = new System.Windows.Forms.Label();
+            this.listbStats = new System.Windows.Forms.ListBox();
+            this.btnStats = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.btnGenerateConnectionStringFile = new System.Windows.Forms.Button();
+            this.cbxDays = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // backgroundWorker1
@@ -62,6 +68,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
@@ -71,6 +78,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.cbxDays);
             this.tabPage1.Controls.Add(this.rtbxLicence);
             this.tabPage1.Controls.Add(this.lblEmail);
             this.tabPage1.Controls.Add(this.tbxEmail);
@@ -86,16 +95,16 @@
             // rtbxLicence
             // 
             this.rtbxLicence.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtbxLicence.Location = new System.Drawing.Point(111, 65);
+            this.rtbxLicence.Location = new System.Drawing.Point(6, 65);
             this.rtbxLicence.Name = "rtbxLicence";
-            this.rtbxLicence.Size = new System.Drawing.Size(290, 123);
+            this.rtbxLicence.Size = new System.Drawing.Size(547, 123);
             this.rtbxLicence.TabIndex = 17;
             this.rtbxLicence.Text = "";
             // 
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(67, 9);
+            this.lblEmail.Location = new System.Drawing.Point(6, 3);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(38, 16);
             this.lblEmail.TabIndex = 16;
@@ -103,16 +112,16 @@
             // 
             // tbxEmail
             // 
-            this.tbxEmail.Location = new System.Drawing.Point(111, 9);
+            this.tbxEmail.Location = new System.Drawing.Point(50, 3);
             this.tbxEmail.Name = "tbxEmail";
             this.tbxEmail.Size = new System.Drawing.Size(290, 21);
             this.tbxEmail.TabIndex = 15;
             // 
             // btnGenerateLicence
             // 
-            this.btnGenerateLicence.Location = new System.Drawing.Point(111, 36);
+            this.btnGenerateLicence.Location = new System.Drawing.Point(357, 3);
             this.btnGenerateLicence.Name = "btnGenerateLicence";
-            this.btnGenerateLicence.Size = new System.Drawing.Size(290, 23);
+            this.btnGenerateLicence.Size = new System.Drawing.Size(77, 23);
             this.btnGenerateLicence.TabIndex = 11;
             this.btnGenerateLicence.Text = "Generate Licence";
             this.btnGenerateLicence.UseVisualStyleBackColor = true;
@@ -197,15 +206,14 @@
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // btnStats
+            // lblActiveCount
             // 
-            this.btnStats.Location = new System.Drawing.Point(6, 6);
-            this.btnStats.Name = "btnStats";
-            this.btnStats.Size = new System.Drawing.Size(75, 23);
-            this.btnStats.TabIndex = 0;
-            this.btnStats.Text = "Show Stats";
-            this.btnStats.UseVisualStyleBackColor = true;
-            this.btnStats.Click += new System.EventHandler(this.btnStats_Click);
+            this.lblActiveCount.AutoSize = true;
+            this.lblActiveCount.Location = new System.Drawing.Point(87, 9);
+            this.lblActiveCount.Name = "lblActiveCount";
+            this.lblActiveCount.Size = new System.Drawing.Size(25, 16);
+            this.lblActiveCount.TabIndex = 2;
+            this.lblActiveCount.Text = "      ";
             // 
             // listbStats
             // 
@@ -216,14 +224,69 @@
             this.listbStats.Size = new System.Drawing.Size(547, 308);
             this.listbStats.TabIndex = 1;
             // 
-            // lblActiveCount
+            // btnStats
             // 
-            this.lblActiveCount.AutoSize = true;
-            this.lblActiveCount.Location = new System.Drawing.Point(87, 9);
-            this.lblActiveCount.Name = "lblActiveCount";
-            this.lblActiveCount.Size = new System.Drawing.Size(25, 16);
-            this.lblActiveCount.TabIndex = 2;
-            this.lblActiveCount.Text = "      ";
+            this.btnStats.Location = new System.Drawing.Point(6, 6);
+            this.btnStats.Name = "btnStats";
+            this.btnStats.Size = new System.Drawing.Size(75, 23);
+            this.btnStats.TabIndex = 0;
+            this.btnStats.Text = "Show Stats";
+            this.btnStats.UseVisualStyleBackColor = true;
+            this.btnStats.Click += new System.EventHandler(this.btnStats_Click);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.richTextBox1);
+            this.tabPage4.Controls.Add(this.btnGenerateConnectionStringFile);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(560, 358);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Connection String";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(6, 45);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(547, 308);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
+            // 
+            // btnGenerateConnectionStringFile
+            // 
+            this.btnGenerateConnectionStringFile.Location = new System.Drawing.Point(169, 6);
+            this.btnGenerateConnectionStringFile.Name = "btnGenerateConnectionStringFile";
+            this.btnGenerateConnectionStringFile.Size = new System.Drawing.Size(224, 23);
+            this.btnGenerateConnectionStringFile.TabIndex = 0;
+            this.btnGenerateConnectionStringFile.Text = "Generate Connection String";
+            this.btnGenerateConnectionStringFile.UseVisualStyleBackColor = true;
+            this.btnGenerateConnectionStringFile.Click += new System.EventHandler(this.btnGenerateConnectionStringFile_Click);
+            // 
+            // cbxDays
+            // 
+            this.cbxDays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxDays.FormattingEnabled = true;
+            this.cbxDays.Items.AddRange(new object[] {
+            "3",
+            "7",
+            "14",
+            "21",
+            "30"});
+            this.cbxDays.Location = new System.Drawing.Point(50, 30);
+            this.cbxDays.Name = "cbxDays";
+            this.cbxDays.Size = new System.Drawing.Size(70, 24);
+            this.cbxDays.TabIndex = 18;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 16);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Days:";
             // 
             // frmMain
             // 
@@ -243,6 +306,7 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -266,6 +330,11 @@
         private System.Windows.Forms.Button btnStats;
         private System.Windows.Forms.ListBox listbStats;
         private System.Windows.Forms.Label lblActiveCount;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button btnGenerateConnectionStringFile;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbxDays;
     }
 }
 

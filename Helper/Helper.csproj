@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseConnector.cs" />
+    <Compile Include="FileReader\ConnectionStringDecryptor.cs" />
+    <Compile Include="FileReader\ConnectionStringEncryptor.cs" />
     <Compile Include="LicenceTable.cs" />
     <Compile Include="LicenseKeyVerifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

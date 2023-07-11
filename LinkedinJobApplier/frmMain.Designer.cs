@@ -34,10 +34,9 @@
             this.lblUserName = new System.Windows.Forms.Label();
             this.tbxPassword = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
             this.grbxCredentials = new System.Windows.Forms.GroupBox();
-            this.chbxRememberMe = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.chbxRememberMe = new System.Windows.Forms.CheckBox();
             this.grbxPreferences = new System.Windows.Forms.GroupBox();
             this.btnClearKeywords = new System.Windows.Forms.Button();
             this.btnClearLocation = new System.Windows.Forms.Button();
@@ -53,6 +52,10 @@
             this.lbxLocations = new System.Windows.Forms.ListBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnStopApplying = new System.Windows.Forms.Button();
+            this.tbxCity = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblPasswordInfo = new System.Windows.Forms.Label();
+            this.lblRemainingDays = new System.Windows.Forms.Label();
             this.grbxCredentials.SuspendLayout();
             this.grbxPreferences.SuspendLayout();
             this.SuspendLayout();
@@ -92,6 +95,7 @@
             this.tbxPassword.ForeColor = System.Drawing.Color.DarkGreen;
             this.tbxPassword.Location = new System.Drawing.Point(79, 67);
             this.tbxPassword.Name = "tbxPassword";
+            this.tbxPassword.PasswordChar = '*';
             this.tbxPassword.Size = new System.Drawing.Size(233, 21);
             this.tbxPassword.TabIndex = 3;
             // 
@@ -105,41 +109,20 @@
             this.lblPassword.TabIndex = 4;
             this.lblPassword.Text = "Password:";
             // 
-            // btnSave
-            // 
-            this.btnSave.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btnSave.Location = new System.Drawing.Point(79, 94);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(233, 23);
-            this.btnSave.TabIndex = 5;
-            this.btnSave.Text = "Sign In";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
             // grbxCredentials
             // 
+            this.grbxCredentials.Controls.Add(this.lblPasswordInfo);
             this.grbxCredentials.Controls.Add(this.label2);
             this.grbxCredentials.Controls.Add(this.tbxEmail);
-            this.grbxCredentials.Controls.Add(this.btnSave);
             this.grbxCredentials.Controls.Add(this.lblUserName);
             this.grbxCredentials.Controls.Add(this.lblPassword);
             this.grbxCredentials.Controls.Add(this.tbxPassword);
             this.grbxCredentials.ForeColor = System.Drawing.Color.DarkGreen;
             this.grbxCredentials.Location = new System.Drawing.Point(12, 12);
             this.grbxCredentials.Name = "grbxCredentials";
-            this.grbxCredentials.Size = new System.Drawing.Size(336, 130);
+            this.grbxCredentials.Size = new System.Drawing.Size(336, 122);
             this.grbxCredentials.TabIndex = 6;
             this.grbxCredentials.TabStop = false;
-            // 
-            // chbxRememberMe
-            // 
-            this.chbxRememberMe.AutoSize = true;
-            this.chbxRememberMe.Location = new System.Drawing.Point(541, 447);
-            this.chbxRememberMe.Name = "chbxRememberMe";
-            this.chbxRememberMe.Size = new System.Drawing.Size(146, 20);
-            this.chbxRememberMe.TabIndex = 7;
-            this.chbxRememberMe.Text = "Remember my settings";
-            this.chbxRememberMe.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -152,8 +135,21 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "LinkedIn Username and Password";
             // 
+            // chbxRememberMe
+            // 
+            this.chbxRememberMe.AutoSize = true;
+            this.chbxRememberMe.Location = new System.Drawing.Point(541, 447);
+            this.chbxRememberMe.Name = "chbxRememberMe";
+            this.chbxRememberMe.Size = new System.Drawing.Size(146, 20);
+            this.chbxRememberMe.TabIndex = 7;
+            this.chbxRememberMe.Text = "Remember my settings";
+            this.chbxRememberMe.UseVisualStyleBackColor = true;
+            // 
             // grbxPreferences
             // 
+            this.grbxPreferences.Controls.Add(this.label5);
+            this.grbxPreferences.Controls.Add(this.tbxCity);
+            this.grbxPreferences.Controls.Add(this.lblStatus);
             this.grbxPreferences.Controls.Add(this.chbxRememberMe);
             this.grbxPreferences.Controls.Add(this.btnClearKeywords);
             this.grbxPreferences.Controls.Add(this.btnClearLocation);
@@ -299,7 +295,7 @@
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(9, 469);
+            this.lblStatus.Location = new System.Drawing.Point(6, 451);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(38, 16);
             this.lblStatus.TabIndex = 8;
@@ -317,14 +313,49 @@
             this.btnStopApplying.UseVisualStyleBackColor = true;
             this.btnStopApplying.Click += new System.EventHandler(this.btnStopApplying_Click);
             // 
+            // tbxCity
+            // 
+            this.tbxCity.Location = new System.Drawing.Point(166, 238);
+            this.tbxCity.Name = "tbxCity";
+            this.tbxCity.Size = new System.Drawing.Size(174, 21);
+            this.tbxCity.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(163, 216);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(31, 16);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "City:";
+            // 
+            // lblPasswordInfo
+            // 
+            this.lblPasswordInfo.AutoSize = true;
+            this.lblPasswordInfo.Font = new System.Drawing.Font("Century Gothic", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPasswordInfo.Location = new System.Drawing.Point(6, 103);
+            this.lblPasswordInfo.Name = "lblPasswordInfo";
+            this.lblPasswordInfo.Size = new System.Drawing.Size(209, 13);
+            this.lblPasswordInfo.TabIndex = 10;
+            this.lblPasswordInfo.Text = "We don\'t store your password for your safety";
+            // 
+            // lblRemainingDays
+            // 
+            this.lblRemainingDays.AutoSize = true;
+            this.lblRemainingDays.Location = new System.Drawing.Point(9, 469);
+            this.lblRemainingDays.Name = "lblRemainingDays";
+            this.lblRemainingDays.Size = new System.Drawing.Size(49, 16);
+            this.lblRemainingDays.TabIndex = 14;
+            this.lblRemainingDays.Text = "Licence";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1064, 495);
+            this.Controls.Add(this.lblRemainingDays);
             this.Controls.Add(this.btnStopApplying);
-            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.grbxPreferences);
             this.Controls.Add(this.grbxCredentials);
             this.Controls.Add(this.btnStartApplying);
@@ -353,7 +384,6 @@
         private System.Windows.Forms.Label lblUserName;
         private System.Windows.Forms.TextBox tbxPassword;
         private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox grbxCredentials;
         private System.Windows.Forms.GroupBox grbxPreferences;
         private System.Windows.Forms.Button btnAddCountry;
@@ -372,6 +402,10 @@
         private System.Windows.Forms.Button btnClearKeywords;
         private System.Windows.Forms.Button btnClearLocation;
         private System.Windows.Forms.Button btnStopApplying;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbxCity;
+        private System.Windows.Forms.Label lblPasswordInfo;
+        private System.Windows.Forms.Label lblRemainingDays;
     }
 }
 

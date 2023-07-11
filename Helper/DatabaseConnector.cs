@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Helper.FileReader;
+using LinkedinJAASerial.FileReader;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +9,20 @@ using System.Threading.Tasks;
 
 namespace LinkedinJAASerial
 {
-    public class DatabaseConnector
+    public static class DatabaseConnector
     {
-        private const string ConnectionString = "";
+        private static string ConnectionString = "";
+        static DatabaseConnector()
+        {
+            string filePath = "encrypted-connectionstring.bin";
+            string password = "Alper23";
+
+            //ConnectionStringEncryptor encryptor = new ConnectionStringEncryptor(password);
+            //encryptor.EncryptAndSaveConnectionString(ConnectionString, filePath);
+
+            ConnectionStringDecryptor decryptor = new ConnectionStringDecryptor(password);
+            ConnectionString = decryptor.DecryptConnectionStringFromFile(filePath);
+        }
 
         public static MySqlConnection GetConnection()
         {
@@ -94,7 +107,7 @@ namespace LinkedinJAASerial
             return licenceTable;
         }
 
-        public static LicenceTable GetLicenceTableBySerialKey(string serialkey)
+        public static LicenceTable GetLicenceTableBySerialKey(string serialkey,ref bool isConnectionOK)
         {
             LicenceTable licenceTable = null;
 
@@ -127,8 +140,10 @@ namespace LinkedinJAASerial
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred while retrieving LicenceTable by serial key: " + ex.Message);
+                isConnectionOK = false;
+                return licenceTable;
             }
-
+            isConnectionOK = true;
             return licenceTable;
         }
 

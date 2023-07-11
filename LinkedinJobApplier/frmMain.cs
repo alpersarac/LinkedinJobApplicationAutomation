@@ -30,82 +30,48 @@ namespace LinkedinJobApplier
             frmLicence frmLicence = new frmLicence();
             try
             {
-                // Read the license key from the file
                 string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
-
-                // Parse the license key into LicenceTable object
-                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey);
-                if (parsedLicenseTable!=null)
+                bool isConnectionOK = false;
+                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
+                if (parsedLicenseTable != null && isConnectionOK==true)
                 {
                     if (parsedLicenseTable.expirydate < DateTime.Now)
                     {
                         this.Hide();
                         frmLicence.ShowDialog();
                     }
-                    LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
+                    else
+                    {
+                        LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
+                        lblRemainingDays.Text =$"Remaining days: {(DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd")}";
+                        SetDefaultItems();
+                    }
 
-                    SetDefaultItems();
+                }
+                else if (parsedLicenseTable==null && isConnectionOK == true)
+                {
+                    this.Hide();
+                    frmLicence.ShowDialog();
+                }
+                else if (isConnectionOK == false)
+                {
+
+                    MessageBox.Show("Unable to connect DB");
+                    Application.Exit();
                 }
                 else
                 {
-                    MessageBox.Show("Unable to connect DB");
+                    MessageBox.Show("Fatal Error please contact the developer");
+                    Application.Exit();
                 }
-                
             }
             catch (Exception)
             {
                 this.Hide();
                 frmLicence.ShowDialog();
             }
-
         }
-        public void SetDefaultItems()
-        {
-            try
-            {
-                cbxDatePosted.SelectedIndex = 0;
-                Config.Config.DatePosted.Clear();
-                Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
 
-                UserDataManager userDataManager = new UserDataManager();
-
-                userDataManager.LoadUserData();
-                if (userDataManager.Status)
-                {
-                    // Access the user data
-                    tbxEmail.Text = userDataManager.Username;
-                    Config.Config.Email = tbxEmail.Text;
-                    tbxPassword.Text = userDataManager.Password;
-                    Config.Config.Password = tbxPassword.Text;
-                    cbxDatePosted.SelectedIndex= userDataManager.ComboBoxSelectedIndex;
-                    chbxRememberMe.Checked = userDataManager.RememberMe;
-                    foreach (var location in userDataManager.Locations)
-                    {
-                        if (!string.IsNullOrEmpty(location))
-                        {
-                            lbxLocations.Items.Add(location);
-                            Config.Config.Location.Add(tbxLocation.Text);
-                        }
-                    }
-                    foreach (var keyword in userDataManager.Keywords)
-                    {
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            Config.Config.Keywords.Add(tbxLocation.Text);
-                            lbxKeywords.Items.Add(keyword);
-                        }
-                    }
-                    
-                }
-
-                
-            }
-            catch (Exception)
-            {
-
-            }
-
-        }
         private void UpdateStatusLabel(string text)
         {
             if (lblStatus.InvokeRequired)
@@ -117,8 +83,6 @@ namespace LinkedinJobApplier
                 lblStatus.Text = text;
             }
         }
-
-        // Method to update the label in a separate thread
         private void UpdateStatusLabelThread()
         {
             while (true)
@@ -141,7 +105,8 @@ namespace LinkedinJobApplier
                 string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
 
                 // Parse the license key into LicenceTable object
-                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey);
+                bool isConnectionOK = false;
+                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey,ref isConnectionOK);
                 LicenseKeyManager.setOnlineStatus(parsedLicenseTable, false);
 
 
@@ -154,7 +119,8 @@ namespace LinkedinJobApplier
                     userDataManager.RememberMe = chbxRememberMe.Checked;
                     userDataManager.Locations = lbxLocations.Items.Cast<string>().ToList();
                     userDataManager.ComboBoxSelectedIndex = cbxDatePosted.SelectedIndex;
-                    userDataManager.Keywords= lbxKeywords.Items.Cast<string>().ToList();
+                    userDataManager.Keywords = lbxKeywords.Items.Cast<string>().ToList();
+                    userDataManager.City = tbxCity.Text;
 
                     // Save the user data to a file
                     userDataManager.SaveUserData();
@@ -169,52 +135,33 @@ namespace LinkedinJobApplier
         }
         private async void btnStartApplying_Click(object sender, EventArgs e)
         {
-            Config.Config.Email = tbxEmail.Text;
-            Config.Config.Password = tbxPassword.Text;
-            Console.WriteLine(Config.Config.Keywords);
-            Console.WriteLine(Config.Config.Location);
-
-            foreach (var location in lbxLocations.Items.Cast<string>().ToList())
-            {
-                if (!string.IsNullOrEmpty(location))
-                { 
-                    Config.Config.Location.Add(tbxLocation.Text);
-                }
-            }
-            foreach (var keyword in lbxKeywords.Items.Cast<string>().ToList())
-            {
-                if (!string.IsNullOrEmpty(keyword))
-                {
-                    Config.Config.Keywords.Add(tbxLocation.Text);
-                }
-            }
+            AddElementsToList();
             try
             {
                 cancellationTokenSource = new CancellationTokenSource();
                 var cancellationToken = cancellationTokenSource.Token;
                 statusUpdateThread = new Thread(UpdateStatusLabelThread);
                 statusUpdateThread.Start();
-                // Start the Task with the cancellation token
+
                 var task = Task.Run(() =>
                 {
                     Linkedin linkedin = new Linkedin();
                     linkedin.LinkJobApply(cancellationToken);
-                    
-                });
 
+                });
 
             }
             catch (Exception)
             {
 
             }
-            
+
         }
         private void btnAddCountry_Click(object sender, EventArgs e)
         {
             try
             {
-               
+
                 lbxLocations.Items.Add(tbxLocation.Text);
                 Config.Config.Location.Add(tbxLocation.Text);
                 tbxLocation.Text = "";
@@ -275,7 +222,6 @@ namespace LinkedinJobApplier
         {
             lbxKeywords.Items.Clear();
         }
-
         private async void btnStopApplying_Click(object sender, EventArgs e)
         {
             try
@@ -289,5 +235,83 @@ namespace LinkedinJobApplier
                 // Handle any exceptions if needed
             }
         }
+        #region Helper Method
+        public void AddElementsToList()
+        {
+            ClearAllSettings();
+            Config.Config.Email = tbxEmail.Text;
+            Config.Config.Password = tbxPassword.Text;
+            Config.Config.ExperienceLevels.Add(cbxDatePosted.SelectedText);
+            foreach (var location in lbxLocations.Items.Cast<string>().ToList())
+            {
+                if (!string.IsNullOrEmpty(location))
+                {
+                    Config.Config.Location.Add(location);
+                }
+            }
+            foreach (var keyword in lbxKeywords.Items.Cast<string>().ToList())
+            {
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    Config.Config.Keywords.Add(keyword);
+                }
+            }
+        }
+        public void ClearAllSettings()
+        {
+            Config.Config.Email = "";
+            Config.Config.Password = "";
+            Config.Config.ExperienceLevels.Clear();
+            Config.Config.Location.Clear();
+            Config.Config.Keywords.Clear();
+        }
+        public void SetDefaultItems()
+        {
+            try
+            {
+                cbxDatePosted.SelectedIndex = 0;
+                Config.Config.DatePosted.Clear();
+                Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
+
+                UserDataManager userDataManager = new UserDataManager();
+
+                userDataManager.LoadUserData();
+                if (userDataManager.Status)
+                {
+                    tbxEmail.Text = userDataManager.Username;
+                    tbxPassword.Text = userDataManager.Password;
+                    cbxDatePosted.SelectedIndex = userDataManager.ComboBoxSelectedIndex;
+                    chbxRememberMe.Checked = userDataManager.RememberMe;
+                    tbxCity.Text = userDataManager.City;
+
+                    foreach (var location in userDataManager.Locations)
+                    {
+                        if (!string.IsNullOrEmpty(location))
+                        {
+                            lbxLocations.Items.Add(location);
+                            Config.Config.Location.Add(tbxLocation.Text);
+                        }
+                    }
+                    foreach (var keyword in userDataManager.Keywords)
+                    {
+                        if (!string.IsNullOrEmpty(keyword))
+                        {
+                            Config.Config.Keywords.Add(tbxLocation.Text);
+                            lbxKeywords.Items.Add(keyword);
+                        }
+                    }
+
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
+        #endregion
+
     }
 }
