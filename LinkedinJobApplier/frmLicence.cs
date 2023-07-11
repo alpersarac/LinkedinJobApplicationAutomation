@@ -1,4 +1,5 @@
-﻿using LinkedinJAASerial;
+﻿using Helper;
+using LinkedinJAASerial;
 using LinkedinJAASerialGenerator;
 using System;
 using System.Collections.Generic;
@@ -30,8 +31,9 @@ namespace LinkedinJobApplier
                 {
                     // Encrypt and save the license key
                     LicenseKeyManager.SaveLicenseKey(licenseKey);
-                    LicenseKeyManager.UpdateActiveStatusLicence(parsedLicenseTable);
-                    LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
+                    //LicenseKeyManager.UpdateActiveStatusLicence(parsedLicenseTable);
+                    //LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
+                    LicenseKeyManager.SetMacAddress(parsedLicenseTable,NetworkHelper.GetMacAddress());
                     MessageBox.Show("Registration is successful");
                     this.Close();
                 }

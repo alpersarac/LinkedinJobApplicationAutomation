@@ -43,8 +43,15 @@ namespace LinkedinJAASerial
                     rtbxLicence.Text = "";
                     int days = Convert.ToInt32(cbxDays.GetItemText(cbxDays.SelectedItem));
                     string serialKey = LicenseKeyVerifier.GenerateLicenseKey(tbxEmail.Text);
-                    DatabaseConnector.InsertLicenceTable(new LicenceTable { email = tbxEmail.Text, isactive = false, isdeleted = false, serialkey = serialKey, expirydate = DateTime.Now.AddDays(days) });
-                    rtbxLicence.Text = serialKey;
+                    var result = DatabaseConnector.InsertLicenceTable(new LicenceTable { email = tbxEmail.Text, isactive = false, isdeleted = false, serialkey = serialKey, expirydate = DateTime.Now.AddDays(days), macAddress="NOTUSED" });
+                    if (result==true)
+                    {
+                        rtbxLicence.Text = serialKey;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Not able to insert a licence key to DB");
+                    }
                 }
             }
             catch (Exception ex)

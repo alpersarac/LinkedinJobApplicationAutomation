@@ -1,4 +1,5 @@
-﻿using LinkedinJAASerial;
+﻿using Helper;
+using LinkedinJAASerial;
 using LinkedinJAASerialGenerator;
 using LinkedinJobApplier.Config;
 using OpenQA.Selenium;
@@ -33,9 +34,15 @@ namespace LinkedinJobApplier
                 string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
                 bool isConnectionOK = false;
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
+                
                 if (parsedLicenseTable != null && isConnectionOK==true)
                 {
-                    if (parsedLicenseTable.expirydate < DateTime.Now)
+                    if (parsedLicenseTable.macAddress != NetworkHelper.GetMacAddress())
+                    {
+                        MessageBox.Show("Oops you are trying use your licence on different device");
+                        Application.Exit();
+                    }
+                    else if (parsedLicenseTable.expirydate < DateTime.Now)
                     {
                         this.Hide();
                         frmLicence.ShowDialog();
