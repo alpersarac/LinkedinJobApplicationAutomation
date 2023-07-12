@@ -34,7 +34,7 @@ namespace LinkedinJobApplier.Config
         // job experience Level - ex: new List<string> { "Internship", "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" }
         public static List<string> ExperienceLevels = new List<string> { "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" };
         // job posted date - ex: new List<string> { "Any Time", "Past Month", "Past Week", "Past 24 Hours" } - select only one
-        public static List<string> DatePosted = new List<string> { "Past Week" };
+        public static List<string> DatePosted = new List<string>();
         // DatePosted = new List<string> { "Past 24 hours" }
         // job type - ex: new List<string> { "Full-time", "Part-time", "Contract", "Temporary", "Volunteer", "Intership", "Other" }
         public static List<string> JobType = new List<string> { "Full-time" };

@@ -430,6 +430,82 @@ namespace LinkedinJobApplier.Config
                 return false;
             }
         }
+        public static void EnterStartDate(IWebDriver driver, string startDate)
+        {
+            try
+            {
+                string desiredLabel = "possible start date";
+                IWebElement labelElement = driver.FindElement(By.CssSelector("div[id='ember378'] label"));
+                string labelInnerText = labelElement.Text.ToLower();
+
+                if (labelInnerText.Contains(desiredLabel))
+                {
+                    IWebElement inputElement = driver.FindElement(By.CssSelector("div[id='ember378'] input[type='text']"));
+
+                    if (inputElement != null)
+                    {
+                        inputElement.Clear();
+                        inputElement.SendKeys(startDate);
+                        inputElement.SendKeys(Keys.Tab);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Handle exception
+            }
+        }
+
+        public static void SelectCommutePreference(IWebDriver driver, string option)
+        {
+            try
+            {
+                string desiredLabel = "Are you comfortable commuting to this job's location?";
+                IWebElement mainLabelElement = driver.FindElement(By.CssSelector("span.fb-dash-form-element__label"));
+
+                if (mainLabelElement.Text.Contains(desiredLabel))
+                {
+                    string optionValue = option.ToLower();
+                    IWebElement radioButtonElement = driver.FindElement(By.CssSelector($"input[data-test-text-selectable-option__input='{optionValue}']"));
+
+                    if (radioButtonElement != null)
+                    {
+                        IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+                        jsExecutor.ExecuteScript("arguments[0].click();", radioButtonElement);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Handle exception
+            }
+        }
+
+        public static void SelectVisaRequirement(IWebDriver driver,string option)
+        {
+            try
+            {
+                string desiredLabel = "Will you now or in the future require sponsorship for employment visa status?";
+                IWebElement mainLabelElement = driver.FindElement(By.CssSelector("span.fb-dash-form-element__label"));
+
+                if (mainLabelElement.Text.Contains(desiredLabel))
+                {
+                    IWebElement radioButtonElement = driver.FindElement(By.CssSelector("input[data-test-text-selectable-option__input='"+ option + "']"));
+
+                    if (radioButtonElement != null)
+                    {
+                        IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+                        jsExecutor.ExecuteScript("arguments[0].click();", radioButtonElement);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Handle exception
+            }
+        }
+
+
         public static void CheckTermsAndConditionsCheckbox(IWebDriver driver)
         {
             try

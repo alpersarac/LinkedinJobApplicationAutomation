@@ -252,6 +252,7 @@ namespace LinkedinJobApplier
             Config.Config.ExperienceLevels.Add(cbxDatePosted.SelectedText);
             Config.Config.City = tbxCity.Text;
             Config.Config.SalaryExpectation = tbxSalary.Text;
+            Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
             foreach (var location in lbxLocations.Items.Cast<string>().ToList())
             {
                 if (!string.IsNullOrEmpty(location))
@@ -263,7 +264,8 @@ namespace LinkedinJobApplier
             {
                 if (!string.IsNullOrEmpty(keyword))
                 {
-                    Config.Config.Keywords.Add(keyword);
+                    var percentEncodedText = Uri.EscapeDataString(keyword);
+                    Config.Config.Keywords.Add(percentEncodedText);
                 }
             }
         }
@@ -274,6 +276,7 @@ namespace LinkedinJobApplier
             Config.Config.ExperienceLevels.Clear();
             Config.Config.Location.Clear();
             Config.Config.Keywords.Clear();
+            Config.Config.DatePosted.Clear();
         }
         public void SetDefaultItems()
         {

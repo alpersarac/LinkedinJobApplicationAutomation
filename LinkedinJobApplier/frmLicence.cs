@@ -38,6 +38,7 @@ namespace LinkedinJobApplier
                     MessageBox.Show("Registration is successful");
                     isRegistered = true;
                     this.Close();
+                    //----show frmmain
                 }
                 else
                 {
