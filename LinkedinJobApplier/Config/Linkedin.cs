@@ -28,7 +28,7 @@ namespace LinkedinJobApplier.Config
                 if (string.IsNullOrEmpty(linkedinEmail))
                 {
                     Console.WriteLine("On Linux you need to define profile path to run the bot with Firefox. Go about:profiles find root directory of your profile paste in line 8 of config file next to firefoxProfileRootDir");
-                    Environment.Exit(0);
+                    //Environment.Exit(0);
                 }
                 else
                 {

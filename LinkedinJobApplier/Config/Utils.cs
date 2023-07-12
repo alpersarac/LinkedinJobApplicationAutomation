@@ -465,8 +465,7 @@ namespace LinkedinJobApplier.Config
 
                 if (mainLabelElement.Text.Contains(desiredLabel))
                 {
-                    string optionValue = option.ToLower();
-                    IWebElement radioButtonElement = driver.FindElement(By.CssSelector($"input[data-test-text-selectable-option__input='{optionValue}']"));
+                    IWebElement radioButtonElement = driver.FindElement(By.CssSelector("input[data-test-text-selectable-option__input='" + option + "']"));
 
                     if (radioButtonElement != null)
                     {

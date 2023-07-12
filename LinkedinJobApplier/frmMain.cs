@@ -142,6 +142,10 @@ namespace LinkedinJobApplier
             {
 
             }
+            finally
+            {
+                Environment.Exit(0);
+            }
 
         }
         private async void btnStartApplying_Click(object sender, EventArgs e)
