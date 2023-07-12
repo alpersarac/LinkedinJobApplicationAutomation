@@ -125,10 +125,13 @@ namespace LinkedinJobApplier
                     userDataManager.Status = true;
                     userDataManager.RememberMe = chbxRememberMe.Checked;
                     userDataManager.Locations = lbxLocations.Items.Cast<string>().ToList();
-                    userDataManager.ComboBoxSelectedIndex = cbxDatePosted.SelectedIndex;
+                    userDataManager.cbxDatePostedIndex = cbxDatePosted.SelectedIndex;
                     userDataManager.Keywords = lbxKeywords.Items.Cast<string>().ToList();
                     userDataManager.City = tbxCity.Text;
                     userDataManager.SalaryExpectation = tbxSalary.Text;
+                    userDataManager.cbxCommutingIndex = cbxCommuting.SelectedIndex;
+                    userDataManager.cbxVisaSponsorIndex = cbxVisaSponsorship.SelectedIndex;
+                    userDataManager.NoticePeriodInDays = tbxNoticePeriod.Text;
 
                     // Save the user data to a file
                     userDataManager.SaveUserData();
@@ -251,6 +254,9 @@ namespace LinkedinJobApplier
             Config.Config.Password = tbxPassword.Text;
             Config.Config.ExperienceLevels.Add(cbxDatePosted.SelectedText);
             Config.Config.City = tbxCity.Text;
+            Config.Config.VisaRequirement = cbxVisaSponsorship.GetItemText(this.cbxVisaSponsorship.SelectedItem);
+            Config.Config.CommutePreference = cbxCommuting.GetItemText(this.cbxCommuting.SelectedItem);
+            Config.Config.NoticePeriod = tbxNoticePeriod.Text;
             Config.Config.SalaryExpectation = tbxSalary.Text;
             Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
             foreach (var location in lbxLocations.Items.Cast<string>().ToList())
@@ -273,6 +279,10 @@ namespace LinkedinJobApplier
         {
             Config.Config.Email = "";
             Config.Config.Password = "";
+            Config.Config.City = "";
+            Config.Config.VisaRequirement = "";
+            Config.Config.CommutePreference = "";
+            Config.Config.NoticePeriod = "";
             Config.Config.ExperienceLevels.Clear();
             Config.Config.Location.Clear();
             Config.Config.Keywords.Clear();
@@ -283,6 +293,8 @@ namespace LinkedinJobApplier
             try
             {
                 cbxDatePosted.SelectedIndex = 0;
+                cbxCommuting.SelectedIndex = 0;
+                cbxVisaSponsorship.SelectedIndex = 0;
                 Config.Config.DatePosted.Clear();
                 Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
 
@@ -293,10 +305,13 @@ namespace LinkedinJobApplier
                 {
                     tbxEmail.Text = userDataManager.Username;
                     tbxPassword.Text = userDataManager.Password;
-                    cbxDatePosted.SelectedIndex = userDataManager.ComboBoxSelectedIndex;
+                    cbxDatePosted.SelectedIndex = userDataManager.cbxDatePostedIndex;
                     chbxRememberMe.Checked = userDataManager.RememberMe;
                     tbxCity.Text = userDataManager.City;
                     tbxSalary.Text = userDataManager.SalaryExpectation;
+                    cbxCommuting.SelectedIndex= userDataManager.cbxCommutingIndex;
+                    cbxVisaSponsorship.SelectedIndex = userDataManager.cbxVisaSponsorIndex;
+                    tbxNoticePeriod.Text = userDataManager.NoticePeriodInDays;
 
                     foreach (var location in userDataManager.Locations)
                     {
