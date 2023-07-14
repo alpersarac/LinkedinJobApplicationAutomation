@@ -456,21 +456,38 @@ namespace LinkedinJobApplier.Config
             }
         }
 
-        public static void SelectCommutePreference(IWebDriver driver, string option)
+        public static void SelectCommuteComfort(IWebDriver driver, string option)
         {
             try
             {
                 string desiredLabel = "Are you comfortable commuting to this job's location?";
-                IWebElement mainLabelElement = driver.FindElement(By.CssSelector("span.fb-dash-form-element__label"));
+                IReadOnlyCollection<IWebElement> labelElements = driver.FindElements(By.CssSelector("span.fb-dash-form-element__label-title--is-required"));
 
-                if (mainLabelElement.Text.Contains(desiredLabel))
+                foreach (IWebElement labelElement in labelElements)
                 {
-                    IWebElement radioButtonElement = driver.FindElement(By.CssSelector("input[data-test-text-selectable-option__input='" + option + "']"));
+                    string labelInnerText = labelElement.Text.ToLower();
 
-                    if (radioButtonElement != null)
+                    if (labelInnerText.Contains(desiredLabel.ToLower()))
                     {
-                        IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
-                        jsExecutor.ExecuteScript("arguments[0].click();", radioButtonElement);
+                        IWebElement fieldsetElement = labelElement.FindElement(By.XPath("./ancestor::fieldset"));
+
+                        if (fieldsetElement != null)
+                        {
+                            IWebElement optionElement = fieldsetElement.FindElement(By.CssSelector("label[data-test-text-selectable-option__label='" + option + "']"));
+
+                            if (optionElement != null)
+                            {
+                                string inputId = optionElement.GetAttribute("for");
+                                IWebElement radioButtonElement = fieldsetElement.FindElement(By.CssSelector("input[id='" + inputId + "']"));
+
+                                if (radioButtonElement != null)
+                                {
+                                    IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+                                    jsExecutor.ExecuteScript("arguments[0].click();", radioButtonElement);
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -497,10 +514,32 @@ namespace LinkedinJobApplier.Config
                         jsExecutor.ExecuteScript("arguments[0].click();", radioButtonElement);
                     }
                 }
+
+                desiredLabel = "Benötigen Sie jetzt oder in Zukunft eine Bürgschaft für ein Arbeitsvisum?";
+                if (option == "Yes")
+                {
+                    option = "Ja";
+                }
+                else
+                {
+                    option = "Nein";
+                }
+                mainLabelElement = driver.FindElement(By.CssSelector("span.fb-dash-form-element__label"));
+
+                if (mainLabelElement.Text.Contains(desiredLabel))
+                {
+                    IWebElement radioButtonElement = driver.FindElement(By.CssSelector("input[data-test-text-selectable-option__input='" + option + "']"));
+
+                    if (radioButtonElement != null)
+                    {
+                        IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+                        jsExecutor.ExecuteScript("arguments[0].click();", radioButtonElement);
+                    }
+                }
             }
             catch (Exception)
             {
-                // Handle exception
+
             }
         }
 

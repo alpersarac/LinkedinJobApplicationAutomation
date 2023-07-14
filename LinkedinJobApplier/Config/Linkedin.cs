@@ -189,7 +189,7 @@ namespace LinkedinJobApplier.Config
                                                     Utils.EnterSalaryExpectations(driver);
                                                     Utils.CheckTermsAndConditionsCheckbox(driver);
                                                     Utils.SelectVisaRequirement(driver,"No");
-                                                    Utils.SelectCommutePreference(driver, "Yes");
+                                                    Utils.SelectCommuteComfort(driver, "Yes");
                                                     Utils.EnterStartDate(driver, "14days");
                                                     if (currentValueOfPercent != previousValueOfPercent)
                                                     {
