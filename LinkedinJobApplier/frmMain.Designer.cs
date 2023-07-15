@@ -39,6 +39,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.chbxRememberMe = new System.Windows.Forms.CheckBox();
             this.grbxPreferences = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbxNoticePeriod = new System.Windows.Forms.TextBox();
+            this.lblNoticePeriod = new System.Windows.Forms.Label();
+            this.lblCommuting = new System.Windows.Forms.Label();
+            this.cbxCommuting = new System.Windows.Forms.ComboBox();
+            this.lblVisaSponsorship = new System.Windows.Forms.Label();
+            this.cbxVisaSponsorship = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblSalaryExpectation = new System.Windows.Forms.Label();
@@ -60,13 +67,6 @@
             this.lbxLocations = new System.Windows.Forms.ListBox();
             this.btnStopApplying = new System.Windows.Forms.Button();
             this.lblRemainingDays = new System.Windows.Forms.Label();
-            this.cbxVisaSponsorship = new System.Windows.Forms.ComboBox();
-            this.lblVisaSponsorship = new System.Windows.Forms.Label();
-            this.lblCommuting = new System.Windows.Forms.Label();
-            this.cbxCommuting = new System.Windows.Forms.ComboBox();
-            this.lblNoticePeriod = new System.Windows.Forms.Label();
-            this.tbxNoticePeriod = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.grbxCredentials.SuspendLayout();
             this.grbxPreferences.SuspendLayout();
             this.SuspendLayout();
@@ -159,7 +159,7 @@
             // chbxRememberMe
             // 
             this.chbxRememberMe.AutoSize = true;
-            this.chbxRememberMe.Location = new System.Drawing.Point(541, 447);
+            this.chbxRememberMe.Location = new System.Drawing.Point(546, 447);
             this.chbxRememberMe.Name = "chbxRememberMe";
             this.chbxRememberMe.Size = new System.Drawing.Size(146, 20);
             this.chbxRememberMe.TabIndex = 7;
@@ -201,6 +201,74 @@
             this.grbxPreferences.Size = new System.Drawing.Size(698, 473);
             this.grbxPreferences.TabIndex = 7;
             this.grbxPreferences.TabStop = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Silver;
+            this.label8.Location = new System.Drawing.Point(426, 262);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(66, 16);
+            this.label8.TabIndex = 25;
+            this.label8.Text = "Ex: 14 days";
+            // 
+            // tbxNoticePeriod
+            // 
+            this.tbxNoticePeriod.Location = new System.Drawing.Point(429, 238);
+            this.tbxNoticePeriod.Name = "tbxNoticePeriod";
+            this.tbxNoticePeriod.Size = new System.Drawing.Size(174, 21);
+            this.tbxNoticePeriod.TabIndex = 24;
+            // 
+            // lblNoticePeriod
+            // 
+            this.lblNoticePeriod.AutoSize = true;
+            this.lblNoticePeriod.Location = new System.Drawing.Point(426, 219);
+            this.lblNoticePeriod.Name = "lblNoticePeriod";
+            this.lblNoticePeriod.Size = new System.Drawing.Size(120, 16);
+            this.lblNoticePeriod.TabIndex = 23;
+            this.lblNoticePeriod.Text = "Notice Period in days";
+            // 
+            // lblCommuting
+            // 
+            this.lblCommuting.AutoSize = true;
+            this.lblCommuting.Location = new System.Drawing.Point(12, 339);
+            this.lblCommuting.Name = "lblCommuting";
+            this.lblCommuting.Size = new System.Drawing.Size(115, 16);
+            this.lblCommuting.TabIndex = 21;
+            this.lblCommuting.Text = "Ok with commuting:";
+            // 
+            // cbxCommuting
+            // 
+            this.cbxCommuting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxCommuting.FormattingEnabled = true;
+            this.cbxCommuting.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.cbxCommuting.Location = new System.Drawing.Point(15, 358);
+            this.cbxCommuting.Name = "cbxCommuting";
+            this.cbxCommuting.Size = new System.Drawing.Size(143, 24);
+            this.cbxCommuting.TabIndex = 20;
+            // 
+            // lblVisaSponsorship
+            // 
+            this.lblVisaSponsorship.AutoSize = true;
+            this.lblVisaSponsorship.Location = new System.Drawing.Point(12, 275);
+            this.lblVisaSponsorship.Name = "lblVisaSponsorship";
+            this.lblVisaSponsorship.Size = new System.Drawing.Size(129, 16);
+            this.lblVisaSponsorship.TabIndex = 19;
+            this.lblVisaSponsorship.Text = "Need visa sponsorship:";
+            // 
+            // cbxVisaSponsorship
+            // 
+            this.cbxVisaSponsorship.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxVisaSponsorship.FormattingEnabled = true;
+            this.cbxVisaSponsorship.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.cbxVisaSponsorship.Location = new System.Drawing.Point(15, 294);
+            this.cbxVisaSponsorship.Name = "cbxVisaSponsorship";
+            this.cbxVisaSponsorship.Size = new System.Drawing.Size(143, 24);
+            this.cbxVisaSponsorship.TabIndex = 18;
             // 
             // label7
             // 
@@ -405,74 +473,6 @@
             this.lblRemainingDays.Size = new System.Drawing.Size(49, 16);
             this.lblRemainingDays.TabIndex = 14;
             this.lblRemainingDays.Text = "Licence";
-            // 
-            // cbxVisaSponsorship
-            // 
-            this.cbxVisaSponsorship.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxVisaSponsorship.FormattingEnabled = true;
-            this.cbxVisaSponsorship.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.cbxVisaSponsorship.Location = new System.Drawing.Point(15, 294);
-            this.cbxVisaSponsorship.Name = "cbxVisaSponsorship";
-            this.cbxVisaSponsorship.Size = new System.Drawing.Size(143, 24);
-            this.cbxVisaSponsorship.TabIndex = 18;
-            // 
-            // lblVisaSponsorship
-            // 
-            this.lblVisaSponsorship.AutoSize = true;
-            this.lblVisaSponsorship.Location = new System.Drawing.Point(12, 275);
-            this.lblVisaSponsorship.Name = "lblVisaSponsorship";
-            this.lblVisaSponsorship.Size = new System.Drawing.Size(129, 16);
-            this.lblVisaSponsorship.TabIndex = 19;
-            this.lblVisaSponsorship.Text = "Need visa sponsorship:";
-            // 
-            // lblCommuting
-            // 
-            this.lblCommuting.AutoSize = true;
-            this.lblCommuting.Location = new System.Drawing.Point(12, 339);
-            this.lblCommuting.Name = "lblCommuting";
-            this.lblCommuting.Size = new System.Drawing.Size(115, 16);
-            this.lblCommuting.TabIndex = 21;
-            this.lblCommuting.Text = "Ok with commuting:";
-            // 
-            // cbxCommuting
-            // 
-            this.cbxCommuting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxCommuting.FormattingEnabled = true;
-            this.cbxCommuting.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.cbxCommuting.Location = new System.Drawing.Point(15, 358);
-            this.cbxCommuting.Name = "cbxCommuting";
-            this.cbxCommuting.Size = new System.Drawing.Size(143, 24);
-            this.cbxCommuting.TabIndex = 20;
-            // 
-            // lblNoticePeriod
-            // 
-            this.lblNoticePeriod.AutoSize = true;
-            this.lblNoticePeriod.Location = new System.Drawing.Point(426, 219);
-            this.lblNoticePeriod.Name = "lblNoticePeriod";
-            this.lblNoticePeriod.Size = new System.Drawing.Size(120, 16);
-            this.lblNoticePeriod.TabIndex = 23;
-            this.lblNoticePeriod.Text = "Notice Period in days";
-            // 
-            // tbxNoticePeriod
-            // 
-            this.tbxNoticePeriod.Location = new System.Drawing.Point(429, 238);
-            this.tbxNoticePeriod.Name = "tbxNoticePeriod";
-            this.tbxNoticePeriod.Size = new System.Drawing.Size(174, 21);
-            this.tbxNoticePeriod.TabIndex = 24;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.Silver;
-            this.label8.Location = new System.Drawing.Point(426, 262);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(66, 16);
-            this.label8.TabIndex = 25;
-            this.label8.Text = "Ex: 14 days";
             // 
             // frmMain
             // 

@@ -28,7 +28,7 @@ namespace LinkedinJobApplier
         delegate void UpdateStatusLabelDelegate(string text);
         private void frmMain_Load(object sender, EventArgs e)
         {
-            frmLicence frmLicence = new frmLicence();
+            frmLicence frmLicence = new frmLicence(this);
             try
             {
                 string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
@@ -72,8 +72,9 @@ namespace LinkedinJobApplier
                     Application.Exit();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ExceptionLogger.LogException(ex);
                 this.Hide();
                 frmLicence.ShowDialog();
             }
@@ -166,9 +167,9 @@ namespace LinkedinJobApplier
                 });
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                ExceptionLogger.LogException(ex);
             }
 
         }

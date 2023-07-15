@@ -16,28 +16,41 @@ namespace LinkedinJobApplier
     public partial class frmLicence : Form
     {
         bool isRegistered = false;
-        public frmLicence()
+        frmMain _frmMainObj = null;
+        public frmLicence(frmMain frmMainObj)
         {
             InitializeComponent();
+            _frmMainObj = frmMainObj;
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
             try
             {
-                string licenseKey = tbxLicence.Text;
+                string licenseKey = tbxLicence.Text.Replace(" ","");
+                string email = tbxEmail.Text;
                 bool isConnectionOK = false;
+                if (string.IsNullOrEmpty(licenseKey))
+                {
+                    MessageBox.Show("Enter a licence key");
+                    return;
+                }
+                if (string.IsNullOrEmpty(email))
+                {
+                    MessageBox.Show("Enter an email");
+                    return;
+                }
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(licenseKey,ref isConnectionOK);
-                if (!parsedLicenseTable.isonline)
+                if (parsedLicenseTable!=null&&!parsedLicenseTable.isonline)
                 {
                     // Encrypt and save the license key
                     LicenseKeyManager.SaveLicenseKey(licenseKey);
-                    //LicenseKeyManager.UpdateActiveStatusLicence(parsedLicenseTable);
-                    //LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
+                   
                     LicenseKeyManager.SetMacAddress(parsedLicenseTable,NetworkHelper.GetMacAddress());
-                    MessageBox.Show("Registration is successful");
+                    MessageBox.Show("Registration is successfully completed");
                     isRegistered = true;
-                    this.Close();
+                    this.Hide();
+                    _frmMainObj.Show();
                     //----show frmmain
                 }
                 else
@@ -49,6 +62,7 @@ namespace LinkedinJobApplier
             }
             catch (Exception ex)
             {
+                ExceptionLogger.LogException(ex);
                 MessageBox.Show("There is an exception please contact the developer");
             }
         }
@@ -65,7 +79,7 @@ namespace LinkedinJobApplier
 
         private void frmLicence_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (isRegistered)
+            if (!isRegistered)
             {
                 if (e.CloseReason == CloseReason.UserClosing)
                 {

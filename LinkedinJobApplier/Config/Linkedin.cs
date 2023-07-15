@@ -251,6 +251,7 @@ namespace LinkedinJobApplier.Config
             }
 
             Utils.prGreen("All tasks completed!");
+            System.Windows.Forms.MessageBox.Show("All jobs are completed!");
         }
 
     }

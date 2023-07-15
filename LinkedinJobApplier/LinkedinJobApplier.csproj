@@ -92,6 +92,7 @@
     <Compile Include="Config\test.cs" />
     <Compile Include="Config\UserDataManager.cs" />
     <Compile Include="Config\Utils.cs" />
+    <Compile Include="ExceptionLogger.cs" />
     <Compile Include="FileReader\ConnectionStringEncryptor.cs" />
     <Compile Include="frmLicence.cs">
       <SubType>Form</SubType>

@@ -73,7 +73,7 @@
             this.lblRegStatus.AutoSize = true;
             this.lblRegStatus.BackColor = System.Drawing.Color.White;
             this.lblRegStatus.ForeColor = System.Drawing.Color.OrangeRed;
-            this.lblRegStatus.Location = new System.Drawing.Point(320, 92);
+            this.lblRegStatus.Location = new System.Drawing.Point(12, 166);
             this.lblRegStatus.Name = "lblRegStatus";
             this.lblRegStatus.Size = new System.Drawing.Size(128, 16);
             this.lblRegStatus.TabIndex = 3;
