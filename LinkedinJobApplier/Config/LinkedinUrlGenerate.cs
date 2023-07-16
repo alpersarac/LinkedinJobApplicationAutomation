@@ -115,7 +115,8 @@ namespace LinkedinJobApplier.Config
                     datePosted = "&f_TPR=r2419200";
                     break;
                 case "Any Time":
-                    datePosted = "&f_TPR=r0";
+                    //datePosted = "&f_TPR=r0";
+                    datePosted = "";
                     break;
             }
             return datePosted;

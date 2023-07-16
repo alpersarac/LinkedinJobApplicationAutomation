@@ -28,7 +28,7 @@ namespace LinkedinJobApplier.Config
                 if (string.IsNullOrEmpty(linkedinEmail))
                 {
                     Console.WriteLine("On Linux you need to define profile path to run the bot with Firefox. Go about:profiles find root directory of your profile paste in line 8 of config file next to firefoxProfileRootDir");
-                    Environment.Exit(0);
+                    //Environment.Exit(0);
                 }
                 else
                 {
@@ -188,6 +188,9 @@ namespace LinkedinJobApplier.Config
                                                     Utils.EnterCityName(driver);
                                                     Utils.EnterSalaryExpectations(driver);
                                                     Utils.CheckTermsAndConditionsCheckbox(driver);
+                                                    Utils.SelectVisaRequirement(driver,"No");
+                                                    Utils.SelectCommuteComfort(driver, "Yes");
+                                                    Utils.EnterStartDate(driver, "14days");
                                                     if (currentValueOfPercent != previousValueOfPercent)
                                                     {
                                                         previousValueOfPercent = currentValueOfPercent;
@@ -248,6 +251,7 @@ namespace LinkedinJobApplier.Config
             }
 
             Utils.prGreen("All tasks completed!");
+            System.Windows.Forms.MessageBox.Show("All jobs are completed!");
         }
 
     }

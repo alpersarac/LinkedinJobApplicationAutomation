@@ -17,10 +17,13 @@ namespace LinkedinJobApplier.Config
         public string Password { get; set; }
         public string City { get; set; }
         public string SalaryExpectation { get; set; }
+        public string NoticePeriodInDays { get; set; }
         public bool Status { get; set; }
         public List<string> Locations { get; set; }
         public List<string> Keywords { get; set; }
-        public int ComboBoxSelectedIndex { get; set; }
+        public int cbxDatePostedIndex { get; set; }
+        public int cbxVisaSponsorIndex { get; set; }
+        public int cbxCommutingIndex { get; set; }
         public bool RememberMe { get; set; }
 
         public UserDataManager()
@@ -31,8 +34,8 @@ namespace LinkedinJobApplier.Config
 
         public void SaveUserData()
         {
-            string dataToSave = $"{Username}|{Password}|{Status}|{string.Join(",", Locations)}|{string.Join(",", Keywords)}|{ComboBoxSelectedIndex}|{RememberMe}|{City}" +
-                $"|{SalaryExpectation}";
+            string dataToSave = $"{Username}|{Password}|{Status}|{string.Join(",", Locations)}|{string.Join(",", Keywords)}|{cbxDatePostedIndex}|{RememberMe}|{City}" +
+                $"|{SalaryExpectation}|{cbxVisaSponsorIndex}|{cbxCommutingIndex}|{NoticePeriodInDays}";
             File.WriteAllText(FilePath, dataToSave);
         }
 
@@ -42,7 +45,7 @@ namespace LinkedinJobApplier.Config
             {
                 string data = File.ReadAllText(FilePath);
                 string[] parts = data.Split('|');
-                if (parts.Length != 9)
+                if (parts.Length != 12)
                 {
                     throw new InvalidDataException("Invalid data format in the file.");
                 }
@@ -52,10 +55,13 @@ namespace LinkedinJobApplier.Config
                 Status = bool.Parse(parts[2]);
                 Locations = new List<string>(parts[3].Split(','));
                 Keywords = new List<string>(parts[4].Split(','));
-                ComboBoxSelectedIndex = int.Parse(parts[5]);
+                cbxDatePostedIndex = int.Parse(parts[5]);
                 RememberMe = bool.Parse(parts[6]);
                 City = parts[7];
                 SalaryExpectation = parts[8];
+                cbxVisaSponsorIndex = int.Parse(parts[9]);
+                cbxCommutingIndex = int.Parse(parts[10]);
+                NoticePeriodInDays = parts[11];
             }
         }
     }

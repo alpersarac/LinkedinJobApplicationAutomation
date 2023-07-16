@@ -49,8 +49,8 @@
             // 
             // btnRegister
             // 
-            this.btnRegister.BackColor = System.Drawing.Color.LightGreen;
-            this.btnRegister.Location = new System.Drawing.Point(288, 59);
+            this.btnRegister.BackColor = System.Drawing.Color.Aquamarine;
+            this.btnRegister.Location = new System.Drawing.Point(13, 105);
             this.btnRegister.Margin = new System.Windows.Forms.Padding(4);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(88, 28);
@@ -62,7 +62,7 @@
             // lblResult
             // 
             this.lblResult.AutoSize = true;
-            this.lblResult.Location = new System.Drawing.Point(12, 92);
+            this.lblResult.Location = new System.Drawing.Point(147, 146);
             this.lblResult.Name = "lblResult";
             this.lblResult.Size = new System.Drawing.Size(70, 16);
             this.lblResult.TabIndex = 2;
@@ -73,7 +73,7 @@
             this.lblRegStatus.AutoSize = true;
             this.lblRegStatus.BackColor = System.Drawing.Color.White;
             this.lblRegStatus.ForeColor = System.Drawing.Color.OrangeRed;
-            this.lblRegStatus.Location = new System.Drawing.Point(320, 92);
+            this.lblRegStatus.Location = new System.Drawing.Point(127, 130);
             this.lblRegStatus.Name = "lblRegStatus";
             this.lblRegStatus.Size = new System.Drawing.Size(128, 16);
             this.lblRegStatus.TabIndex = 3;
@@ -81,8 +81,8 @@
             // 
             // btnExit
             // 
-            this.btnExit.BackColor = System.Drawing.Color.LightSalmon;
-            this.btnExit.Location = new System.Drawing.Point(383, 59);
+            this.btnExit.BackColor = System.Drawing.Color.DarkOrange;
+            this.btnExit.Location = new System.Drawing.Point(288, 104);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(88, 28);
             this.btnExit.TabIndex = 4;
@@ -101,7 +101,7 @@
             // 
             // tbxEmail
             // 
-            this.tbxEmail.Location = new System.Drawing.Point(384, 31);
+            this.tbxEmail.Location = new System.Drawing.Point(15, 76);
             this.tbxEmail.Margin = new System.Windows.Forms.Padding(4);
             this.tbxEmail.Name = "tbxEmail";
             this.tbxEmail.Size = new System.Drawing.Size(362, 21);
@@ -110,7 +110,7 @@
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(387, 11);
+            this.lblEmail.Location = new System.Drawing.Point(12, 56);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(35, 16);
             this.lblEmail.TabIndex = 7;
@@ -121,7 +121,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(774, 191);
+            this.ClientSize = new System.Drawing.Size(390, 160);
             this.Controls.Add(this.lblEmail);
             this.Controls.Add(this.tbxEmail);
             this.Controls.Add(this.lblSerialKey);

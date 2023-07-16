@@ -430,6 +430,120 @@ namespace LinkedinJobApplier.Config
                 return false;
             }
         }
+        public static void EnterStartDate(IWebDriver driver, string startDate)
+        {
+            try
+            {
+                string desiredLabel = "possible start date";
+                IWebElement labelElement = driver.FindElement(By.CssSelector("div[id='ember378'] label"));
+                string labelInnerText = labelElement.Text.ToLower();
+
+                if (labelInnerText.Contains(desiredLabel))
+                {
+                    IWebElement inputElement = driver.FindElement(By.CssSelector("div[id='ember378'] input[type='text']"));
+
+                    if (inputElement != null)
+                    {
+                        inputElement.Clear();
+                        inputElement.SendKeys(startDate);
+                        inputElement.SendKeys(Keys.Tab);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Handle exception
+            }
+        }
+
+        public static void SelectCommuteComfort(IWebDriver driver, string option)
+        {
+            try
+            {
+                string desiredLabel = "Are you comfortable commuting to this job's location?";
+                IReadOnlyCollection<IWebElement> labelElements = driver.FindElements(By.CssSelector("span.fb-dash-form-element__label-title--is-required"));
+
+                foreach (IWebElement labelElement in labelElements)
+                {
+                    string labelInnerText = labelElement.Text.ToLower();
+
+                    if (labelInnerText.Contains(desiredLabel.ToLower()))
+                    {
+                        IWebElement fieldsetElement = labelElement.FindElement(By.XPath("./ancestor::fieldset"));
+
+                        if (fieldsetElement != null)
+                        {
+                            IWebElement optionElement = fieldsetElement.FindElement(By.CssSelector("label[data-test-text-selectable-option__label='" + option + "']"));
+
+                            if (optionElement != null)
+                            {
+                                string inputId = optionElement.GetAttribute("for");
+                                IWebElement radioButtonElement = fieldsetElement.FindElement(By.CssSelector("input[id='" + inputId + "']"));
+
+                                if (radioButtonElement != null)
+                                {
+                                    IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+                                    jsExecutor.ExecuteScript("arguments[0].click();", radioButtonElement);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Handle exception
+            }
+        }
+
+        public static void SelectVisaRequirement(IWebDriver driver,string option)
+        {
+            try
+            {
+                string desiredLabel = "Will you now or in the future require sponsorship for employment visa status?";
+                IWebElement mainLabelElement = driver.FindElement(By.CssSelector("span.fb-dash-form-element__label"));
+
+                if (mainLabelElement.Text.Contains(desiredLabel))
+                {
+                    IWebElement radioButtonElement = driver.FindElement(By.CssSelector("input[data-test-text-selectable-option__input='"+ option + "']"));
+
+                    if (radioButtonElement != null)
+                    {
+                        IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+                        jsExecutor.ExecuteScript("arguments[0].click();", radioButtonElement);
+                    }
+                }
+
+                desiredLabel = "Benötigen Sie jetzt oder in Zukunft eine Bürgschaft für ein Arbeitsvisum?";
+                if (option == "Yes")
+                {
+                    option = "Ja";
+                }
+                else
+                {
+                    option = "Nein";
+                }
+                mainLabelElement = driver.FindElement(By.CssSelector("span.fb-dash-form-element__label"));
+
+                if (mainLabelElement.Text.Contains(desiredLabel))
+                {
+                    IWebElement radioButtonElement = driver.FindElement(By.CssSelector("input[data-test-text-selectable-option__input='" + option + "']"));
+
+                    if (radioButtonElement != null)
+                    {
+                        IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+                        jsExecutor.ExecuteScript("arguments[0].click();", radioButtonElement);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+
         public static void CheckTermsAndConditionsCheckbox(IWebDriver driver)
         {
             try

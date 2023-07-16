@@ -109,6 +109,7 @@ namespace LinkedinJAASerial
 
         private void btnGenerateConnectionStringFile_Click(object sender, EventArgs e)
         {
+            
             //string connectionString = "Ø†ãB›E‹&G2‘O.a±1Î^@\u0006<aªIÊ‚Vó„qÕJ0e ÆäqW[\u001bÄG\u0011UˆçCÉ£•$¿àº\u0017p5M\u009d\u0003ë¨^ÕF#a\u001f2‚\u0014À«¬\u0015ß9¾ <_¢´¯Ï€Ò–©‡ÃÙÈ\bûxÚvù?Öû\u0003|_õ€t{\u000eˆ‡Þ¢¤J\u0018Å|\u0019 îx58¶^";
             //string filePath = "encrypted-connectionstring.bin";
             //string password = "Alper23";

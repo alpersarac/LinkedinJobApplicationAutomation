@@ -11,12 +11,12 @@ namespace LinkedinJAASerial
     public static class DatabaseConnector
     {
         
-        private static readonly string ConnectionString = "Vhuyhu=vto0.iuhhvtogdwdedvh.frp;Sruw=6639;Gdwdedvh=vto0964864;Xlg=vto0964864;Szg=VtGeguyLvq;";
+        private static string ConnectionString = "Vhuyhu=00.578.482.60;Sruw=6639;Gdwdedvh=doshuvdu_olqnhglqdssolhu;Xlg=doshuvdu_dgplq;Szg=Doshu.7575;fkduvhw=xwi1pe7";
 
         static DatabaseConnector()
         {
             string decodedConnectionString = BasicEncryption.DecryptConnectionString(ConnectionString);
-            ConnectionString=decodedConnectionString;
+            ConnectionString = decodedConnectionString;
         }
 
         public static MySqlConnection GetConnection()
@@ -28,7 +28,7 @@ namespace LinkedinJAASerial
         public static List<LicenceTable> RetrieveLicenceTables()
         {
             List<LicenceTable> licenceTables = new List<LicenceTable>();
-
+            
             try
             {
                 using (MySqlConnection connection = GetConnection())

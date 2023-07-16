@@ -25,6 +25,10 @@ namespace LinkedinJobApplier.Config
         //Custom Fields
         public static string City = "";
         public static string SalaryExpectation = "";
+        public static string VisaRequirement = "";
+        public static string CommutePreference = "";
+        public static string NoticePeriod = "";
+       
         // location you want to search the jobs - ex : new List<string> { "Poland", "Germany", "Netherlands", "Austria", "Switzerland" }
         // continent locations: new List<string> { "Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia" }
         public static List<string> Location = new List<string>();
@@ -34,7 +38,7 @@ namespace LinkedinJobApplier.Config
         // job experience Level - ex: new List<string> { "Internship", "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" }
         public static List<string> ExperienceLevels = new List<string> { "Entry level", "Associate", "Mid-Senior level", "Director", "Executive" };
         // job posted date - ex: new List<string> { "Any Time", "Past Month", "Past Week", "Past 24 Hours" } - select only one
-        public static List<string> DatePosted = new List<string> { "Past Week" };
+        public static List<string> DatePosted = new List<string>();
         // DatePosted = new List<string> { "Past 24 hours" }
         // job type - ex: new List<string> { "Full-time", "Part-time", "Contract", "Temporary", "Volunteer", "Intership", "Other" }
         public static List<string> JobType = new List<string> { "Full-time" };

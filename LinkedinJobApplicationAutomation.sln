@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialHandler", "SerialHand
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "Helper\Helper.csproj", "{FE384AE9-9097-43BA-857A-D7A43F30E493}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LinkedinJobApplierSetup", "LinkedinJobApplierSetup\LinkedinJobApplierSetup.vdproj", "{DE7B5074-9DEA-4736-B131-C571FBF19604}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedinApplierAPI", "LinkedinApplierAPI\LinkedinApplierAPI.csproj", "{6D18D8D0-CFB3-45BA-A5F9-EB17E6283073}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,12 @@ Global
 		{FE384AE9-9097-43BA-857A-D7A43F30E493}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE384AE9-9097-43BA-857A-D7A43F30E493}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE384AE9-9097-43BA-857A-D7A43F30E493}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE7B5074-9DEA-4736-B131-C571FBF19604}.Debug|Any CPU.ActiveCfg = Debug
+		{DE7B5074-9DEA-4736-B131-C571FBF19604}.Release|Any CPU.ActiveCfg = Release
+		{6D18D8D0-CFB3-45BA-A5F9-EB17E6283073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D18D8D0-CFB3-45BA-A5F9-EB17E6283073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D18D8D0-CFB3-45BA-A5F9-EB17E6283073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D18D8D0-CFB3-45BA-A5F9-EB17E6283073}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

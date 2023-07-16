@@ -2,6 +2,7 @@
 using LinkedinJAASerial;
 using LinkedinJAASerialGenerator;
 using LinkedinJobApplier.Config;
+using Newtonsoft.Json;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,17 +22,21 @@ namespace LinkedinJobApplier
     {
         CancellationTokenSource cancellationTokenSource = null;
         Thread statusUpdateThread = null;
+        private HttpClient client;
         public frmMain()
         {
             InitializeComponent();
+            client = new HttpClient();
+            client.BaseAddress = new Uri("https://your-api-url/");
         }
 
         delegate void UpdateStatusLabelDelegate(string text);
-        private void frmMain_Load(object sender, EventArgs e)
+        private async void frmMain_Load(object sender, EventArgs e)
         {
-            frmLicence frmLicence = new frmLicence();
+            frmLicence frmLicence = new frmLicence(this);
             try
             {
+                
                 string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
                 bool isConnectionOK = false;
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
@@ -72,8 +78,9 @@ namespace LinkedinJobApplier
                     Application.Exit();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ExceptionLogger.LogException(ex);
                 this.Hide();
                 frmLicence.ShowDialog();
             }
@@ -125,10 +132,13 @@ namespace LinkedinJobApplier
                     userDataManager.Status = true;
                     userDataManager.RememberMe = chbxRememberMe.Checked;
                     userDataManager.Locations = lbxLocations.Items.Cast<string>().ToList();
-                    userDataManager.ComboBoxSelectedIndex = cbxDatePosted.SelectedIndex;
+                    userDataManager.cbxDatePostedIndex = cbxDatePosted.SelectedIndex;
                     userDataManager.Keywords = lbxKeywords.Items.Cast<string>().ToList();
                     userDataManager.City = tbxCity.Text;
                     userDataManager.SalaryExpectation = tbxSalary.Text;
+                    userDataManager.cbxCommutingIndex = cbxCommuting.SelectedIndex;
+                    userDataManager.cbxVisaSponsorIndex = cbxVisaSponsorship.SelectedIndex;
+                    userDataManager.NoticePeriodInDays = tbxNoticePeriod.Text;
 
                     // Save the user data to a file
                     userDataManager.SaveUserData();
@@ -138,6 +148,10 @@ namespace LinkedinJobApplier
             catch (Exception)
             {
 
+            }
+            finally
+            {
+                Environment.Exit(0);
             }
 
         }
@@ -159,9 +173,9 @@ namespace LinkedinJobApplier
                 });
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                ExceptionLogger.LogException(ex);
             }
 
         }
@@ -251,7 +265,11 @@ namespace LinkedinJobApplier
             Config.Config.Password = tbxPassword.Text;
             Config.Config.ExperienceLevels.Add(cbxDatePosted.SelectedText);
             Config.Config.City = tbxCity.Text;
+            Config.Config.VisaRequirement = cbxVisaSponsorship.GetItemText(this.cbxVisaSponsorship.SelectedItem);
+            Config.Config.CommutePreference = cbxCommuting.GetItemText(this.cbxCommuting.SelectedItem);
+            Config.Config.NoticePeriod = tbxNoticePeriod.Text;
             Config.Config.SalaryExpectation = tbxSalary.Text;
+            Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
             foreach (var location in lbxLocations.Items.Cast<string>().ToList())
             {
                 if (!string.IsNullOrEmpty(location))
@@ -263,7 +281,8 @@ namespace LinkedinJobApplier
             {
                 if (!string.IsNullOrEmpty(keyword))
                 {
-                    Config.Config.Keywords.Add(keyword);
+                    var percentEncodedText = Uri.EscapeDataString(keyword);
+                    Config.Config.Keywords.Add(percentEncodedText);
                 }
             }
         }
@@ -271,15 +290,22 @@ namespace LinkedinJobApplier
         {
             Config.Config.Email = "";
             Config.Config.Password = "";
+            Config.Config.City = "";
+            Config.Config.VisaRequirement = "";
+            Config.Config.CommutePreference = "";
+            Config.Config.NoticePeriod = "";
             Config.Config.ExperienceLevels.Clear();
             Config.Config.Location.Clear();
             Config.Config.Keywords.Clear();
+            Config.Config.DatePosted.Clear();
         }
         public void SetDefaultItems()
         {
             try
             {
                 cbxDatePosted.SelectedIndex = 0;
+                cbxCommuting.SelectedIndex = 0;
+                cbxVisaSponsorship.SelectedIndex = 0;
                 Config.Config.DatePosted.Clear();
                 Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
 
@@ -290,10 +316,13 @@ namespace LinkedinJobApplier
                 {
                     tbxEmail.Text = userDataManager.Username;
                     tbxPassword.Text = userDataManager.Password;
-                    cbxDatePosted.SelectedIndex = userDataManager.ComboBoxSelectedIndex;
+                    cbxDatePosted.SelectedIndex = userDataManager.cbxDatePostedIndex;
                     chbxRememberMe.Checked = userDataManager.RememberMe;
                     tbxCity.Text = userDataManager.City;
                     tbxSalary.Text = userDataManager.SalaryExpectation;
+                    cbxCommuting.SelectedIndex= userDataManager.cbxCommutingIndex;
+                    cbxVisaSponsorship.SelectedIndex = userDataManager.cbxVisaSponsorIndex;
+                    tbxNoticePeriod.Text = userDataManager.NoticePeriodInDays;
 
                     foreach (var location in userDataManager.Locations)
                     {
