@@ -11,7 +11,7 @@ namespace LinkedinJAASerial
     public static class DatabaseConnector
     {
         
-        private static readonly string ConnectionString = "Vhuyhu=vto0.iuhhvtogdwdedvh.frp;Sruw=6639;Gdwdedvh=vto0964864;Xlg=vto0964864;Szg=VtGeguyLvq;";
+        private static readonly string ConnectionString = "Vhuyhu=vto445.erhwkrvw48.frp;Gdwdedvh=e48_67958096_olqnhglqdssolhu;Xlg=e48_67958096;Szg=m1tp4yk3;";
 
         static DatabaseConnector()
         {
