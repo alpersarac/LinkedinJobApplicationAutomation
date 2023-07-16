@@ -31,7 +31,7 @@ namespace LinkedinJobApplier
         }
 
         delegate void UpdateStatusLabelDelegate(string text);
-        private async void frmMain_Load(object sender, EventArgs e)
+        private void frmMain_Load(object sender, EventArgs e)
         {
             frmLicence frmLicence = new frmLicence(this);
             try
