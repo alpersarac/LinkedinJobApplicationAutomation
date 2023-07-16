@@ -36,7 +36,6 @@ namespace LinkedinJobApplier
             frmLicence frmLicence = new frmLicence(this);
             try
             {
-                
                 string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
                 bool isConnectionOK = false;
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
@@ -85,7 +84,6 @@ namespace LinkedinJobApplier
                 frmLicence.ShowDialog();
             }
         }
-
         private void UpdateStatusLabel(string text)
         {
             if (lblStatus.InvokeRequired)
