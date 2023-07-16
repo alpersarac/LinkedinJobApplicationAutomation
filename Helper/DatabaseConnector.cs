@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,14 @@ namespace LinkedinJAASerial
     public static class DatabaseConnector
     {
         
-        private static string ConnectionString = "Vhuyhu=00.578.482.60;Sruw=6639;Gdwdedvh=doshuvdu_olqnhglqdssolhu;Xlg=doshuvdu_dgplq;Szg=Doshu.7575;fkduvhw=xwi1pe7";
+        private static string ConnectionString = "Vhuyhu=00.578.482.50;Sruw=6639;Gdwdedvh=OlqnhglqDssolhu;Xvhu Lg=pdqdjhu;Sdvvzrug=Doshu.7575;fkduvhw=xwi1pe7;";
 
         static DatabaseConnector()
         {
+           
             string decodedConnectionString = BasicEncryption.DecryptConnectionString(ConnectionString);
-            ConnectionString = decodedConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"]?.ConnectionString;
+            ConnectionString = connectionString;
         }
 
         public static MySqlConnection GetConnection()

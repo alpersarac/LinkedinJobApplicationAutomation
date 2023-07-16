@@ -60,7 +60,7 @@ namespace LinkedinJAASerial
             }
             catch (Exception ex)
             {
-                ExceptionLogger.LogException(ex);
+                
                 Console.WriteLine(ex.Message);
             }
 
@@ -85,7 +85,7 @@ namespace LinkedinJAASerial
             }
             catch (Exception ex)
             {
-                ExceptionLogger.LogException(ex);
+                
                 Console.WriteLine(ex.Message);
             }
 
