@@ -11,12 +11,12 @@ namespace LinkedinJAASerial
     public static class DatabaseConnector
     {
         
-        private static readonly string ConnectionString = "Vhuyhu=vto445.erhwkrvw48.frp;Gdwdedvh=e48_67958096_olqnhglqdssolhu;Xlg=e48_67958096;Szg=m1tp4yk3;";
+        private static readonly string ConnectionString = "Vhuyhu=00.578.482.60;Sruw=6639;Gdwdedvh=doshuvdu_olqnhglqdssolhu;Xlg=doshuvdu_dgplq;Szg=Doshu.7575;fkduvhw=xwi1pe7";
 
         static DatabaseConnector()
         {
             string decodedConnectionString = BasicEncryption.DecryptConnectionString(ConnectionString);
-            ConnectionString=decodedConnectionString;
+            ConnectionString = decodedConnectionString;
         }
 
         public static MySqlConnection GetConnection()
