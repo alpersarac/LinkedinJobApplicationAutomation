@@ -2,6 +2,7 @@
 using LinkedinJAASerial;
 using LinkedinJAASerialGenerator;
 using LinkedinJobApplier.Config;
+using Newtonsoft.Json;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,17 +22,21 @@ namespace LinkedinJobApplier
     {
         CancellationTokenSource cancellationTokenSource = null;
         Thread statusUpdateThread = null;
+        private HttpClient client;
         public frmMain()
         {
             InitializeComponent();
+            client = new HttpClient();
+            client.BaseAddress = new Uri("https://your-api-url/");
         }
 
         delegate void UpdateStatusLabelDelegate(string text);
-        private void frmMain_Load(object sender, EventArgs e)
+        private async void frmMain_Load(object sender, EventArgs e)
         {
             frmLicence frmLicence = new frmLicence(this);
             try
             {
+                
                 string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
                 bool isConnectionOK = false;
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);

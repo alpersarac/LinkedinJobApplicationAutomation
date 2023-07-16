@@ -11,7 +11,7 @@ namespace LinkedinJAASerial
     public static class DatabaseConnector
     {
         
-        private static readonly string ConnectionString = "Vhuyhu=00.578.482.60;Sruw=6639;Gdwdedvh=doshuvdu_olqnhglqdssolhu;Xlg=doshuvdu_dgplq;Szg=Doshu.7575;fkduvhw=xwi1pe7";
+        private static string ConnectionString = "Vhuyhu=00.578.482.60;Sruw=6639;Gdwdedvh=doshuvdu_olqnhglqdssolhu;Xlg=doshuvdu_dgplq;Szg=Doshu.7575;fkduvhw=xwi1pe7";
 
         static DatabaseConnector()
         {
@@ -28,7 +28,7 @@ namespace LinkedinJAASerial
         public static List<LicenceTable> RetrieveLicenceTables()
         {
             List<LicenceTable> licenceTables = new List<LicenceTable>();
-
+            
             try
             {
                 using (MySqlConnection connection = GetConnection())
