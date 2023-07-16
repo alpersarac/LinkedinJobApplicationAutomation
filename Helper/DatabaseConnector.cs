@@ -19,7 +19,7 @@ namespace LinkedinJAASerial
            
             string decodedConnectionString = BasicEncryption.DecryptConnectionString(ConnectionString);
             string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"]?.ConnectionString;
-            ConnectionString = connectionString;
+            ConnectionString = "Server=77.245.159.27;Port=3306;Database=LinkedinApplier;Uid=manager;Pwd=Alper.4242;charset=utf8mb4;";
         }
 
         public static MySqlConnection GetConnection()
