@@ -67,9 +67,10 @@ namespace LinkedinJobApplier.Config
                 Console.WriteLine("CAPTCHA DELAY");
                 //System.Threading.Thread.Sleep(TimeSpan.FromSeconds(Constants.CaptaTime));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
+                ExceptionLogger.LogException(ex);
+                Console.WriteLine(ex.Message);
                 Cleanup();
                 Environment.Exit(0);
             }
@@ -143,6 +144,7 @@ namespace LinkedinJobApplier.Config
                                 }
                                 catch (Exception ex)
                                 {
+                                    
                                     Console.WriteLine("Exception occurred while fetching offer details from the page!");
                                 }
 

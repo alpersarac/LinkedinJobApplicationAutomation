@@ -60,7 +60,7 @@ namespace LinkedinJAASerial
             }
             catch (Exception ex)
             {
-
+                
                 Console.WriteLine(ex.Message);
             }
 
@@ -85,6 +85,7 @@ namespace LinkedinJAASerial
             }
             catch (Exception ex)
             {
+                
                 Console.WriteLine(ex.Message);
             }
 

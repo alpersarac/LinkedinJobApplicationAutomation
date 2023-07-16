@@ -36,7 +36,6 @@ namespace LinkedinJobApplier
             frmLicence frmLicence = new frmLicence(this);
             try
             {
-                
                 string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
                 bool isConnectionOK = false;
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
@@ -85,7 +84,6 @@ namespace LinkedinJobApplier
                 frmLicence.ShowDialog();
             }
         }
-
         private void UpdateStatusLabel(string text)
         {
             if (lblStatus.InvokeRequired)
@@ -145,9 +143,9 @@ namespace LinkedinJobApplier
 
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                ExceptionLogger.LogException(ex);
             }
             finally
             {
@@ -188,9 +186,9 @@ namespace LinkedinJobApplier
                 Config.Config.Location.Add(tbxLocation.Text);
                 tbxLocation.Text = "";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                ExceptionLogger.LogException(ex);
             }
 
         }
@@ -202,9 +200,9 @@ namespace LinkedinJobApplier
                 Config.Config.Keywords.Add(tbxKeywords.Text);
                 tbxKeywords.Text = "";
             }
-            catch (Exception)
-            {
-
+            catch (Exception ex) 
+            { 
+                ExceptionLogger.LogException(ex); 
             }
 
 
@@ -217,10 +215,7 @@ namespace LinkedinJobApplier
                 Config.Config.Password = tbxPassword.Text;
                 Console.WriteLine(Config.Config.Location);
             }
-            catch (Exception)
-            {
-
-            }
+            catch (Exception ex) { ExceptionLogger.LogException(ex); }
 
         }
         private void cbxDatePosted_SelectedIndexChanged(object sender, EventArgs e)
@@ -230,10 +225,7 @@ namespace LinkedinJobApplier
                 Config.Config.DatePosted.Clear();
                 Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
             }
-            catch (Exception)
-            {
-
-            }
+            catch (Exception ex) { ExceptionLogger.LogException(ex); }
 
         }
         private void btnClearLocation_Click(object sender, EventArgs e)
@@ -252,10 +244,7 @@ namespace LinkedinJobApplier
                 // Request cancellation of the task
                 cancellationTokenSource.Cancel();
             }
-            catch (Exception)
-            {
-                // Handle any exceptions if needed
-            }
+            catch (Exception ex) { ExceptionLogger.LogException(ex); }
         }
         #region Helper Method
         public void AddElementsToList()
@@ -345,10 +334,7 @@ namespace LinkedinJobApplier
 
 
             }
-            catch (Exception)
-            {
-
-            }
+            catch (Exception ex) { ExceptionLogger.LogException(ex); }
 
         }
         #endregion
