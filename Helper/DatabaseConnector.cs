@@ -411,7 +411,7 @@ namespace LinkedinJAASerial
             {
                 using (MySqlConnection connection = GetConnection())
                 {
-                    string query = "UPDATE LicenceTable SET macAddress = @macAddress WHERE id = @id";
+                    string query = "UPDATE LicenceTable SET macAddress = @macAddress, isactive = @isactive, isonline = @isonline WHERE id = @id";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
@@ -426,6 +426,7 @@ namespace LinkedinJAASerial
             {
                 Console.WriteLine("An error occurred while setting MacAddress by ID: " + ex.Message);
             }
+
         }
 
     }

@@ -73,6 +73,7 @@
             // 
             // btnStartApplying
             // 
+            this.btnStartApplying.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnStartApplying.ForeColor = System.Drawing.Color.DarkGreen;
             this.btnStartApplying.Location = new System.Drawing.Point(35, 192);
             this.btnStartApplying.Margin = new System.Windows.Forms.Padding(4);
@@ -80,7 +81,7 @@
             this.btnStartApplying.Size = new System.Drawing.Size(132, 79);
             this.btnStartApplying.TabIndex = 0;
             this.btnStartApplying.Text = "Start Applying";
-            this.btnStartApplying.UseVisualStyleBackColor = true;
+            this.btnStartApplying.UseVisualStyleBackColor = false;
             this.btnStartApplying.Click += new System.EventHandler(this.btnStartApplying_Click);
             // 
             // tbxEmail
@@ -455,6 +456,7 @@
             // 
             // btnStopApplying
             // 
+            this.btnStopApplying.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnStopApplying.ForeColor = System.Drawing.Color.OrangeRed;
             this.btnStopApplying.Location = new System.Drawing.Point(175, 192);
             this.btnStopApplying.Margin = new System.Windows.Forms.Padding(4);
@@ -462,7 +464,7 @@
             this.btnStopApplying.Size = new System.Drawing.Size(132, 79);
             this.btnStopApplying.TabIndex = 9;
             this.btnStopApplying.Text = "Stop Applying";
-            this.btnStopApplying.UseVisualStyleBackColor = true;
+            this.btnStopApplying.UseVisualStyleBackColor = false;
             this.btnStopApplying.Click += new System.EventHandler(this.btnStopApplying_Click);
             // 
             // lblRemainingDays
@@ -491,7 +493,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Main";
+            this.Text = "Linkedin Applier";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.grbxCredentials.ResumeLayout(false);
