@@ -11,15 +11,16 @@ namespace LinkedinJAASerial
 {
     public static class DatabaseConnector
     {
-        
-        private static string ConnectionString = "Vhuyhu=00.578.482.50;Sruw=6639;Gdwdedvh=OlqnhglqDssolhu;Xvhu Lg=pdqdjhu;Sdvvzrug=Doshu.7575;fkduvhw=xwi1pe7;";
+
+        private static string ConnectionString = "";
 
         static DatabaseConnector()
         {
-           
-            string decodedConnectionString = BasicEncryption.DecryptConnectionString(ConnectionString);
-            string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"]?.ConnectionString;
-            ConnectionString = "Server=77.245.159.27;Port=3306;Database=LinkedinApplier;Uid=manager;Pwd=Alper.4242;charset=utf8mb4;";
+
+            //string decodedConnectionString = BasicEncryption.DecryptConnectionString(ConnectionString);
+            //string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"]?.ConnectionString;
+            ConnectionString = "Server=db4free.net;Port=3306;Database=linkedinapplier;Uid=alpersarac;Pwd=Sarac.4242;";
+            //ConnectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
         }
 
         public static MySqlConnection GetConnection()
@@ -31,7 +32,7 @@ namespace LinkedinJAASerial
         public static List<LicenceTable> RetrieveLicenceTables()
         {
             List<LicenceTable> licenceTables = new List<LicenceTable>();
-            
+
             try
             {
                 using (MySqlConnection connection = GetConnection())
@@ -139,6 +140,7 @@ namespace LinkedinJAASerial
             }
             catch (Exception ex)
             {
+
                 Console.WriteLine("An error occurred while retrieving LicenceTable by serial key: " + ex.Message);
                 isConnectionOK = false;
                 return licenceTable;
