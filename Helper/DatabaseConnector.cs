@@ -19,8 +19,8 @@ namespace LinkedinJAASerial
 
             //string decodedConnectionString = BasicEncryption.DecryptConnectionString(ConnectionString);
             //string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"]?.ConnectionString;
-            ConnectionString = "Server=77.245.159.27;Database=LinkedinApplier;Uid=alper;Pwd=Sarac.4242;";
-            ConnectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+            ConnectionString = "Server=db4free.net;Port=3306;Database=linkedinapplier;Uid=alpersarac;Pwd=Sarac.4242;";
+            //ConnectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
         }
 
         public static MySqlConnection GetConnection()
