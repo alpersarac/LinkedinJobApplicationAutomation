@@ -22,6 +22,7 @@ namespace LinkedinJobApplier
     {
         CancellationTokenSource cancellationTokenSource = null;
         Thread statusUpdateThread = null;
+        Thread operationThread = null;
         private HttpClient client;
         public frmMain()
         {
@@ -39,8 +40,8 @@ namespace LinkedinJobApplier
                 string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
                 bool isConnectionOK = false;
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
-                
-                if (parsedLicenseTable != null && isConnectionOK==true)
+
+                if (parsedLicenseTable != null && isConnectionOK == true)
                 {
                     if (parsedLicenseTable.macAddress != NetworkHelper.GetMacAddress())
                     {
@@ -55,12 +56,12 @@ namespace LinkedinJobApplier
                     else
                     {
                         LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
-                        lblRemainingDays.Text =$"Remaining days: {Convert.ToInt32((DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd"))}";
+                        lblRemainingDays.Text = $"Remaining days: {Convert.ToInt32((DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd"))}";
                         SetDefaultItems();
                     }
 
                 }
-                else if (parsedLicenseTable==null && isConnectionOK == true)
+                else if (parsedLicenseTable == null && isConnectionOK == true)
                 {
                     this.Hide();
                     frmLicence.ShowDialog();
@@ -118,7 +119,7 @@ namespace LinkedinJobApplier
 
                 // Parse the license key into LicenceTable object
                 bool isConnectionOK = false;
-                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey,ref isConnectionOK);
+                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
                 LicenseKeyManager.setOnlineStatus(parsedLicenseTable, false);
 
 
@@ -160,22 +161,23 @@ namespace LinkedinJobApplier
             {
                 cancellationTokenSource = new CancellationTokenSource();
                 var cancellationToken = cancellationTokenSource.Token;
-                statusUpdateThread = new Thread(UpdateStatusLabelThread);
-                statusUpdateThread.Start();
-
-                var task = Task.Run(() =>
+                operationThread = new Thread(() =>
                 {
+
+                    statusUpdateThread = new Thread(UpdateStatusLabelThread);
+                    statusUpdateThread.Start();
+
                     Linkedin linkedin = new Linkedin();
                     linkedin.LinkJobApply(cancellationToken);
 
                 });
-
+                operationThread.Start();
             }
             catch (Exception ex)
             {
                 ExceptionLogger.LogException(ex);
             }
-
+            
         }
         private void btnAddCountry_Click(object sender, EventArgs e)
         {
@@ -200,9 +202,9 @@ namespace LinkedinJobApplier
                 Config.Config.Keywords.Add(tbxKeywords.Text);
                 tbxKeywords.Text = "";
             }
-            catch (Exception ex) 
-            { 
-                ExceptionLogger.LogException(ex); 
+            catch (Exception ex)
+            {
+                ExceptionLogger.LogException(ex);
             }
 
 
@@ -240,9 +242,19 @@ namespace LinkedinJobApplier
         {
             try
             {
+                btnStopApplying.Text = "Please Wait..";
+                btnStopApplying.BackColor = Color.OrangeRed;
+                btnStopApplying.ForeColor= Color.Black;
                 statusUpdateThread?.Abort();
                 // Request cancellation of the task
-                cancellationTokenSource.Cancel();
+                operationThread.Abort();
+
+                // Wait for the operation thread to terminate
+                
+                operationThread.Join();
+                btnStopApplying.BackColor = Color.WhiteSmoke;
+                btnStopApplying.ForeColor = Color.OrangeRed;
+                btnStopApplying.Text = "Stop Applying";
             }
             catch (Exception ex) { ExceptionLogger.LogException(ex); }
         }
@@ -309,7 +321,7 @@ namespace LinkedinJobApplier
                     chbxRememberMe.Checked = userDataManager.RememberMe;
                     tbxCity.Text = userDataManager.City;
                     tbxSalary.Text = userDataManager.SalaryExpectation;
-                    cbxCommuting.SelectedIndex= userDataManager.cbxCommutingIndex;
+                    cbxCommuting.SelectedIndex = userDataManager.cbxCommutingIndex;
                     cbxVisaSponsorship.SelectedIndex = userDataManager.cbxVisaSponsorIndex;
                     tbxNoticePeriod.Text = userDataManager.NoticePeriodInDays;
 
