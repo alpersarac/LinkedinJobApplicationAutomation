@@ -47,7 +47,6 @@
             this.btnSearchLicence = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.lblActiveCount = new System.Windows.Forms.Label();
-            this.listbStats = new System.Windows.Forms.ListBox();
             this.btnStats = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -56,6 +55,7 @@
             this.rhtbxEncrypted = new System.Windows.Forms.RichTextBox();
             this.tbxEncryptLicence = new System.Windows.Forms.TextBox();
             this.btnDecrypt = new System.Windows.Forms.Button();
+            this.lwStats = new System.Windows.Forms.ListView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -79,7 +79,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(568, 387);
+            this.tabControl1.Size = new System.Drawing.Size(805, 421);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
@@ -225,13 +225,13 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.lwStats);
             this.tabPage3.Controls.Add(this.lblActiveCount);
-            this.tabPage3.Controls.Add(this.listbStats);
             this.tabPage3.Controls.Add(this.btnStats);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(560, 358);
+            this.tabPage3.Size = new System.Drawing.Size(797, 392);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -244,15 +244,6 @@
             this.lblActiveCount.Size = new System.Drawing.Size(25, 16);
             this.lblActiveCount.TabIndex = 2;
             this.lblActiveCount.Text = "      ";
-            // 
-            // listbStats
-            // 
-            this.listbStats.FormattingEnabled = true;
-            this.listbStats.ItemHeight = 16;
-            this.listbStats.Location = new System.Drawing.Point(6, 35);
-            this.listbStats.Name = "listbStats";
-            this.listbStats.Size = new System.Drawing.Size(547, 308);
-            this.listbStats.TabIndex = 1;
             // 
             // btnStats
             // 
@@ -332,12 +323,23 @@
             this.btnDecrypt.UseVisualStyleBackColor = true;
             this.btnDecrypt.Click += new System.EventHandler(this.btnEncrpt_Click_1);
             // 
+            // lwStats
+            // 
+            this.lwStats.FullRowSelect = true;
+            this.lwStats.HideSelection = false;
+            this.lwStats.Location = new System.Drawing.Point(6, 35);
+            this.lwStats.Name = "lwStats";
+            this.lwStats.Size = new System.Drawing.Size(785, 351);
+            this.lwStats.TabIndex = 3;
+            this.lwStats.UseCompatibleStateImageBehavior = false;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 402);
+            this.ClientSize = new System.Drawing.Size(824, 445);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -374,7 +376,6 @@
         private System.Windows.Forms.Button btnSearchLicence;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button btnStats;
-        private System.Windows.Forms.ListBox listbStats;
         private System.Windows.Forms.Label lblActiveCount;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.RichTextBox richTextBox1;
@@ -385,6 +386,7 @@
         private System.Windows.Forms.RichTextBox rhtbxEncrypted;
         private System.Windows.Forms.TextBox tbxEncryptLicence;
         private System.Windows.Forms.Button btnDecrypt;
+        private System.Windows.Forms.ListView lwStats;
     }
 }
 

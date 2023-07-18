@@ -10,6 +10,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LinkedinJAASerial
 {
@@ -47,8 +48,8 @@ namespace LinkedinJAASerial
                     rtbxLicence.Text = "";
                     int days = Convert.ToInt32(cbxDays.GetItemText(cbxDays.SelectedItem));
                     string serialKey = LicenseKeyVerifier.GenerateLicenseKey(tbxEmail.Text);
-                    var result = DatabaseConnector.InsertLicenceTable(new LicenceTable { email = tbxEmail.Text, isactive = false, isdeleted = false, serialkey = serialKey, expirydate = DateTime.Now.AddDays(days), macAddress="NOTUSED" });
-                    if (result==true)
+                    var result = DatabaseConnector.InsertLicenceTable(new LicenceTable { email = tbxEmail.Text, isactive = false, isdeleted = false, serialkey = serialKey, expirydate = DateTime.Now.AddDays(days), macAddress = "NOTUSED" });
+                    if (result == true)
                     {
                         rtbxLicence.Text = serialKey;
                     }
@@ -60,7 +61,7 @@ namespace LinkedinJAASerial
             }
             catch (Exception ex)
             {
-                
+
                 Console.WriteLine(ex.Message);
             }
 
@@ -85,7 +86,7 @@ namespace LinkedinJAASerial
             }
             catch (Exception ex)
             {
-                
+
                 Console.WriteLine(ex.Message);
             }
 
@@ -98,19 +99,66 @@ namespace LinkedinJAASerial
 
         private void btnStats_Click(object sender, EventArgs e)
         {
-            listbStats.Items.Clear();
+
             List<LicenceTable> AllLicences = DatabaseConnector.RetrieveLicenceTables();
             lblActiveCount.Text = "Online Users: " + (AllLicences.Where(p => p.isonline == true).Count().ToString()) + " - " + "Active Users: " + (AllLicences.Where(p => p.isactive == true).Count().ToString());
+
+            lwStats.Items.Clear();
+            lwStats.Columns.Clear();
+            lwStats.View = View.Details;
+
+            lwStats.Columns.Add("Email", 250);
+            lwStats.Columns.Add("Serial Key", 100);
+            lwStats.Columns.Add("Is Active", 80);
+            lwStats.Columns.Add("Is Deleted", 80);
+            lwStats.Columns.Add("Is Online", 80);
+            lwStats.Columns.Add("MAC Address", 120);
+            lwStats.Columns.Add("Expiry Date", 70);
+
             foreach (var licence in AllLicences)
             {
-                string licenceInfoText = $"{licence.email} - {(licence.isactive ? "Active" : "Inactive")} {(licence.isonline ? " - Online" : "")} {(licence.isdeleted ? " - Deleted" : "")}";
-                listbStats.Items.Add(licenceInfoText);
+                ListViewItem listViewItem = new ListViewItem(new string[]
+                {
+                        licence.email,
+                        licence.serialkey,
+                        licence.isactive.ToString(),
+                        licence.isdeleted.ToString(),
+                        licence.isonline.ToString(),
+                        licence.macAddress,
+                        licence.expirydate.ToString("dd/MM/yyyy")
+                });
+
+                listViewItem.BackColor = GetItemBackgroundColor(licence); // Set the background color
+
+                lwStats.Items.Add(listViewItem);
+
+            }
+        }
+        Color GetItemBackgroundColor(LicenceTable item)
+        {
+            if (item.isdeleted)
+                return Color.DarkGray;
+            else if (item.isonline)
+                return Color.LightGreen;
+            else if (!item.isactive)
+                return Color.LightYellow;
+            else
+                return Color.CadetBlue;
+        }
+        public class ListBoxItem
+        {
+            public string Text { get; set; }
+            public Color BackgroundColor { get; set; }
+
+            public override string ToString()
+            {
+                return Text; // Display the Text property in the ListBox
             }
         }
 
         private void btnGenerateConnectionStringFile_Click(object sender, EventArgs e)
         {
-            
+
             //string connectionString = "Ø†ãB›E‹&G2‘O.a±1Î^@\u0006<aªIÊ‚Vó„qÕJ0e ÆäqW[\u001bÄG\u0011UˆçCÉ£•$¿àº\u0017p5M\u009d\u0003ë¨^ÕF#a\u001f2‚\u0014À«¬\u0015ß9¾ <_¢´¯Ï€Ò–©‡ÃÙÈ\bûxÚvù?Öû\u0003|_õ€t{\u000eˆ‡Þ¢¤J\u0018Å|\u0019 îx58¶^";
             //string filePath = "encrypted-connectionstring.bin";
             //string password = "Alper23";
@@ -121,15 +169,15 @@ namespace LinkedinJAASerial
 
         private void btnDecrypt_Click(object sender, EventArgs e)
         {
-           
+
 
         }
 
-       
+
         private void btnEncrpt_Click_1(object sender, EventArgs e)
         {
-            
-            rhtbxEncrypted.Text= BasicEncryption.EncryptConnectionString(tbxEncryptLicence.Text);
+
+            rhtbxEncrypted.Text = BasicEncryption.EncryptConnectionString(tbxEncryptLicence.Text);
         }
     }
 }
