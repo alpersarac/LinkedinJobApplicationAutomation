@@ -1,11 +1,7 @@
-﻿using Helper;
-using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+
 
 namespace LinkedinJAASerial
 {
@@ -16,43 +12,43 @@ namespace LinkedinJAASerial
 
         static DatabaseConnector()
         {
-
             //string decodedConnectionString = BasicEncryption.DecryptConnectionString(ConnectionString);
             //string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"]?.ConnectionString;
-            ConnectionString = "Server=db4free.net;Port=3306;Database=linkedinapplier;Uid=alpersarac;Pwd=Sarac.4242;";
+            ConnectionString = "Server=87.248.157.31;Database=LinkedinApplier;User Id=sa;Password=Sarac.4242;";
             //ConnectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
         }
 
-        public static MySqlConnection GetConnection()
+        public static SqlConnection GetConnection()
         {
-            MySqlConnection connection = new MySqlConnection(ConnectionString);
+            SqlConnection connection = new SqlConnection(ConnectionString);
             connection.Open();
             return connection;
         }
+
         public static List<LicenceTable> RetrieveLicenceTables()
         {
             List<LicenceTable> licenceTables = new List<LicenceTable>();
 
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "SELECT * FROM LicenceTable WHERE isdeleted = 0";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        using (MySqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
                                 LicenceTable licenceTable = new LicenceTable();
-                                licenceTable.id = reader.GetInt32("id");
-                                licenceTable.email = reader.GetString("email");
-                                licenceTable.serialkey = reader.GetString("serialkey");
-                                licenceTable.isactive = reader.GetBoolean("isactive");
-                                licenceTable.isdeleted = reader.GetBoolean("isdeleted");
-                                licenceTable.isonline = reader.GetBoolean("isonline");
-                                licenceTable.macAddress = reader.GetString("macAddress");
-                                licenceTable.expirydate = reader.GetDateTime("expirydate");
+                                licenceTable.id = reader.GetInt32(reader.GetOrdinal("id"));
+                                licenceTable.email = reader.GetString(reader.GetOrdinal("email"));
+                                licenceTable.serialkey = reader.GetString(reader.GetOrdinal("serialkey"));
+                                licenceTable.isactive = reader.GetBoolean(reader.GetOrdinal("isactive"));
+                                licenceTable.isdeleted = reader.GetBoolean(reader.GetOrdinal("isdeleted"));
+                                licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
+                                licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
+                                licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
 
                                 licenceTables.Add(licenceTable);
                             }
@@ -74,26 +70,26 @@ namespace LinkedinJAASerial
 
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "SELECT * FROM LicenceTable WHERE email = @email AND isdeleted = 0";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@email", email);
 
-                        using (MySqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 licenceTable = new LicenceTable();
-                                licenceTable.id = reader.GetInt32("id");
-                                licenceTable.email = reader.GetString("email");
-                                licenceTable.serialkey = reader.GetString("serialkey");
-                                licenceTable.isactive = reader.GetBoolean("isactive");
-                                licenceTable.isdeleted = reader.GetBoolean("isdeleted");
-                                licenceTable.isonline = reader.GetBoolean("isonline");
-                                licenceTable.macAddress = reader.GetString("macAddress");
-                                licenceTable.expirydate = reader.GetDateTime("expirydate");
+                                licenceTable.id = reader.GetInt32(reader.GetOrdinal("id"));
+                                licenceTable.email = reader.GetString(reader.GetOrdinal("email"));
+                                licenceTable.serialkey = reader.GetString(reader.GetOrdinal("serialkey"));
+                                licenceTable.isactive = reader.GetBoolean(reader.GetOrdinal("isactive"));
+                                licenceTable.isdeleted = reader.GetBoolean(reader.GetOrdinal("isdeleted"));
+                                licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
+                                licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
+                                licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
                             }
                         }
                     }
@@ -113,26 +109,26 @@ namespace LinkedinJAASerial
 
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "SELECT * FROM LicenceTable WHERE serialkey = @serialkey AND isdeleted = 0";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@serialkey", serialkey);
 
-                        using (MySqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 licenceTable = new LicenceTable();
-                                licenceTable.id = reader.GetInt32("id");
-                                licenceTable.email = reader.GetString("email");
-                                licenceTable.serialkey = reader.GetString("serialkey");
-                                licenceTable.isactive = reader.GetBoolean("isactive");
-                                licenceTable.isdeleted = reader.GetBoolean("isdeleted");
-                                licenceTable.isonline = reader.GetBoolean("isonline");
-                                licenceTable.macAddress = reader.GetString("macAddress");
-                                licenceTable.expirydate = reader.GetDateTime("expirydate");
+                                licenceTable.id = reader.GetInt32(reader.GetOrdinal("id"));
+                                licenceTable.email = reader.GetString(reader.GetOrdinal("email"));
+                                licenceTable.serialkey = reader.GetString(reader.GetOrdinal("serialkey"));
+                                licenceTable.isactive = reader.GetBoolean(reader.GetOrdinal("isactive"));
+                                licenceTable.isdeleted = reader.GetBoolean(reader.GetOrdinal("isdeleted"));
+                                licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
+                                licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
+                                licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
                             }
                         }
                     }
@@ -140,7 +136,6 @@ namespace LinkedinJAASerial
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine("An error occurred while retrieving LicenceTable by serial key: " + ex.Message);
                 isConnectionOK = false;
                 return licenceTable;
@@ -155,26 +150,26 @@ namespace LinkedinJAASerial
 
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "SELECT * FROM LicenceTable WHERE email LIKE @email";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@email", $"%{email}%");
 
-                        using (MySqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
                                 LicenceTable licenceTable = new LicenceTable();
-                                licenceTable.id = reader.GetInt32("id");
-                                licenceTable.email = reader.GetString("email");
-                                licenceTable.serialkey = reader.GetString("serialkey");
-                                licenceTable.isactive = reader.GetBoolean("isactive");
-                                licenceTable.isdeleted = reader.GetBoolean("isdeleted");
-                                licenceTable.isonline = reader.GetBoolean("isonline");
-                                licenceTable.macAddress = reader.GetString("macAddress");
-                                licenceTable.expirydate = reader.GetDateTime("expirydate");
+                                licenceTable.id = reader.GetInt32(reader.GetOrdinal("id"));
+                                licenceTable.email = reader.GetString(reader.GetOrdinal("email"));
+                                licenceTable.serialkey = reader.GetString(reader.GetOrdinal("serialkey"));
+                                licenceTable.isactive = reader.GetBoolean(reader.GetOrdinal("isactive"));
+                                licenceTable.isdeleted = reader.GetBoolean(reader.GetOrdinal("isdeleted"));
+                                licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
+                                licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
+                                licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
 
                                 licenceTables.Add(licenceTable);
                             }
@@ -196,26 +191,26 @@ namespace LinkedinJAASerial
 
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "SELECT * FROM LicenceTable WHERE serialkey LIKE @serialkey";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@serialkey", $"%{serialkey}%");
 
-                        using (MySqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
                                 LicenceTable licenceTable = new LicenceTable();
-                                licenceTable.id = reader.GetInt32("id");
-                                licenceTable.email = reader.GetString("email");
-                                licenceTable.serialkey = reader.GetString("serialkey");
-                                licenceTable.isactive = reader.GetBoolean("isactive");
-                                licenceTable.isdeleted = reader.GetBoolean("isdeleted");
-                                licenceTable.isonline = reader.GetBoolean("isonline");
-                                licenceTable.macAddress = reader.GetString("macAddress");
-                                licenceTable.expirydate = reader.GetDateTime("expirydate");
+                                licenceTable.id = reader.GetInt32(reader.GetOrdinal("id"));
+                                licenceTable.email = reader.GetString(reader.GetOrdinal("email"));
+                                licenceTable.serialkey = reader.GetString(reader.GetOrdinal("serialkey"));
+                                licenceTable.isactive = reader.GetBoolean(reader.GetOrdinal("isactive"));
+                                licenceTable.isdeleted = reader.GetBoolean(reader.GetOrdinal("isdeleted"));
+                                licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
+                                licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
+                                licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
 
                                 licenceTables.Add(licenceTable);
                             }
@@ -237,10 +232,10 @@ namespace LinkedinJAASerial
 
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "SELECT COUNT(*) FROM LicenceTable WHERE isactive = 1 AND isdeleted = 0";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         totalActiveLicences = Convert.ToInt32(command.ExecuteScalar());
                     }
@@ -260,10 +255,10 @@ namespace LinkedinJAASerial
 
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "SELECT COUNT(*) FROM LicenceTable WHERE isdeleted = 1";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         totalDeletedLicences = Convert.ToInt32(command.ExecuteScalar());
                     }
@@ -281,10 +276,10 @@ namespace LinkedinJAASerial
         {
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "INSERT INTO LicenceTable (email, serialkey, isactive, isdeleted, isonline, macAddress, expirydate) VALUES (@email, @serialkey, @isactive, @isdeleted, @isonline, @macAddress, @expirydate)";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@email", licenceTable.email);
                         command.Parameters.AddWithValue("@serialkey", licenceTable.serialkey);
@@ -310,10 +305,10 @@ namespace LinkedinJAASerial
         {
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "UPDATE LicenceTable SET email = @email, serialkey = @serialkey, isactive = @isactive, isdeleted = @isdeleted, isonline = @isonline, macAddress = @macAddress, expirydate = @expirydate WHERE id = @id";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", licenceTable.id);
                         command.Parameters.AddWithValue("@email", licenceTable.email);
@@ -338,10 +333,10 @@ namespace LinkedinJAASerial
         {
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "UPDATE LicenceTable SET isdeleted = 1 WHERE id = @id";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
 
@@ -359,10 +354,10 @@ namespace LinkedinJAASerial
         {
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "UPDATE LicenceTable SET isonline = @isonline WHERE id = @id";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
                         command.Parameters.AddWithValue("@isonline", isOnline);
@@ -376,16 +371,17 @@ namespace LinkedinJAASerial
                 Console.WriteLine("An error occurred while updating LicenceTable online status: " + ex.Message);
             }
         }
+
         public static string GetMacAddressById(int id)
         {
             string macAddress = null;
 
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "SELECT macAddress FROM LicenceTable WHERE id = @id";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
 
@@ -409,10 +405,10 @@ namespace LinkedinJAASerial
         {
             try
             {
-                using (MySqlConnection connection = GetConnection())
+                using (SqlConnection connection = GetConnection())
                 {
                     string query = "UPDATE LicenceTable SET macAddress = @macAddress, isactive = @isactive, isonline = @isonline WHERE id = @id";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
                         command.Parameters.AddWithValue("@macAddress", macAddress);
@@ -426,8 +422,8 @@ namespace LinkedinJAASerial
             {
                 Console.WriteLine("An error occurred while setting MacAddress by ID: " + ex.Message);
             }
-
         }
+
 
     }
 
