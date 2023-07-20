@@ -48,7 +48,7 @@ namespace LinkedinJAASerial
                     rtbxLicence.Text = "";
                     int days = Convert.ToInt32(cbxDays.GetItemText(cbxDays.SelectedItem));
                     string serialKey = LicenseKeyVerifier.GenerateLicenseKey(tbxEmail.Text);
-                    var result = DatabaseConnector.InsertLicenceTable(new LicenceTable { email = "", isactive = false, isdeleted = false, serialkey = serialKey, expirydate = DateTime.Now.AddDays(days), macAddress = "NOTUSED" });
+                    var result = DatabaseConnector.InsertLicenceTable(new LicenceTable { email = "", isactive = false, isdeleted = false, serialkey = serialKey, expirydate = DateTime.Now.AddDays(days), macAddress = "NOTUSED" , isinfoextrator=chbxInfoExtrator.Checked});
                     if (result == true)
                     {
                         rtbxLicence.Text = serialKey;
@@ -112,6 +112,7 @@ namespace LinkedinJAASerial
             lwStats.Columns.Add("Is Active", 80);
             lwStats.Columns.Add("Is Deleted", 80);
             lwStats.Columns.Add("Is Online", 80);
+            lwStats.Columns.Add("Is Info Extrator", 100);
             lwStats.Columns.Add("MAC Address", 120);
             lwStats.Columns.Add("Expiry Date", 85);
             lwStats.Columns.Add("Last Online Date", 135);
@@ -125,6 +126,7 @@ namespace LinkedinJAASerial
                         licence.isactive.ToString(),
                         licence.isdeleted.ToString(),
                         licence.isonline.ToString(),
+                        licence.isinfoextrator.ToString(),
                         licence.macAddress,
                         licence.expirydate.ToString("dd/MM/yyyy"),
                         licence.lastonlinedate.HasValue? licence.lastonlinedate.Value.ToString("dd/MM/yyyy hh:mm:ss"):"Never Online"

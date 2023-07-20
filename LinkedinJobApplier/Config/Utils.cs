@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -378,6 +379,50 @@ namespace LinkedinJobApplier.Config
             return lastPage;
 
         }
+        
+        public static int GetPageCountForInfoExtract(IWebDriver driver)
+        {
+            string lastPageValue = string.Empty;
+            int lastPage = 1;
+            try
+            {
+                IWebElement lastPageElement = driver.FindElement(By.CssSelector("div.artdeco-pagination.artdeco-pagination--has-controls.ember-view.pv5.ph2"));
+                lastPageValue = lastPageElement.Text;
+                int.TryParse(lastPageValue, out lastPage);
+            }
+            catch (NoSuchElementException)
+            {
+                Console.WriteLine("Page count exception: Pagination element not found");
+                return 40;
+            }
+            return lastPage;
+        }
+        public static string FindEmailAndPhoneNumbers(string htmlSource)
+        {
+           
+            // Regular expression patterns to find emails and phone numbers
+            string emailPattern = @"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b";
+            string phonePattern = @"\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b";
+
+            // Find emails using regex
+            MatchCollection emailMatches = Regex.Matches(htmlSource, emailPattern, RegexOptions.IgnoreCase);
+            foreach (Match emailMatch in emailMatches)
+            {
+                string email = emailMatch.Value;
+                // Do something with the found email
+            }
+
+            // Find phone numbers using regex
+            MatchCollection phoneMatches = Regex.Matches(htmlSource, phonePattern);
+            foreach (Match phoneMatch in phoneMatches)
+            {
+                string phone = phoneMatch.Value;
+                // Do something with the found phone number
+            }
+            return "";
+
+        }
+
         public static void GenerateUrls()
         {
             if (!System.IO.Directory.Exists("data"))

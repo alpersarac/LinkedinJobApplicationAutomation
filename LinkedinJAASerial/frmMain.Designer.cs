@@ -56,6 +56,7 @@
             this.rhtbxEncrypted = new System.Windows.Forms.RichTextBox();
             this.tbxEncryptLicence = new System.Windows.Forms.TextBox();
             this.btnDecrypt = new System.Windows.Forms.Button();
+            this.chbxInfoExtrator = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -79,11 +80,12 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(965, 421);
+            this.tabControl1.Size = new System.Drawing.Size(1111, 421);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chbxInfoExtrator);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.cbxDays);
             this.tabPage1.Controls.Add(this.rtbxLicence);
@@ -93,7 +95,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1006, 392);
+            this.tabPage1.Size = new System.Drawing.Size(957, 392);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Generation";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -168,7 +170,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1006, 392);
+            this.tabPage2.Size = new System.Drawing.Size(957, 392);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Search";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -231,7 +233,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(957, 392);
+            this.tabPage3.Size = new System.Drawing.Size(1103, 392);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -242,7 +244,7 @@
             this.lwStats.HideSelection = false;
             this.lwStats.Location = new System.Drawing.Point(6, 35);
             this.lwStats.Name = "lwStats";
-            this.lwStats.Size = new System.Drawing.Size(943, 351);
+            this.lwStats.Size = new System.Drawing.Size(1091, 351);
             this.lwStats.TabIndex = 3;
             this.lwStats.UseCompatibleStateImageBehavior = false;
             // 
@@ -272,7 +274,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(909, 392);
+            this.tabPage4.Size = new System.Drawing.Size(957, 392);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Connection String";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -303,7 +305,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(909, 392);
+            this.tabPage5.Size = new System.Drawing.Size(957, 392);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Decryption";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -333,11 +335,21 @@
             this.btnDecrypt.UseVisualStyleBackColor = true;
             this.btnDecrypt.Click += new System.EventHandler(this.btnEncrpt_Click_1);
             // 
+            // chbxInfoExtrator
+            // 
+            this.chbxInfoExtrator.AutoSize = true;
+            this.chbxInfoExtrator.Location = new System.Drawing.Point(453, 6);
+            this.chbxInfoExtrator.Name = "chbxInfoExtrator";
+            this.chbxInfoExtrator.Size = new System.Drawing.Size(90, 20);
+            this.chbxInfoExtrator.TabIndex = 20;
+            this.chbxInfoExtrator.Text = "Info Extrator";
+            this.chbxInfoExtrator.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(981, 438);
+            this.ClientSize = new System.Drawing.Size(1135, 438);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -387,6 +399,7 @@
         private System.Windows.Forms.TextBox tbxEncryptLicence;
         private System.Windows.Forms.Button btnDecrypt;
         private System.Windows.Forms.ListView lwStats;
+        private System.Windows.Forms.CheckBox chbxInfoExtrator;
     }
 }
 

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -85,6 +86,38 @@ namespace LinkedinJobApplier.Config
         public IWebDriver getWebDriver()
         {
             return driver;
+        }
+
+        public void LinkInfoExtract(CancellationToken cancellationToken, string title)
+        {
+            string peopleLink = "https://www.linkedin.com/search/results/people/?keywords="+ title + "&origin=SWITCH_SEARCH_VERTICAL";
+            driver.Url = peopleLink;
+            int totalPages = Utils.GetPageCountForInfoExtract(driver);
+            for (int page = 1; page < totalPages; page++)
+            {
+                
+                var currentUrl = peopleLink + "&page=" + page;
+                driver.Url = currentUrl;
+
+                // Find the element with the class "reusable-search__entity-result-list"
+                // Find the element with the class "reusable-search__entity-result-list"
+                IWebElement resultListElement = driver.FindElement(By.CssSelector(".reusable-search__entity-result-list"));
+
+                // Find all anchor elements within the resultListElement
+                ReadOnlyCollection<IWebElement> anchorElements = resultListElement.FindElements(By.TagName("a"));
+
+                List<string> links = new List<string>();
+                foreach (IWebElement anchorElement in anchorElements)
+                {
+                    string href = anchorElement.GetAttribute("href");
+                   
+                    driver.Url = href;
+                    Thread.Sleep(TimeSpan.FromSeconds(5));
+                    var ww = Utils.FindEmailAndPhoneNumbers(driver.PageSource);
+                }
+                
+            }
+
         }
         public void LinkJobApply(CancellationToken cancellationToken)
         {

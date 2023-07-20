@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LinkedinJobApplier
 {
@@ -24,6 +25,7 @@ namespace LinkedinJobApplier
         Thread statusUpdateThread = null;
         Thread operationThread = null;
         private HttpClient client;
+        bool isinfoextratorRunTime = false;
         public frmMain()
         {
             InitializeComponent();
@@ -34,6 +36,8 @@ namespace LinkedinJobApplier
         delegate void UpdateStatusLabelDelegate(string text);
         private void frmMain_Load(object sender, EventArgs e)
         {
+            
+           
             frmLicence frmLicence = new frmLicence(this);
             try
             {
@@ -58,6 +62,21 @@ namespace LinkedinJobApplier
                         LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
                         lblRemainingDays.Text = $"Remaining days: {Convert.ToInt32((DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd"))}";
                         SetDefaultItems();
+                        isinfoextratorRunTime = parsedLicenseTable.isinfoextrator;
+                        if (parsedLicenseTable.isinfoextrator)
+                        {
+                            (tabSelection.TabPages[0] as TabPage).Enabled = false;
+                            tabSelection.SelectedTab = tabInfoExtractor;
+                            btnStartApplying.Text = "Start Extracting";
+                            btnStartApplying.Text = "Stop Extracting";
+                        }
+                        else
+                        {
+                            (tabSelection.TabPages[1] as TabPage).Enabled = false;
+                            tabSelection.SelectedTab = tabJobApplier;
+                            btnStartApplying.Text = "Start Applying";
+                            btnStartApplying.Text = "Stop Applying";
+                        }
                     }
 
                 }
@@ -168,7 +187,15 @@ namespace LinkedinJobApplier
                     statusUpdateThread.Start();
 
                     Linkedin linkedin = new Linkedin();
-                    linkedin.LinkJobApply(cancellationToken);
+                    if (isinfoextratorRunTime)
+                    {
+                        linkedin.LinkInfoExtract(cancellationToken,tbxTitle.Text);
+                    }
+                    else
+                    {
+                        linkedin.LinkJobApply(cancellationToken);
+                    }
+                    
 
                 });
                 operationThread.Start();

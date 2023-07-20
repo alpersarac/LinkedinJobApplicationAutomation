@@ -14,6 +14,7 @@ namespace LinkedinJAASerial
         public bool isactive { get; set; }
         public bool isdeleted { get; set; }
         public bool isonline { get; set; }
+        public bool isinfoextrator { get; set; }
         public string macAddress { get; set; }
         public DateTime expirydate { get; set; }
         public DateTime? lastonlinedate { get; set; }
