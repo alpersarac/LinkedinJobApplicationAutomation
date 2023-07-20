@@ -48,7 +48,7 @@ namespace LinkedinJAASerial
                     rtbxLicence.Text = "";
                     int days = Convert.ToInt32(cbxDays.GetItemText(cbxDays.SelectedItem));
                     string serialKey = LicenseKeyVerifier.GenerateLicenseKey(tbxEmail.Text);
-                    var result = DatabaseConnector.InsertLicenceTable(new LicenceTable { email = tbxEmail.Text, isactive = false, isdeleted = false, serialkey = serialKey, expirydate = DateTime.Now.AddDays(days), macAddress = "NOTUSED" });
+                    var result = DatabaseConnector.InsertLicenceTable(new LicenceTable { email = "", isactive = false, isdeleted = false, serialkey = serialKey, expirydate = DateTime.Now.AddDays(days), macAddress = "NOTUSED" });
                     if (result == true)
                     {
                         rtbxLicence.Text = serialKey;
@@ -127,7 +127,7 @@ namespace LinkedinJAASerial
                         licence.isonline.ToString(),
                         licence.macAddress,
                         licence.expirydate.ToString("dd/MM/yyyy"),
-                        licence.lastonlinedate.ToString("dd/MM/yyyy hh:mm:ss")
+                        licence.lastonlinedate.HasValue? licence.lastonlinedate.Value.ToString("dd/MM/yyyy hh:mm:ss"):"Never Online"
                 });
 
                 listViewItem.BackColor = GetItemBackgroundColor(licence); // Set the background color

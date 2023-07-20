@@ -1,5 +1,6 @@
 ﻿using LinkedinJAASerial;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.SqlClient;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,7 +15,8 @@ namespace LinkedinApplierAPI.Controllers
         [HttpGet]
         public IEnumerable<LicenceTable> Get()
         {
-            return DatabaseConnector.RetrieveLicenceTables();
+            var result= DatabaseConnector.RetrieveLicenceTables();
+            return result;
         }
 
         // GET: api/<LinkedinApplier>/email/{email}
@@ -127,14 +129,6 @@ namespace LinkedinApplierAPI.Controllers
             return Ok(macAddress);
         }
 
-        // PUT: api/<LinkedinApplier>/macaddress/{id}
-        [HttpPut("macaddress/{id}")]
-        public IActionResult SetMacAddressById(int id, string macAddress)
-        {
-            
-            DatabaseConnector.SetMacAddressById(id, macAddress);
-            return Ok();
-        }
-
+        
     }
 }

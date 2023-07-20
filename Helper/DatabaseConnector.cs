@@ -1,6 +1,7 @@
 ﻿using Helper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 
 
@@ -47,7 +48,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
-                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+                                licenceTable.lastonlinedate = reader.GetNullableDateTime("lastonlinedate"); 
                                 licenceTables.Add(licenceTable);
                             }
                         }
@@ -60,6 +61,17 @@ namespace LinkedinJAASerial
             }
 
             return licenceTables;
+        }
+
+        public static DateTime? GetNullableDateTime(this SqlDataReader reader, string columnName)
+        {
+            int columnIndex = reader.GetOrdinal(columnName);
+            if (!reader.IsDBNull(columnIndex))
+            {
+                return reader.GetDateTime(columnIndex);
+            }
+
+            return null;
         }
 
         public static LicenceTable GetLicenceTableByEmail(string email)
@@ -88,7 +100,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
-                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+                                licenceTable.lastonlinedate = reader.GetNullableDateTime("lastonlinedate"); 
                             }
                         }
                     }
@@ -128,7 +140,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
-                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+                                licenceTable.lastonlinedate = reader.GetNullableDateTime("lastonlinedate");
 
                             }
                         }
@@ -171,7 +183,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
-                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+                                licenceTable.lastonlinedate = reader.GetNullableDateTime("lastonlinedate");
 
 
                                 licenceTables.Add(licenceTable);
@@ -214,7 +226,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
-                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+                                licenceTable.lastonlinedate = reader.GetNullableDateTime("lastonlinedate");
 
                                 licenceTables.Add(licenceTable);
                             }
@@ -405,17 +417,18 @@ namespace LinkedinJAASerial
             return macAddress;
         }
 
-        public static void SetMacAddressById(int id, string macAddress)
+        public static void SetMacAddressById(int id, string email, string macAddress)
         {
             try
             {
                 using (SqlConnection connection = GetConnection())
                 {
-                    string query = "UPDATE LicenceTable SET macAddress = @macAddress, isactive = @isactive, isonline = @isonline WHERE id = @id";
+                    string query = "UPDATE LicenceTable SET macAddress = @macAddress, email = @email, isactive = @isactive, isonline = @isonline WHERE id = @id";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
                         command.Parameters.AddWithValue("@macAddress", macAddress);
+                        command.Parameters.AddWithValue("@email", email);
                         command.Parameters.AddWithValue("@isactive", true);
                         command.Parameters.AddWithValue("@isonline", true);
                         command.ExecuteNonQuery();
@@ -427,6 +440,7 @@ namespace LinkedinJAASerial
                 Console.WriteLine("An error occurred while setting MacAddress by ID: " + ex.Message);
             }
         }
+
 
 
     }
