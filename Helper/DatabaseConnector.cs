@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helper;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -8,14 +9,11 @@ namespace LinkedinJAASerial
     public static class DatabaseConnector
     {
 
-        private static string ConnectionString = "";
+        private static string ConnectionString = "Vhuyhu=10.571.480.64;Gdwdedvh=OlqnhglqDssolhu;Xvhu Lg=vd;Sdvvzrug=Vdudf.7575;";
 
         static DatabaseConnector()
         {
-            //string decodedConnectionString = BasicEncryption.DecryptConnectionString(ConnectionString);
-            //string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"]?.ConnectionString;
-            ConnectionString = "Server=87.248.157.31;Database=LinkedinApplier;User Id=sa;Password=Sarac.4242;";
-            //ConnectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+            ConnectionString = BasicEncryption.DecryptConnectionString(ConnectionString);
         }
 
         public static SqlConnection GetConnection()
@@ -49,7 +47,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
-
+                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
                                 licenceTables.Add(licenceTable);
                             }
                         }
@@ -90,6 +88,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
+                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
                             }
                         }
                     }
@@ -129,6 +128,8 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
+                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+
                             }
                         }
                     }
@@ -170,6 +171,8 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
+                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+
 
                                 licenceTables.Add(licenceTable);
                             }
@@ -211,6 +214,7 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
+                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
 
                                 licenceTables.Add(licenceTable);
                             }

@@ -113,7 +113,8 @@ namespace LinkedinJAASerial
             lwStats.Columns.Add("Is Deleted", 80);
             lwStats.Columns.Add("Is Online", 80);
             lwStats.Columns.Add("MAC Address", 120);
-            lwStats.Columns.Add("Expiry Date", 70);
+            lwStats.Columns.Add("Expiry Date", 85);
+            lwStats.Columns.Add("Last Online Date", 135);
 
             foreach (var licence in AllLicences)
             {
@@ -125,7 +126,8 @@ namespace LinkedinJAASerial
                         licence.isdeleted.ToString(),
                         licence.isonline.ToString(),
                         licence.macAddress,
-                        licence.expirydate.ToString("dd/MM/yyyy")
+                        licence.expirydate.ToString("dd/MM/yyyy"),
+                        licence.lastonlinedate.ToString("dd/MM/yyyy hh:mm:ss")
                 });
 
                 listViewItem.BackColor = GetItemBackgroundColor(licence); // Set the background color
