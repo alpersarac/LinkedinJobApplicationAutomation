@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -397,30 +399,46 @@ namespace LinkedinJobApplier.Config
             }
             return lastPage;
         }
-        public static string FindEmailAndPhoneNumbers(string htmlSource)
+        public static string FindEmailAndPhoneNumbers(IWebDriver driver)
         {
-           
-            // Regular expression patterns to find emails and phone numbers
-            string emailPattern = @"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b";
-            string phonePattern = @"\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b";
 
-            // Find emails using regex
-            MatchCollection emailMatches = Regex.Matches(htmlSource, emailPattern, RegexOptions.IgnoreCase);
-            foreach (Match emailMatch in emailMatches)
+            try
             {
-                string email = emailMatch.Value;
-                // Do something with the found email
+                // Use an explicit wait to wait for the element to be present
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                IWebElement modalContent = wait.Until(ExpectedConditions.ElementExists(By.CssSelector(".artdeco-modal__content")));
+
+                // Get the inner HTML of the element
+                string modalHtmlSource = modalContent.GetAttribute("innerHTML");
+
+                // Regular expression patterns to find emails and phone numbers
+                string emailPattern = @"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b";
+                string phonePattern = @"\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b";
+
+                // Find emails using regex
+                MatchCollection emailMatches = Regex.Matches(modalHtmlSource, emailPattern, RegexOptions.IgnoreCase);
+                foreach (Match emailMatch in emailMatches)
+                {
+                    string email = emailMatch.Value;
+                    // Do something with the found email
+                    Console.WriteLine("Email: " + email);
+                }
+
+                // Find phone numbers using regex
+                MatchCollection phoneMatches = Regex.Matches(modalHtmlSource, phonePattern);
+                foreach (Match phoneMatch in phoneMatches)
+                {
+                    string phone = phoneMatch.Value;
+                    // Do something with the found phone number
+                    Console.WriteLine("Phone: " + phone);
+                }
             }
-
-            // Find phone numbers using regex
-            MatchCollection phoneMatches = Regex.Matches(htmlSource, phonePattern);
-            foreach (Match phoneMatch in phoneMatches)
+            catch (Exception ex)
             {
-                string phone = phoneMatch.Value;
-                // Do something with the found phone number
+                Console.WriteLine("Element not found: " + ex.Message);
+                return "";
             }
             return "";
-
         }
 
         public static void GenerateUrls()

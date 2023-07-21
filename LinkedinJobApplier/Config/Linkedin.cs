@@ -99,23 +99,37 @@ namespace LinkedinJobApplier.Config
                 var currentUrl = peopleLink + "&page=" + page;
                 driver.Url = currentUrl;
 
-                // Find the element with the class "reusable-search__entity-result-list"
-                // Find the element with the class "reusable-search__entity-result-list"
-                IWebElement resultListElement = driver.FindElement(By.CssSelector(".reusable-search__entity-result-list"));
-
-                // Find all anchor elements within the resultListElement
-                ReadOnlyCollection<IWebElement> anchorElements = resultListElement.FindElements(By.TagName("a"));
+                ReadOnlyCollection<IWebElement> resultListElements = driver.FindElements(By.CssSelector(".reusable-search__entity-result-list.list-style-none"));
 
                 List<string> links = new List<string>();
-                foreach (IWebElement anchorElement in anchorElements)
+                foreach (IWebElement resultListElement in resultListElements)
                 {
-                    string href = anchorElement.GetAttribute("href");
-                   
-                    driver.Url = href;
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
-                    var ww = Utils.FindEmailAndPhoneNumbers(driver.PageSource);
+                    // Find all elements with the class "display-flex" within the current result list element
+                    ReadOnlyCollection<IWebElement> displayFlexElements = resultListElement.FindElements(By.CssSelector(".display-flex"));
+
+                    foreach (IWebElement displayFlexElement in displayFlexElements)
+                    {
+                        // Find anchor elements within each display-flex element
+                        ReadOnlyCollection<IWebElement> anchorElements = displayFlexElement.FindElements(By.TagName("a"));
+
+                        foreach (IWebElement anchorElement in anchorElements)
+                        {
+                            string href = anchorElement.GetAttribute("href");
+                            links.Add(href.Split(new string[] { "?miniProfile" }, StringSplitOptions.None)[0]);
+                        }
+                    } 
                 }
-                
+
+                foreach (var profile in links.Distinct())
+                {
+                    driver.Url = profile + "/overlay/contact-info/";
+                    Thread.Sleep(TimeSpan.FromSeconds(5));
+                    var ww = Utils.FindEmailAndPhoneNumbers(driver);
+
+                }
+
+
+
             }
 
         }
