@@ -70,11 +70,11 @@
             this.tabSelection = new System.Windows.Forms.TabControl();
             this.tabJobApplier = new System.Windows.Forms.TabPage();
             this.tabInfoExtractor = new System.Windows.Forms.TabPage();
+            this.lbxInfo = new System.Windows.Forms.ListBox();
             this.chbxPhoneNumber = new System.Windows.Forms.CheckBox();
             this.chbxEmail = new System.Windows.Forms.CheckBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.tbxTitle = new System.Windows.Forms.TextBox();
-            this.lbxInfo = new System.Windows.Forms.ListBox();
             this.grbxCredentials.SuspendLayout();
             this.grbxPreferences.SuspendLayout();
             this.tabSelection.SuspendLayout();
@@ -521,6 +521,15 @@
             this.tabInfoExtractor.Text = "Info Extrator";
             this.tabInfoExtractor.UseVisualStyleBackColor = true;
             // 
+            // lbxInfo
+            // 
+            this.lbxInfo.FormattingEnabled = true;
+            this.lbxInfo.ItemHeight = 16;
+            this.lbxInfo.Location = new System.Drawing.Point(9, 54);
+            this.lbxInfo.Name = "lbxInfo";
+            this.lbxInfo.Size = new System.Drawing.Size(655, 372);
+            this.lbxInfo.TabIndex = 4;
+            // 
             // chbxPhoneNumber
             // 
             this.chbxPhoneNumber.AutoSize = true;
@@ -558,15 +567,6 @@
             this.tbxTitle.TabIndex = 0;
             this.tbxTitle.Text = "Recruiter Hunter";
             // 
-            // lbxInfo
-            // 
-            this.lbxInfo.FormattingEnabled = true;
-            this.lbxInfo.ItemHeight = 16;
-            this.lbxInfo.Location = new System.Drawing.Point(9, 54);
-            this.lbxInfo.Name = "lbxInfo";
-            this.lbxInfo.Size = new System.Drawing.Size(655, 372);
-            this.lbxInfo.TabIndex = 4;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -603,8 +603,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnStartApplying;
         private System.Windows.Forms.TextBox tbxEmail;
         private System.Windows.Forms.Label lblUserName;
         private System.Windows.Forms.TextBox tbxPassword;
@@ -626,7 +624,6 @@
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnClearKeywords;
         private System.Windows.Forms.Button btnClearLocation;
-        private System.Windows.Forms.Button btnStopApplying;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbxCity;
         private System.Windows.Forms.Label lblPasswordInfo;
@@ -642,14 +639,16 @@
         private System.Windows.Forms.Label lblCommuting;
         private System.Windows.Forms.ComboBox cbxCommuting;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TabControl tabSelection;
-        private System.Windows.Forms.TabPage tabJobApplier;
-        private System.Windows.Forms.TabPage tabInfoExtractor;
         private System.Windows.Forms.TextBox tbxTitle;
         private System.Windows.Forms.CheckBox chbxPhoneNumber;
         private System.Windows.Forms.CheckBox chbxEmail;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.ListBox lbxInfo;
+        private System.Windows.Forms.Button btnStartApplying;
+        private System.Windows.Forms.Button btnStopApplying;
+        private System.Windows.Forms.TabControl tabSelection;
+        private System.Windows.Forms.TabPage tabJobApplier;
+        private System.Windows.Forms.TabPage tabInfoExtractor;
     }
 }
 

@@ -94,7 +94,7 @@ namespace LinkedinJobApplier.Config
             {
                 string peopleLink = "https://www.linkedin.com/search/results/people/?keywords=" + title.Replace(" ", "%20") + "&origin=SWITCH_SEARCH_VERTICAL";
                 driver.Url = peopleLink;
-                Thread.Sleep(TimeSpan.FromSeconds(5));
+                
                 int totalPages = Utils.GetPageCountForInfoExtract(driver);
                 for (int page = 1; page < totalPages; page++)
                 {
@@ -102,10 +102,10 @@ namespace LinkedinJobApplier.Config
                         break;
                     var currentUrl = peopleLink + "&page=" + page;
                     driver.Url = currentUrl;
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
+                    
 
                     ReadOnlyCollection<IWebElement> resultListElements = driver.FindElements(By.CssSelector(".reusable-search__entity-result-list.list-style-none"));
-
+                    Thread.Sleep(TimeSpan.FromSeconds(5));
                     List<string> links = new List<string>();
                     foreach (IWebElement resultListElement in resultListElements)
                     {
@@ -139,7 +139,7 @@ namespace LinkedinJobApplier.Config
                         try
                         {
                             driver.Url = profile + "/overlay/contact-info/";
-
+                            Thread.Sleep(TimeSpan.FromSeconds(1));
                             var PhoneEmail = Utils.FindEmailAndPhoneNumbers(driver);
                         }
                         catch (Exception ex)
@@ -154,8 +154,9 @@ namespace LinkedinJobApplier.Config
             {
 
             }
-    }
-    public void LinkJobApply(CancellationToken cancellationToken)
+            
+        }
+        public void LinkJobApply(CancellationToken cancellationToken)
     {
         try
         {

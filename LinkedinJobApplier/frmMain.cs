@@ -21,12 +21,15 @@ namespace LinkedinJobApplier
 {
     public partial class frmMain : Form
     {
+        #region Variables
         CancellationTokenSource cancellationTokenSource = null;
         Thread statusUpdateThread = null;
         Thread phoneEmailThread = null;
         Thread operationThread = null;
         private HttpClient client;
         bool isinfoextratorRunTime = false;
+        #endregion
+        
         public frmMain()
         {
             InitializeComponent();
@@ -38,8 +41,8 @@ namespace LinkedinJobApplier
         delegate void UpdateInfoListboxDelegate(string PhoneEmail);
         private void frmMain_Load(object sender, EventArgs e)
         {
-            
-           
+
+
             frmLicence frmLicence = new frmLicence(this);
             try
             {
@@ -64,21 +67,8 @@ namespace LinkedinJobApplier
                         LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
                         lblRemainingDays.Text = $"Remaining days: {Convert.ToInt32((DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd"))}";
                         SetDefaultItems();
+                        SetTabsPages(parsedLicenseTable.isinfoextrator);
                         isinfoextratorRunTime = parsedLicenseTable.isinfoextrator;
-                        if (parsedLicenseTable.isinfoextrator)
-                        {
-                            (tabSelection.TabPages[0] as TabPage).Enabled = false;
-                            tabSelection.SelectedTab = tabInfoExtractor;
-                            btnStartApplying.Text = "Start Extracting";
-                            btnStartApplying.Text = "Stop Extracting";
-                        }
-                        else
-                        {
-                            (tabSelection.TabPages[1] as TabPage).Enabled = false;
-                            tabSelection.SelectedTab = tabJobApplier;
-                            btnStartApplying.Text = "Start Applying";
-                            btnStartApplying.Text = "Stop Applying";
-                        }
                     }
 
                 }
@@ -125,7 +115,7 @@ namespace LinkedinJobApplier
             }
             else
             {
-                if (!lbxInfo.Items.Contains(PhoneEmail)&& !string.IsNullOrEmpty(PhoneEmail)&& PhoneEmail.Replace(" ","")!="|")
+                if (!lbxInfo.Items.Contains(PhoneEmail) && !string.IsNullOrEmpty(PhoneEmail) && PhoneEmail.Replace(" ", "") != "|")
                 {
                     lbxInfo.Items.Add(PhoneEmail);
                 }
@@ -143,7 +133,7 @@ namespace LinkedinJobApplier
 
                 // Delay for a specific duration before updating again
                 Thread.Sleep(1000);
-               
+
             }
         }
         private void UpdateListPhoneEmailThread()
@@ -211,34 +201,34 @@ namespace LinkedinJobApplier
             {
                 cancellationTokenSource = new CancellationTokenSource();
                 var cancellationToken = cancellationTokenSource.Token;
-                operationThread = new Thread(() =>
+                if (isinfoextratorRunTime)
                 {
-
-                    
-
-                    Linkedin linkedin = new Linkedin();
-                    if (isinfoextratorRunTime)
+                    phoneEmailThread = new Thread(UpdateListPhoneEmailThread);
+                    phoneEmailThread.Start();
+                    operationThread = new Thread(() =>
                     {
-                        phoneEmailThread = new Thread(UpdateListPhoneEmailThread);
-                        phoneEmailThread.Start();
-                        linkedin.LinkInfoExtract(cancellationToken,tbxTitle.Text);
-                    }
-                    else
+                        Linkedin linkedin = new Linkedin();
+                        linkedin.LinkInfoExtract(cancellationToken, tbxTitle.Text);
+                    });
+                }
+                else
+                {
+                    statusUpdateThread = new Thread(UpdateStatusLabelThread);
+                    statusUpdateThread.Start();
+                    operationThread = new Thread(() =>
                     {
-                        statusUpdateThread = new Thread(UpdateStatusLabelThread);
-                        statusUpdateThread.Start();
+                        Linkedin linkedin = new Linkedin();
                         linkedin.LinkJobApply(cancellationToken);
-                    }
-                    
+                    });
+                }
 
-                });
                 operationThread.Start();
             }
             catch (Exception ex)
             {
                 ExceptionLogger.LogException(ex);
             }
-            
+
         }
         private void btnAddCountry_Click(object sender, EventArgs e)
         {
@@ -305,7 +295,7 @@ namespace LinkedinJobApplier
             {
                 btnStopApplying.Text = "Please Wait..";
                 btnStopApplying.BackColor = Color.OrangeRed;
-                btnStopApplying.ForeColor= Color.Black;
+                btnStopApplying.ForeColor = Color.Black;
                 if (isinfoextratorRunTime)
                 {
                     phoneEmailThread?.Abort();
@@ -320,7 +310,7 @@ namespace LinkedinJobApplier
                     operationThread.Abort();
                     operationThread.Join();
                 }
-                
+
                 btnStopApplying.BackColor = Color.WhiteSmoke;
                 btnStopApplying.ForeColor = Color.OrangeRed;
                 btnStopApplying.Text = "Stop Applying";
@@ -417,6 +407,23 @@ namespace LinkedinJobApplier
             }
             catch (Exception ex) { ExceptionLogger.LogException(ex); }
 
+        }
+        public void SetTabsPages(bool isinfoextratorRunTime)
+        {
+            if (isinfoextratorRunTime)
+            {
+                (tabSelection.TabPages[0] as TabPage).Enabled = false;
+                tabSelection.SelectedTab = tabInfoExtractor;
+                btnStartApplying.Text = "Start Extracting";
+                btnStopApplying.Text = "Stop Extracting";
+            }
+            else
+            {
+                (tabSelection.TabPages[1] as TabPage).Enabled = false;
+                tabSelection.SelectedTab = tabJobApplier;
+                btnStartApplying.Text = "Start Applying";
+                btnStopApplying.Text = "Stop Applying";
+            }
         }
         #endregion
 
