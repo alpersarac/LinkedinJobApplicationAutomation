@@ -66,7 +66,7 @@ namespace LinkedinJobApplier.Config
 
                 Console.WriteLine("Logged in to LinkedIn.");
                 Console.WriteLine("CAPTCHA DELAY");
-                //System.Threading.Thread.Sleep(TimeSpan.FromSeconds(Constants.CaptaTime));
+                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(Constants.CaptaTime));
             }
             catch (Exception ex)
             {
@@ -90,220 +90,243 @@ namespace LinkedinJobApplier.Config
 
         public void LinkInfoExtract(CancellationToken cancellationToken, string title)
         {
-            string peopleLink = "https://www.linkedin.com/search/results/people/?keywords="+ title + "&origin=SWITCH_SEARCH_VERTICAL";
-            driver.Url = peopleLink;
-            int totalPages = Utils.GetPageCountForInfoExtract(driver);
-            for (int page = 1; page < totalPages; page++)
-            {
-                
-                var currentUrl = peopleLink + "&page=" + page;
-                driver.Url = currentUrl;
-
-                ReadOnlyCollection<IWebElement> resultListElements = driver.FindElements(By.CssSelector(".reusable-search__entity-result-list.list-style-none"));
-
-                List<string> links = new List<string>();
-                foreach (IWebElement resultListElement in resultListElements)
-                {
-                    // Find all elements with the class "display-flex" within the current result list element
-                    ReadOnlyCollection<IWebElement> displayFlexElements = resultListElement.FindElements(By.CssSelector(".display-flex"));
-
-                    foreach (IWebElement displayFlexElement in displayFlexElements)
-                    {
-                        // Find anchor elements within each display-flex element
-                        ReadOnlyCollection<IWebElement> anchorElements = displayFlexElement.FindElements(By.TagName("a"));
-
-                        foreach (IWebElement anchorElement in anchorElements)
-                        {
-                            string href = anchorElement.GetAttribute("href");
-                            links.Add(href.Split(new string[] { "?miniProfile" }, StringSplitOptions.None)[0]);
-                        }
-                    } 
-                }
-
-                foreach (var profile in links.Distinct())
-                {
-                    driver.Url = profile + "/overlay/contact-info/";
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
-                    var ww = Utils.FindEmailAndPhoneNumbers(driver);
-
-                }
-
-
-
-            }
-
-        }
-        public void LinkJobApply(CancellationToken cancellationToken)
-        {
             try
             {
-                Utils.GenerateUrls();
-                int countApplied = 0;
-                int countJobs = 0;
-
-                List<string> urlData = Utils.getUrlDataFile();
-                var distinctUrls = urlData.Distinct();
-
-                foreach (string url in distinctUrls)
+                string peopleLink = "https://www.linkedin.com/search/results/people/?keywords=" + title.Replace(" ", "%20") + "&origin=SWITCH_SEARCH_VERTICAL";
+                driver.Url = peopleLink;
+                
+                int totalPages = Utils.GetPageCountForInfoExtract(driver);
+                for (int page = 1; page < totalPages; page++)
                 {
                     if (cancellationToken.IsCancellationRequested)
                         break;
+                    var currentUrl = peopleLink + "&page=" + page;
+                    driver.Url = currentUrl;
+                    
 
-                    List<string> urlWords = new List<string>();
-                    try
+                    ReadOnlyCollection<IWebElement> resultListElements = driver.FindElements(By.CssSelector(".reusable-search__entity-result-list.list-style-none"));
+                    Thread.Sleep(TimeSpan.FromSeconds(5));
+                    List<string> links = new List<string>();
+                    foreach (IWebElement resultListElement in resultListElements)
                     {
-                        driver.Url = url;
-                        Thread.Sleep(TimeSpan.FromSeconds(5));
+                        if (cancellationToken.IsCancellationRequested)
+                            break;
+                        // Find all elements with the class "display-flex" within the current result list element
+                        ReadOnlyCollection<IWebElement> displayFlexElements = resultListElement.FindElements(By.CssSelector(".display-flex"));
 
-                        string totalJobs = driver.FindElement(By.XPath("//small")).Text;
-                        int totalPages = Utils.GetPageCount(driver);
-                        totalPages = Utils.jobsToPages(totalJobs);
-
-                        urlWords = Utils.urlToKeywords(url);
-                        string lineToWrite = "\nCategory: " + urlWords[0] + ", Location: " + urlWords[1] + ", Applying to " + totalJobs + " jobs.";
-
-                        for (int page = 0; page < totalPages; page++)
+                        foreach (IWebElement displayFlexElement in displayFlexElements)
                         {
-                            try
+                            if (cancellationToken.IsCancellationRequested)
+                                break;
+                            // Find anchor elements within each display-flex element
+                            ReadOnlyCollection<IWebElement> anchorElements = displayFlexElement.FindElements(By.TagName("a"));
+
+                            foreach (IWebElement anchorElement in anchorElements)
                             {
-                                int currentPageJobs = Constants.JobsPerPage * page;
-                                var currentUrl = url + "&start=" + currentPageJobs;
-                                driver.Url = currentUrl;
-                                Thread.Sleep(TimeSpan.FromSeconds(5));
-
-                                List<long> offerIds = new List<long>();
-                                try
-                                {
-                                    ReadOnlyCollection<IWebElement> offersPerPage = driver.FindElements(By.XPath("//li[@data-occsludable-job-id]"));
-                                    if (offersPerPage.Count == 0)
-                                    {
-                                        offersPerPage = driver.FindElements(By.XPath("//li[@data-occludable-job-id]"));
-                                    }
-                                    Console.WriteLine("Number of offers on this page: " + offersPerPage.Count);
-                                    Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-
-                                    foreach (IWebElement offer in offersPerPage)
-                                    {
-                                        string offerId = offer.GetAttribute("data-occludable-job-id");
-                                        if (!Utils.AppliedBefore(offer))
-                                            offerIds.Add(long.Parse(offerId.Split(':').Last()));
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    
-                                    Console.WriteLine("Exception occurred while fetching offer details from the page!");
-                                }
-
-                                if (offerIds.Count == 0)
+                                if (cancellationToken.IsCancellationRequested)
                                     break;
-
-                                foreach (long jobID in offerIds)
-                                {
-                                    if (cancellationToken.IsCancellationRequested)
-                                        break;
-
-                                    string offerPage = "https://www.linkedin.com/jobs/view/" + jobID;
-                                    driver.Url = offerPage;
-                                    Thread.Sleep(TimeSpan.FromSeconds(5));
-
-                                    countJobs++;
-
-                                    string jobProperties = Utils.GetJobProperties(countJobs, driver);
-                                    Utils.prYellow($"{jobProperties} --> Page {page + 1} of {totalPages}");
-
-                                    IWebElement button = Utils.EasyApplyButton(driver);
-                                    IWebElement linkApplyButton = Utils.LinkApplyButton(driver);
-
-                                    if (button != null && linkApplyButton == null)
-                                    {
-                                        button.Click();
-                                        Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
-                                        countApplied++;
-
-                                        try
-                                        {
-                                            bool isApplied = Utils.SubmitApplication(jobProperties, offerPage, driver);
-                                            if (!isApplied)
-                                            {
-                                                int counter = 0;
-                                                string currentValueOfPercent = "";
-                                                string previousValueOfPercent = "";
-
-                                                for (int i = 0; i < 15; i++)
-                                                {
-                                                    Console.WriteLine($"----> Step {i + 1} <----");
-                                                    currentValueOfPercent = Utils.ContinueNextStep(driver);
-                                                    Utils.EnterCityName(driver);
-                                                    Utils.EnterSalaryExpectations(driver);
-                                                    Utils.CheckTermsAndConditionsCheckbox(driver);
-                                                    Utils.SelectVisaRequirement(driver,"No");
-                                                    Utils.SelectCommuteComfort(driver, "Yes");
-                                                    Utils.EnterStartDate(driver, "14days");
-                                                    if (currentValueOfPercent != previousValueOfPercent)
-                                                    {
-                                                        previousValueOfPercent = currentValueOfPercent;
-                                                    }
-                                                    else
-                                                    {
-                                                        break;
-                                                    }
-
-                                                    if (Utils.ReviewTheApplication(jobProperties, offerPage, ref counter, driver))
-                                                    {
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        catch
-                                        {
-                                            Console.WriteLine("Unable to fill all fields");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Already applied to this job!");
-                                    }
-
-                                    if (linkApplyButton != null)
-                                    {
-                                        lineToWrite = jobProperties + " | " + "* EXTERNAL LINK APPLICATION: " + offerPage;
-                                        Utils.DisplayWriteResults(lineToWrite);
-                                    }
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine("Exception occurred on Page " + page + ": " + url);
+                                string href = anchorElement.GetAttribute("href");
+                                links.Add(href.Split(new string[] { "?miniProfile" }, StringSplitOptions.None)[0]);
                             }
                         }
                     }
-                    catch (Exception e)
+                    var ClearList = links.Distinct().Where(x => !x.Contains("SWITCH_SEARCH_VERTICAL"));
+                    foreach (var profile in ClearList)
                     {
-                        Console.WriteLine("Exception occurred while processing URL: " + url);
-                        Console.WriteLine("Error: " + e.ToString());
-                    }
+                        if (cancellationToken.IsCancellationRequested)
+                            break;
 
-                    Console.WriteLine("Category: " + urlWords[0] + ", " + urlWords[1] + " - Applied: " + countApplied +
-                        " jobs out of " + countJobs + ".");
+                        try
+                        {
+                            driver.Url = profile + "/overlay/contact-info/";
+                            Thread.Sleep(TimeSpan.FromSeconds(1));
+                            var PhoneEmail = Utils.FindEmailAndPhoneNumbers(driver);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Cleanup();
-            }
 
-            Utils.prGreen("All tasks completed!");
-            System.Windows.Forms.MessageBox.Show("All jobs are completed!");
+            }
+            
+        }
+        public void LinkJobApply(CancellationToken cancellationToken)
+    {
+        try
+        {
+            Utils.GenerateUrls();
+            int countApplied = 0;
+            int countJobs = 0;
+
+            List<string> urlData = Utils.getUrlDataFile();
+            var distinctUrls = urlData.Distinct();
+
+            foreach (string url in distinctUrls)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    break;
+
+                List<string> urlWords = new List<string>();
+                try
+                {
+                    driver.Url = url;
+                    Thread.Sleep(TimeSpan.FromSeconds(5));
+
+                    string totalJobs = driver.FindElement(By.XPath("//small")).Text;
+                    int totalPages = Utils.GetPageCount(driver);
+                    totalPages = Utils.jobsToPages(totalJobs);
+
+                    urlWords = Utils.urlToKeywords(url);
+                    string lineToWrite = "\nCategory: " + urlWords[0] + ", Location: " + urlWords[1] + ", Applying to " + totalJobs + " jobs.";
+
+                    for (int page = 0; page < totalPages; page++)
+                    {
+                        try
+                        {
+                            int currentPageJobs = Constants.JobsPerPage * page;
+                            var currentUrl = url + "&start=" + currentPageJobs;
+                            driver.Url = currentUrl;
+                            Thread.Sleep(TimeSpan.FromSeconds(5));
+
+                            List<long> offerIds = new List<long>();
+                            try
+                            {
+                                ReadOnlyCollection<IWebElement> offersPerPage = driver.FindElements(By.XPath("//li[@data-occsludable-job-id]"));
+                                if (offersPerPage.Count == 0)
+                                {
+                                    offersPerPage = driver.FindElements(By.XPath("//li[@data-occludable-job-id]"));
+                                }
+                                Console.WriteLine("Number of offers on this page: " + offersPerPage.Count);
+                                Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+
+                                foreach (IWebElement offer in offersPerPage)
+                                {
+                                    string offerId = offer.GetAttribute("data-occludable-job-id");
+                                    if (!Utils.AppliedBefore(offer))
+                                        offerIds.Add(long.Parse(offerId.Split(':').Last()));
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+
+                                Console.WriteLine("Exception occurred while fetching offer details from the page!");
+                            }
+
+                            if (offerIds.Count == 0)
+                                break;
+
+                            foreach (long jobID in offerIds)
+                            {
+                                if (cancellationToken.IsCancellationRequested)
+                                    break;
+
+                                string offerPage = "https://www.linkedin.com/jobs/view/" + jobID;
+                                driver.Url = offerPage;
+                                Thread.Sleep(TimeSpan.FromSeconds(5));
+
+                                countJobs++;
+
+                                string jobProperties = Utils.GetJobProperties(countJobs, driver);
+                                Utils.prYellow($"{jobProperties} --> Page {page + 1} of {totalPages}");
+
+                                IWebElement button = Utils.EasyApplyButton(driver);
+                                IWebElement linkApplyButton = Utils.LinkApplyButton(driver);
+
+                                if (button != null && linkApplyButton == null)
+                                {
+                                    button.Click();
+                                    Thread.Sleep(TimeSpan.FromSeconds(new Random().NextDouble() * Constants.BotSpeed));
+                                    countApplied++;
+
+                                    try
+                                    {
+                                        bool isApplied = Utils.SubmitApplication(jobProperties, offerPage, driver);
+                                        if (!isApplied)
+                                        {
+                                            int counter = 0;
+                                            string currentValueOfPercent = "";
+                                            string previousValueOfPercent = "";
+
+                                            for (int i = 0; i < 15; i++)
+                                            {
+                                                Console.WriteLine($"----> Step {i + 1} <----");
+                                                currentValueOfPercent = Utils.ContinueNextStep(driver);
+                                                Utils.EnterCityName(driver);
+                                                Utils.EnterSalaryExpectations(driver);
+                                                Utils.CheckTermsAndConditionsCheckbox(driver);
+                                                Utils.SelectVisaRequirement(driver, "No");
+                                                Utils.SelectCommuteComfort(driver, "Yes");
+                                                Utils.EnterStartDate(driver, "14days");
+                                                if (currentValueOfPercent != previousValueOfPercent)
+                                                {
+                                                    previousValueOfPercent = currentValueOfPercent;
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+
+                                                if (Utils.ReviewTheApplication(jobProperties, offerPage, ref counter, driver))
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine("Unable to fill all fields");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Already applied to this job!");
+                                }
+
+                                if (linkApplyButton != null)
+                                {
+                                    lineToWrite = jobProperties + " | " + "* EXTERNAL LINK APPLICATION: " + offerPage;
+                                    Utils.DisplayWriteResults(lineToWrite);
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Exception occurred on Page " + page + ": " + url);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception occurred while processing URL: " + url);
+                    Console.WriteLine("Error: " + e.ToString());
+                }
+
+                Console.WriteLine("Category: " + urlWords[0] + ", " + urlWords[1] + " - Applied: " + countApplied +
+                    " jobs out of " + countJobs + ".");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            Cleanup();
         }
 
+        Utils.prGreen("All tasks completed!");
+        System.Windows.Forms.MessageBox.Show("All jobs are completed!");
     }
+
+}
 }
 
 

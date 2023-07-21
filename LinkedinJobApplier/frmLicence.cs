@@ -50,6 +50,7 @@ namespace LinkedinJobApplier
                     MessageBox.Show("Registration is successfully completed");
                     isRegistered = true;
                     this.Hide();
+                    _frmMainObj.SetTabsPages(parsedLicenseTable.isinfoextrator);
                     _frmMainObj.Show();
                     //----show frmmain
                 }

@@ -8,7 +8,7 @@ namespace LinkedinJobApplier.Config
 {
     public static class Config
     {
-        public static string Browser = "Firefox";
+        public static string Browser = "chrome";
         // Optional! run browser in headless mode, no browser screen will be shown it will work in background.
         public static bool Headless = false;
         // Optional! for Firefox enter profile dir to run the bot without logging in your account each time
@@ -28,7 +28,9 @@ namespace LinkedinJobApplier.Config
         public static string VisaRequirement = "";
         public static string CommutePreference = "";
         public static string NoticePeriod = "";
+
        
+        public static string PhoneAndEmails = "";
         // location you want to search the jobs - ex : new List<string> { "Poland", "Germany", "Netherlands", "Austria", "Switzerland" }
         // continent locations: new List<string> { "Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia" }
         public static List<string> Location = new List<string>();

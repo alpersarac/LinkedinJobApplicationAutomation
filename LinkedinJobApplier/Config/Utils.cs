@@ -384,19 +384,28 @@ namespace LinkedinJobApplier.Config
         
         public static int GetPageCountForInfoExtract(IWebDriver driver)
         {
-            string lastPageValue = string.Empty;
             int lastPage = 1;
+
             try
             {
-                IWebElement lastPageElement = driver.FindElement(By.CssSelector("div.artdeco-pagination.artdeco-pagination--has-controls.ember-view.pv5.ph2"));
-                lastPageValue = lastPageElement.Text;
+                // Find the element containing the last page number
+                IWebElement lastPageElement = driver.FindElement(By.CssSelector(".artdeco-pagination__pages--number li:last-child button span"));
+                string lastPageValue = lastPageElement.Text;
                 int.TryParse(lastPageValue, out lastPage);
             }
             catch (NoSuchElementException)
             {
-                Console.WriteLine("Page count exception: Pagination element not found");
-                return 40;
+                Console.WriteLine("Last page element not found");
+                // Handle the case where the last page element is not found
+                // You can provide an alternative behavior or error handling here
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error extracting last page: " + ex.Message);
+                // Handle any other exceptions that might occur during parsing
+                // You can provide an alternative behavior or error handling here
+            }
+
             return lastPage;
         }
         public static string FindEmailAndPhoneNumbers(IWebDriver driver)
@@ -404,6 +413,9 @@ namespace LinkedinJobApplier.Config
 
             try
             {
+                string phone = "";
+                string email = "";
+                string name = "";
                 // Use an explicit wait to wait for the element to be present
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 IWebElement modalContent = wait.Until(ExpectedConditions.ElementExists(By.CssSelector(".artdeco-modal__content")));
@@ -415,30 +427,58 @@ namespace LinkedinJobApplier.Config
                 string emailPattern = @"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b";
                 string phonePattern = @"\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b";
 
-                // Find emails using regex
-                MatchCollection emailMatches = Regex.Matches(modalHtmlSource, emailPattern, RegexOptions.IgnoreCase);
-                foreach (Match emailMatch in emailMatches)
+                try
                 {
-                    string email = emailMatch.Value;
-                    // Do something with the found email
-                    Console.WriteLine("Email: " + email);
+                    // Find emails using regex
+                    MatchCollection emailMatches = Regex.Matches(modalHtmlSource, emailPattern, RegexOptions.IgnoreCase);
+
+                    foreach (Match emailMatch in emailMatches)
+                    {
+                        email = emailMatch.Value;
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
                 }
 
-                // Find phone numbers using regex
-                MatchCollection phoneMatches = Regex.Matches(modalHtmlSource, phonePattern);
-                foreach (Match phoneMatch in phoneMatches)
+                try
                 {
-                    string phone = phoneMatch.Value;
-                    // Do something with the found phone number
-                    Console.WriteLine("Phone: " + phone);
+                    // Find phone numbers using regex
+                    MatchCollection phoneMatches = Regex.Matches(modalHtmlSource, phonePattern);
+
+                    foreach (Match phoneMatch in phoneMatches)
+                    {
+                        phone = phoneMatch.Value;
+
+                    }
                 }
+                catch (Exception ex)
+                {
+
+                }
+                try
+                {
+                    // Find the name using an appropriate selector (assuming it's within the h1 tag with id="pv-contact-info")
+                    name = driver.FindElement(By.CssSelector("h1#pv-contact-info")).Text.Trim();
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+               
+               
+                Config.PhoneAndEmails = string.IsNullOrEmpty(email) ? "": name + "|" + email + "|" + phone;
+                return string.IsNullOrEmpty(email)?name+"|":"" + email + "|" + phone;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Element not found: " + ex.Message);
                 return "";
             }
-            return "";
         }
 
         public static void GenerateUrls()
