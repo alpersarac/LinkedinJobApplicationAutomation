@@ -52,7 +52,6 @@
             this.tbxSalary = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tbxCity = new System.Windows.Forms.TextBox();
-            this.lblStatus = new System.Windows.Forms.Label();
             this.btnClearKeywords = new System.Windows.Forms.Button();
             this.btnClearLocation = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -65,15 +64,17 @@
             this.tbxLocation = new System.Windows.Forms.TextBox();
             this.btnAddCountry = new System.Windows.Forms.Button();
             this.lbxLocations = new System.Windows.Forms.ListBox();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.btnStopApplying = new System.Windows.Forms.Button();
             this.lblRemainingDays = new System.Windows.Forms.Label();
             this.tabSelection = new System.Windows.Forms.TabControl();
             this.tabJobApplier = new System.Windows.Forms.TabPage();
             this.tabInfoExtractor = new System.Windows.Forms.TabPage();
-            this.tbxTitle = new System.Windows.Forms.TextBox();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.chbxEmail = new System.Windows.Forms.CheckBox();
             this.chbxPhoneNumber = new System.Windows.Forms.CheckBox();
+            this.chbxEmail = new System.Windows.Forms.CheckBox();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.tbxTitle = new System.Windows.Forms.TextBox();
+            this.lbxInfo = new System.Windows.Forms.ListBox();
             this.grbxCredentials.SuspendLayout();
             this.grbxPreferences.SuspendLayout();
             this.tabSelection.SuspendLayout();
@@ -331,15 +332,6 @@
             this.tbxCity.Size = new System.Drawing.Size(174, 21);
             this.tbxCity.TabIndex = 12;
             // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(360, 487);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(40, 16);
-            this.lblStatus.TabIndex = 8;
-            this.lblStatus.Text = "Status";
-            // 
             // btnClearKeywords
             // 
             this.btnClearKeywords.Location = new System.Drawing.Point(541, 175);
@@ -462,6 +454,15 @@
             this.lbxLocations.Size = new System.Drawing.Size(279, 100);
             this.lbxLocations.TabIndex = 0;
             // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(360, 487);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(40, 16);
+            this.lblStatus.TabIndex = 8;
+            this.lblStatus.Text = "Status";
+            // 
             // btnStopApplying
             // 
             this.btnStopApplying.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -507,6 +508,7 @@
             // 
             // tabInfoExtractor
             // 
+            this.tabInfoExtractor.Controls.Add(this.lbxInfo);
             this.tabInfoExtractor.Controls.Add(this.chbxPhoneNumber);
             this.tabInfoExtractor.Controls.Add(this.chbxEmail);
             this.tabInfoExtractor.Controls.Add(this.lblTitle);
@@ -519,22 +521,15 @@
             this.tabInfoExtractor.Text = "Info Extrator";
             this.tabInfoExtractor.UseVisualStyleBackColor = true;
             // 
-            // tbxTitle
+            // chbxPhoneNumber
             // 
-            this.tbxTitle.Location = new System.Drawing.Point(42, 10);
-            this.tbxTitle.Name = "tbxTitle";
-            this.tbxTitle.Size = new System.Drawing.Size(258, 21);
-            this.tbxTitle.TabIndex = 0;
-            this.tbxTitle.Text = "satinalma muduru";
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(6, 10);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(30, 16);
-            this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "Title:";
+            this.chbxPhoneNumber.AutoSize = true;
+            this.chbxPhoneNumber.Location = new System.Drawing.Point(382, 13);
+            this.chbxPhoneNumber.Name = "chbxPhoneNumber";
+            this.chbxPhoneNumber.Size = new System.Drawing.Size(107, 20);
+            this.chbxPhoneNumber.TabIndex = 3;
+            this.chbxPhoneNumber.Text = "Phone Number";
+            this.chbxPhoneNumber.UseVisualStyleBackColor = true;
             // 
             // chbxEmail
             // 
@@ -546,15 +541,31 @@
             this.chbxEmail.Text = "Email";
             this.chbxEmail.UseVisualStyleBackColor = true;
             // 
-            // chbxPhoneNumber
+            // lblTitle
             // 
-            this.chbxPhoneNumber.AutoSize = true;
-            this.chbxPhoneNumber.Location = new System.Drawing.Point(382, 13);
-            this.chbxPhoneNumber.Name = "chbxPhoneNumber";
-            this.chbxPhoneNumber.Size = new System.Drawing.Size(107, 20);
-            this.chbxPhoneNumber.TabIndex = 3;
-            this.chbxPhoneNumber.Text = "Phone Number";
-            this.chbxPhoneNumber.UseVisualStyleBackColor = true;
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(6, 10);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(30, 16);
+            this.lblTitle.TabIndex = 1;
+            this.lblTitle.Text = "Title:";
+            // 
+            // tbxTitle
+            // 
+            this.tbxTitle.Location = new System.Drawing.Point(42, 10);
+            this.tbxTitle.Name = "tbxTitle";
+            this.tbxTitle.Size = new System.Drawing.Size(258, 21);
+            this.tbxTitle.TabIndex = 0;
+            this.tbxTitle.Text = "Recruiter Hunter";
+            // 
+            // lbxInfo
+            // 
+            this.lbxInfo.FormattingEnabled = true;
+            this.lbxInfo.ItemHeight = 16;
+            this.lbxInfo.Location = new System.Drawing.Point(9, 54);
+            this.lbxInfo.Name = "lbxInfo";
+            this.lbxInfo.Size = new System.Drawing.Size(655, 372);
+            this.lbxInfo.TabIndex = 4;
             // 
             // frmMain
             // 
@@ -638,6 +649,7 @@
         private System.Windows.Forms.CheckBox chbxPhoneNumber;
         private System.Windows.Forms.CheckBox chbxEmail;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.ListBox lbxInfo;
     }
 }
 

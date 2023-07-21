@@ -384,19 +384,28 @@ namespace LinkedinJobApplier.Config
         
         public static int GetPageCountForInfoExtract(IWebDriver driver)
         {
-            string lastPageValue = string.Empty;
             int lastPage = 1;
+
             try
             {
-                IWebElement lastPageElement = driver.FindElement(By.CssSelector("div.artdeco-pagination.artdeco-pagination--has-controls.ember-view.pv5.ph2"));
-                lastPageValue = lastPageElement.Text;
+                // Find the element containing the last page number
+                IWebElement lastPageElement = driver.FindElement(By.CssSelector(".artdeco-pagination__pages--number li:last-child button span"));
+                string lastPageValue = lastPageElement.Text;
                 int.TryParse(lastPageValue, out lastPage);
             }
             catch (NoSuchElementException)
             {
-                Console.WriteLine("Page count exception: Pagination element not found");
-                return 40;
+                Console.WriteLine("Last page element not found");
+                // Handle the case where the last page element is not found
+                // You can provide an alternative behavior or error handling here
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error extracting last page: " + ex.Message);
+                // Handle any other exceptions that might occur during parsing
+                // You can provide an alternative behavior or error handling here
+            }
+
             return lastPage;
         }
         public static string FindEmailAndPhoneNumbers(IWebDriver driver)
@@ -417,28 +426,29 @@ namespace LinkedinJobApplier.Config
 
                 // Find emails using regex
                 MatchCollection emailMatches = Regex.Matches(modalHtmlSource, emailPattern, RegexOptions.IgnoreCase);
+                string email = "";
                 foreach (Match emailMatch in emailMatches)
                 {
-                    string email = emailMatch.Value;
-                    // Do something with the found email
-                    Console.WriteLine("Email: " + email);
+                    email = emailMatch.Value;
+                    
                 }
 
                 // Find phone numbers using regex
                 MatchCollection phoneMatches = Regex.Matches(modalHtmlSource, phonePattern);
+                string phone = "";
                 foreach (Match phoneMatch in phoneMatches)
                 {
-                    string phone = phoneMatch.Value;
-                    // Do something with the found phone number
-                    Console.WriteLine("Phone: " + phone);
+                    phone = phoneMatch.Value;
+                   
                 }
+                Config.PhoneAndEmails=email + "|" + phone;
+                return email + "|" + phone;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Element not found: " + ex.Message);
                 return "";
             }
-            return "";
         }
 
         public static void GenerateUrls()

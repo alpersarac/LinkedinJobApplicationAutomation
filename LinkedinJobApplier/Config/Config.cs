@@ -28,7 +28,9 @@ namespace LinkedinJobApplier.Config
         public static string VisaRequirement = "";
         public static string CommutePreference = "";
         public static string NoticePeriod = "";
+
        
+        public static string PhoneAndEmails = "";
         // location you want to search the jobs - ex : new List<string> { "Poland", "Germany", "Netherlands", "Austria", "Switzerland" }
         // continent locations: new List<string> { "Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia" }
         public static List<string> Location = new List<string>();

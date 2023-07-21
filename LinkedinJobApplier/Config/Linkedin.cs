@@ -66,7 +66,7 @@ namespace LinkedinJobApplier.Config
 
                 Console.WriteLine("Logged in to LinkedIn.");
                 Console.WriteLine("CAPTCHA DELAY");
-                //System.Threading.Thread.Sleep(TimeSpan.FromSeconds(Constants.CaptaTime));
+                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(Constants.CaptaTime));
             }
             catch (Exception ex)
             {
@@ -90,12 +90,13 @@ namespace LinkedinJobApplier.Config
 
         public void LinkInfoExtract(CancellationToken cancellationToken, string title)
         {
-            string peopleLink = "https://www.linkedin.com/search/results/people/?keywords="+ title + "&origin=SWITCH_SEARCH_VERTICAL";
+            string peopleLink = "https://www.linkedin.com/search/results/people/?keywords="+ title.Replace(" ", "%20") + "&origin=SWITCH_SEARCH_VERTICAL";
             driver.Url = peopleLink;
             int totalPages = Utils.GetPageCountForInfoExtract(driver);
             for (int page = 1; page < totalPages; page++)
             {
-                
+                if (cancellationToken.IsCancellationRequested)
+                    break;
                 var currentUrl = peopleLink + "&page=" + page;
                 driver.Url = currentUrl;
 
@@ -104,28 +105,44 @@ namespace LinkedinJobApplier.Config
                 List<string> links = new List<string>();
                 foreach (IWebElement resultListElement in resultListElements)
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                        break;
                     // Find all elements with the class "display-flex" within the current result list element
                     ReadOnlyCollection<IWebElement> displayFlexElements = resultListElement.FindElements(By.CssSelector(".display-flex"));
 
                     foreach (IWebElement displayFlexElement in displayFlexElements)
                     {
+                        if (cancellationToken.IsCancellationRequested)
+                            break;
                         // Find anchor elements within each display-flex element
                         ReadOnlyCollection<IWebElement> anchorElements = displayFlexElement.FindElements(By.TagName("a"));
 
                         foreach (IWebElement anchorElement in anchorElements)
                         {
+                            if (cancellationToken.IsCancellationRequested)
+                                break;
                             string href = anchorElement.GetAttribute("href");
                             links.Add(href.Split(new string[] { "?miniProfile" }, StringSplitOptions.None)[0]);
                         }
                     } 
                 }
-
-                foreach (var profile in links.Distinct())
+                var ClearList = links.Distinct().Where(x=>!x.Contains("SWITCH_SEARCH_VERTICAL"));
+                foreach (var profile in ClearList)
                 {
-                    driver.Url = profile + "/overlay/contact-info/";
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
-                    var ww = Utils.FindEmailAndPhoneNumbers(driver);
+                    if (cancellationToken.IsCancellationRequested)
+                        break;
 
+                    try
+                    {
+                        driver.Url = profile + "/overlay/contact-info/";
+                        
+                        var PhoneEmail = Utils.FindEmailAndPhoneNumbers(driver);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    
                 }
 
 
