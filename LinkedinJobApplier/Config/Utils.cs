@@ -413,6 +413,9 @@ namespace LinkedinJobApplier.Config
 
             try
             {
+                string phone = "";
+                string email = "";
+                string name = "";
                 // Use an explicit wait to wait for the element to be present
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 IWebElement modalContent = wait.Until(ExpectedConditions.ElementExists(By.CssSelector(".artdeco-modal__content")));
@@ -424,25 +427,52 @@ namespace LinkedinJobApplier.Config
                 string emailPattern = @"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b";
                 string phonePattern = @"\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b";
 
-                // Find emails using regex
-                MatchCollection emailMatches = Regex.Matches(modalHtmlSource, emailPattern, RegexOptions.IgnoreCase);
-                string email = "";
-                foreach (Match emailMatch in emailMatches)
+                try
                 {
-                    email = emailMatch.Value;
-                    
+                    // Find emails using regex
+                    MatchCollection emailMatches = Regex.Matches(modalHtmlSource, emailPattern, RegexOptions.IgnoreCase);
+
+                    foreach (Match emailMatch in emailMatches)
+                    {
+                        email = emailMatch.Value;
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
                 }
 
-                // Find phone numbers using regex
-                MatchCollection phoneMatches = Regex.Matches(modalHtmlSource, phonePattern);
-                string phone = "";
-                foreach (Match phoneMatch in phoneMatches)
+                try
                 {
-                    phone = phoneMatch.Value;
-                   
+                    // Find phone numbers using regex
+                    MatchCollection phoneMatches = Regex.Matches(modalHtmlSource, phonePattern);
+
+                    foreach (Match phoneMatch in phoneMatches)
+                    {
+                        phone = phoneMatch.Value;
+
+                    }
                 }
-                Config.PhoneAndEmails=email + "|" + phone;
-                return email + "|" + phone;
+                catch (Exception ex)
+                {
+
+                }
+                try
+                {
+                    // Find the name using an appropriate selector (assuming it's within the h1 tag with id="pv-contact-info")
+                    name = driver.FindElement(By.CssSelector("h1#pv-contact-info")).Text.Trim();
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+               
+               
+                Config.PhoneAndEmails = string.IsNullOrEmpty(email) ? "": name + "|" + email + "|" + phone;
+                return string.IsNullOrEmpty(email)?name+"|":"" + email + "|" + phone;
             }
             catch (Exception ex)
             {
