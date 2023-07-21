@@ -35,9 +35,9 @@ namespace LinkedinJobApplier
                     MessageBox.Show("Enter a licence key");
                     return;
                 }
-                if (string.IsNullOrEmpty(email))
+                if (!Checker.CheckEmail(tbxEmail.Text)|| string.IsNullOrEmpty(email))
                 {
-                    MessageBox.Show("Enter an email");
+                    MessageBox.Show("Enter an valid email");
                     return;
                 }
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(licenseKey,ref isConnectionOK);
@@ -46,7 +46,7 @@ namespace LinkedinJobApplier
                     // Encrypt and save the license key
                     LicenseKeyManager.SaveLicenseKey(licenseKey);
                    
-                    LicenseKeyManager.SetMacAddress(parsedLicenseTable,NetworkHelper.GetMacAddress());
+                    LicenseKeyManager.SetMacAddress(parsedLicenseTable, email, NetworkHelper.GetMacAddress());
                     MessageBox.Show("Registration is successfully completed");
                     isRegistered = true;
                     this.Hide();

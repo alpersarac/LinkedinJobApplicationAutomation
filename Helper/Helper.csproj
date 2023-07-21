@@ -95,10 +95,12 @@
     <Compile Include="BasicEncryption.cs" />
     <Compile Include="Checker.cs" />
     <Compile Include="DatabaseConnector.cs" />
+    <Compile Include="ExceptionLogger.cs" />
     <Compile Include="LicenceTable.cs" />
     <Compile Include="LicenseKeyVerifier.cs" />
     <Compile Include="NetworkHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -67,8 +67,18 @@
             this.lbxLocations = new System.Windows.Forms.ListBox();
             this.btnStopApplying = new System.Windows.Forms.Button();
             this.lblRemainingDays = new System.Windows.Forms.Label();
+            this.tabSelection = new System.Windows.Forms.TabControl();
+            this.tabJobApplier = new System.Windows.Forms.TabPage();
+            this.tabInfoExtractor = new System.Windows.Forms.TabPage();
+            this.tbxTitle = new System.Windows.Forms.TextBox();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.chbxEmail = new System.Windows.Forms.CheckBox();
+            this.chbxPhoneNumber = new System.Windows.Forms.CheckBox();
             this.grbxCredentials.SuspendLayout();
             this.grbxPreferences.SuspendLayout();
+            this.tabSelection.SuspendLayout();
+            this.tabJobApplier.SuspendLayout();
+            this.tabInfoExtractor.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStartApplying
@@ -160,7 +170,7 @@
             // chbxRememberMe
             // 
             this.chbxRememberMe.AutoSize = true;
-            this.chbxRememberMe.Location = new System.Drawing.Point(546, 447);
+            this.chbxRememberMe.Location = new System.Drawing.Point(895, 487);
             this.chbxRememberMe.Name = "chbxRememberMe";
             this.chbxRememberMe.Size = new System.Drawing.Size(146, 20);
             this.chbxRememberMe.TabIndex = 7;
@@ -182,8 +192,6 @@
             this.grbxPreferences.Controls.Add(this.tbxSalary);
             this.grbxPreferences.Controls.Add(this.label5);
             this.grbxPreferences.Controls.Add(this.tbxCity);
-            this.grbxPreferences.Controls.Add(this.lblStatus);
-            this.grbxPreferences.Controls.Add(this.chbxRememberMe);
             this.grbxPreferences.Controls.Add(this.btnClearKeywords);
             this.grbxPreferences.Controls.Add(this.btnClearLocation);
             this.grbxPreferences.Controls.Add(this.label4);
@@ -197,9 +205,9 @@
             this.grbxPreferences.Controls.Add(this.btnAddCountry);
             this.grbxPreferences.Controls.Add(this.lbxLocations);
             this.grbxPreferences.ForeColor = System.Drawing.Color.DarkGreen;
-            this.grbxPreferences.Location = new System.Drawing.Point(354, 12);
+            this.grbxPreferences.Location = new System.Drawing.Point(6, 5);
             this.grbxPreferences.Name = "grbxPreferences";
-            this.grbxPreferences.Size = new System.Drawing.Size(698, 473);
+            this.grbxPreferences.Size = new System.Drawing.Size(653, 430);
             this.grbxPreferences.TabIndex = 7;
             this.grbxPreferences.TabStop = false;
             // 
@@ -326,7 +334,7 @@
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(6, 451);
+            this.lblStatus.Location = new System.Drawing.Point(360, 487);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(40, 16);
             this.lblStatus.TabIndex = 8;
@@ -470,23 +478,97 @@
             // lblRemainingDays
             // 
             this.lblRemainingDays.AutoSize = true;
-            this.lblRemainingDays.Location = new System.Drawing.Point(9, 469);
+            this.lblRemainingDays.Location = new System.Drawing.Point(9, 487);
             this.lblRemainingDays.Name = "lblRemainingDays";
             this.lblRemainingDays.Size = new System.Drawing.Size(49, 16);
             this.lblRemainingDays.TabIndex = 14;
             this.lblRemainingDays.Text = "Licence";
+            // 
+            // tabSelection
+            // 
+            this.tabSelection.Controls.Add(this.tabJobApplier);
+            this.tabSelection.Controls.Add(this.tabInfoExtractor);
+            this.tabSelection.Location = new System.Drawing.Point(363, 17);
+            this.tabSelection.Name = "tabSelection";
+            this.tabSelection.SelectedIndex = 0;
+            this.tabSelection.Size = new System.Drawing.Size(678, 467);
+            this.tabSelection.TabIndex = 15;
+            // 
+            // tabJobApplier
+            // 
+            this.tabJobApplier.Controls.Add(this.grbxPreferences);
+            this.tabJobApplier.Location = new System.Drawing.Point(4, 25);
+            this.tabJobApplier.Name = "tabJobApplier";
+            this.tabJobApplier.Padding = new System.Windows.Forms.Padding(3);
+            this.tabJobApplier.Size = new System.Drawing.Size(670, 438);
+            this.tabJobApplier.TabIndex = 0;
+            this.tabJobApplier.Text = "Job Applier";
+            this.tabJobApplier.UseVisualStyleBackColor = true;
+            // 
+            // tabInfoExtractor
+            // 
+            this.tabInfoExtractor.Controls.Add(this.chbxPhoneNumber);
+            this.tabInfoExtractor.Controls.Add(this.chbxEmail);
+            this.tabInfoExtractor.Controls.Add(this.lblTitle);
+            this.tabInfoExtractor.Controls.Add(this.tbxTitle);
+            this.tabInfoExtractor.Location = new System.Drawing.Point(4, 25);
+            this.tabInfoExtractor.Name = "tabInfoExtractor";
+            this.tabInfoExtractor.Padding = new System.Windows.Forms.Padding(3);
+            this.tabInfoExtractor.Size = new System.Drawing.Size(670, 438);
+            this.tabInfoExtractor.TabIndex = 1;
+            this.tabInfoExtractor.Text = "Info Extrator";
+            this.tabInfoExtractor.UseVisualStyleBackColor = true;
+            // 
+            // tbxTitle
+            // 
+            this.tbxTitle.Location = new System.Drawing.Point(42, 10);
+            this.tbxTitle.Name = "tbxTitle";
+            this.tbxTitle.Size = new System.Drawing.Size(258, 21);
+            this.tbxTitle.TabIndex = 0;
+            this.tbxTitle.Text = "satinalma muduru";
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(6, 10);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(30, 16);
+            this.lblTitle.TabIndex = 1;
+            this.lblTitle.Text = "Title:";
+            // 
+            // chbxEmail
+            // 
+            this.chbxEmail.AutoSize = true;
+            this.chbxEmail.Location = new System.Drawing.Point(322, 13);
+            this.chbxEmail.Name = "chbxEmail";
+            this.chbxEmail.Size = new System.Drawing.Size(54, 20);
+            this.chbxEmail.TabIndex = 2;
+            this.chbxEmail.Text = "Email";
+            this.chbxEmail.UseVisualStyleBackColor = true;
+            // 
+            // chbxPhoneNumber
+            // 
+            this.chbxPhoneNumber.AutoSize = true;
+            this.chbxPhoneNumber.Location = new System.Drawing.Point(382, 13);
+            this.chbxPhoneNumber.Name = "chbxPhoneNumber";
+            this.chbxPhoneNumber.Size = new System.Drawing.Size(107, 20);
+            this.chbxPhoneNumber.TabIndex = 3;
+            this.chbxPhoneNumber.Text = "Phone Number";
+            this.chbxPhoneNumber.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1064, 495);
+            this.ClientSize = new System.Drawing.Size(1050, 511);
+            this.Controls.Add(this.tabSelection);
             this.Controls.Add(this.lblRemainingDays);
             this.Controls.Add(this.btnStopApplying);
-            this.Controls.Add(this.grbxPreferences);
             this.Controls.Add(this.grbxCredentials);
             this.Controls.Add(this.btnStartApplying);
+            this.Controls.Add(this.chbxRememberMe);
+            this.Controls.Add(this.lblStatus);
             this.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -500,6 +582,10 @@
             this.grbxCredentials.PerformLayout();
             this.grbxPreferences.ResumeLayout(false);
             this.grbxPreferences.PerformLayout();
+            this.tabSelection.ResumeLayout(false);
+            this.tabJobApplier.ResumeLayout(false);
+            this.tabInfoExtractor.ResumeLayout(false);
+            this.tabInfoExtractor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -545,6 +631,13 @@
         private System.Windows.Forms.Label lblCommuting;
         private System.Windows.Forms.ComboBox cbxCommuting;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TabControl tabSelection;
+        private System.Windows.Forms.TabPage tabJobApplier;
+        private System.Windows.Forms.TabPage tabInfoExtractor;
+        private System.Windows.Forms.TextBox tbxTitle;
+        private System.Windows.Forms.CheckBox chbxPhoneNumber;
+        private System.Windows.Forms.CheckBox chbxEmail;
+        private System.Windows.Forms.Label lblTitle;
     }
 }
 

@@ -95,11 +95,16 @@
     <Compile Include="Config\Constants.cs" />
     <Compile Include="Config\Linkedin.cs" />
     <Compile Include="Config\LinkedinUrlGenerate.cs" />
-    <Compile Include="Config\test.cs" />
     <Compile Include="Config\UserDataManager.cs" />
     <Compile Include="Config\Utils.cs" />
     <Compile Include="ExceptionLogger.cs" />
     <Compile Include="FileReader\ConnectionStringEncryptor.cs" />
+    <Compile Include="frmInfoExtrator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInfoExtrator.Designer.cs">
+      <DependentUpon>frmInfoExtrator.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLicence.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +120,9 @@
     <Compile Include="LicenseKeyEncryptor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmInfoExtrator.resx">
+      <DependentUpon>frmInfoExtrator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLicence.resx">
       <DependentUpon>frmLicence.cs</DependentUpon>
     </EmbeddedResource>

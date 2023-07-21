@@ -1,6 +1,7 @@
 ﻿using Helper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 
 
@@ -47,7 +48,8 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
-                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+                                licenceTable.isinfoextrator = reader.GetBoolean(reader.GetOrdinal("isinfoextrator"));
+                                licenceTable.lastonlinedate = reader.GetNullableDateTime("lastonlinedate"); 
                                 licenceTables.Add(licenceTable);
                             }
                         }
@@ -60,6 +62,17 @@ namespace LinkedinJAASerial
             }
 
             return licenceTables;
+        }
+
+        public static DateTime? GetNullableDateTime(this SqlDataReader reader, string columnName)
+        {
+            int columnIndex = reader.GetOrdinal(columnName);
+            if (!reader.IsDBNull(columnIndex))
+            {
+                return reader.GetDateTime(columnIndex);
+            }
+
+            return null;
         }
 
         public static LicenceTable GetLicenceTableByEmail(string email)
@@ -88,7 +101,8 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
-                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+                                licenceTable.isinfoextrator = reader.GetBoolean(reader.GetOrdinal("isinfoextrator"));
+                                licenceTable.lastonlinedate = reader.GetNullableDateTime("lastonlinedate"); 
                             }
                         }
                     }
@@ -128,7 +142,8 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
-                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+                                licenceTable.isinfoextrator = reader.GetBoolean(reader.GetOrdinal("isinfoextrator"));
+                                licenceTable.lastonlinedate = reader.GetNullableDateTime("lastonlinedate");
 
                             }
                         }
@@ -171,7 +186,8 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
-                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+                                licenceTable.isinfoextrator = reader.GetBoolean(reader.GetOrdinal("isinfoextrator"));
+                                licenceTable.lastonlinedate = reader.GetNullableDateTime("lastonlinedate");
 
 
                                 licenceTables.Add(licenceTable);
@@ -214,7 +230,8 @@ namespace LinkedinJAASerial
                                 licenceTable.isonline = reader.GetBoolean(reader.GetOrdinal("isonline"));
                                 licenceTable.macAddress = reader.GetString(reader.GetOrdinal("macAddress"));
                                 licenceTable.expirydate = reader.GetDateTime(reader.GetOrdinal("expirydate"));
-                                licenceTable.lastonlinedate = reader.GetDateTime(reader.GetOrdinal("lastonlinedate"));
+                                licenceTable.isinfoextrator = reader.GetBoolean(reader.GetOrdinal("isinfoextrator"));
+                                licenceTable.lastonlinedate = reader.GetNullableDateTime("lastonlinedate");
 
                                 licenceTables.Add(licenceTable);
                             }
@@ -282,7 +299,7 @@ namespace LinkedinJAASerial
             {
                 using (SqlConnection connection = GetConnection())
                 {
-                    string query = "INSERT INTO LicenceTable (email, serialkey, isactive, isdeleted, isonline, macAddress, expirydate) VALUES (@email, @serialkey, @isactive, @isdeleted, @isonline, @macAddress, @expirydate)";
+                    string query = "INSERT INTO LicenceTable (email, serialkey, isactive, isdeleted, isonline, macAddress, expirydate, isinfoextrator) VALUES (@email, @serialkey, @isactive, @isdeleted, @isonline, @macAddress, @expirydate, @isinfoextrator)";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@email", licenceTable.email);
@@ -292,6 +309,7 @@ namespace LinkedinJAASerial
                         command.Parameters.AddWithValue("@isonline", licenceTable.isonline);
                         command.Parameters.AddWithValue("@macAddress", licenceTable.macAddress);
                         command.Parameters.AddWithValue("@expirydate", licenceTable.expirydate);
+                        command.Parameters.AddWithValue("@isinfoextrator", licenceTable.isinfoextrator); // Add the new parameter
 
                         command.ExecuteNonQuery();
                     }
@@ -311,7 +329,7 @@ namespace LinkedinJAASerial
             {
                 using (SqlConnection connection = GetConnection())
                 {
-                    string query = "UPDATE LicenceTable SET email = @email, serialkey = @serialkey, isactive = @isactive, isdeleted = @isdeleted, isonline = @isonline, macAddress = @macAddress, expirydate = @expirydate WHERE id = @id";
+                    string query = "UPDATE LicenceTable SET email = @email, serialkey = @serialkey, isactive = @isactive, isdeleted = @isdeleted, isonline = @isonline, macAddress = @macAddress, expirydate = @expirydate, isinfoextrator = @isinfoextrator WHERE id = @id";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", licenceTable.id);
@@ -322,6 +340,7 @@ namespace LinkedinJAASerial
                         command.Parameters.AddWithValue("@isonline", licenceTable.isonline);
                         command.Parameters.AddWithValue("@macAddress", licenceTable.macAddress);
                         command.Parameters.AddWithValue("@expirydate", licenceTable.expirydate);
+                        command.Parameters.AddWithValue("@isinfoextrator", licenceTable.isinfoextrator); // Add the new parameter
 
                         command.ExecuteNonQuery();
                     }
@@ -332,6 +351,7 @@ namespace LinkedinJAASerial
                 Console.WriteLine("An error occurred while updating LicenceTable: " + ex.Message);
             }
         }
+
 
         public static void DeleteLicenceTable(int id)
         {
@@ -405,17 +425,18 @@ namespace LinkedinJAASerial
             return macAddress;
         }
 
-        public static void SetMacAddressById(int id, string macAddress)
+        public static void SetMacAddressById(int id, string email, string macAddress)
         {
             try
             {
                 using (SqlConnection connection = GetConnection())
                 {
-                    string query = "UPDATE LicenceTable SET macAddress = @macAddress, isactive = @isactive, isonline = @isonline WHERE id = @id";
+                    string query = "UPDATE LicenceTable SET macAddress = @macAddress, email = @email, isactive = @isactive, isonline = @isonline WHERE id = @id";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
                         command.Parameters.AddWithValue("@macAddress", macAddress);
+                        command.Parameters.AddWithValue("@email", email);
                         command.Parameters.AddWithValue("@isactive", true);
                         command.Parameters.AddWithValue("@isonline", true);
                         command.ExecuteNonQuery();
@@ -427,6 +448,7 @@ namespace LinkedinJAASerial
                 Console.WriteLine("An error occurred while setting MacAddress by ID: " + ex.Message);
             }
         }
+
 
 
     }

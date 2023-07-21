@@ -57,9 +57,9 @@ namespace LinkedinJobApplier
 
             return true;
         }
-        public static bool SetMacAddress(LicenceTable licenseKey, string macAddress)
+        public static bool SetMacAddress(LicenceTable licenseKey, string email, string macAddress)
         {
-            DatabaseConnector.SetMacAddressById(licenseKey.id, macAddress);
+            DatabaseConnector.SetMacAddressById(licenseKey.id, email, macAddress);
             return true;
         }
     }

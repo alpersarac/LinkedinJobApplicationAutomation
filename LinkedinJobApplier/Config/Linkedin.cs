@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -85,6 +86,52 @@ namespace LinkedinJobApplier.Config
         public IWebDriver getWebDriver()
         {
             return driver;
+        }
+
+        public void LinkInfoExtract(CancellationToken cancellationToken, string title)
+        {
+            string peopleLink = "https://www.linkedin.com/search/results/people/?keywords="+ title + "&origin=SWITCH_SEARCH_VERTICAL";
+            driver.Url = peopleLink;
+            int totalPages = Utils.GetPageCountForInfoExtract(driver);
+            for (int page = 1; page < totalPages; page++)
+            {
+                
+                var currentUrl = peopleLink + "&page=" + page;
+                driver.Url = currentUrl;
+
+                ReadOnlyCollection<IWebElement> resultListElements = driver.FindElements(By.CssSelector(".reusable-search__entity-result-list.list-style-none"));
+
+                List<string> links = new List<string>();
+                foreach (IWebElement resultListElement in resultListElements)
+                {
+                    // Find all elements with the class "display-flex" within the current result list element
+                    ReadOnlyCollection<IWebElement> displayFlexElements = resultListElement.FindElements(By.CssSelector(".display-flex"));
+
+                    foreach (IWebElement displayFlexElement in displayFlexElements)
+                    {
+                        // Find anchor elements within each display-flex element
+                        ReadOnlyCollection<IWebElement> anchorElements = displayFlexElement.FindElements(By.TagName("a"));
+
+                        foreach (IWebElement anchorElement in anchorElements)
+                        {
+                            string href = anchorElement.GetAttribute("href");
+                            links.Add(href.Split(new string[] { "?miniProfile" }, StringSplitOptions.None)[0]);
+                        }
+                    } 
+                }
+
+                foreach (var profile in links.Distinct())
+                {
+                    driver.Url = profile + "/overlay/contact-info/";
+                    Thread.Sleep(TimeSpan.FromSeconds(5));
+                    var ww = Utils.FindEmailAndPhoneNumbers(driver);
+
+                }
+
+
+
+            }
+
         }
         public void LinkJobApply(CancellationToken cancellationToken)
         {
