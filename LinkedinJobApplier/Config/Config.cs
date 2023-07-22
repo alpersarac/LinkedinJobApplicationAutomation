@@ -66,5 +66,55 @@ namespace LinkedinJobApplier.Config
         public static string PhoneNumber = "";
         // Total successful job application count
         public static int successfulJobApplicationCounter = 0;
+        //--------Info extractor
+
+        public static Dictionary<string, int> europeanCountries = new Dictionary<string, int>
+        {
+            { "Germany", 101282230 },
+            { "Serbia", 101855366 },
+            { "Slovakia", 103119917 },
+            { "Slovenia", 106137034 },
+            { "Spain", 105646813 },
+            { "Sweden", 105117694 },
+            { "Switzerland", 106693272 },
+            { "Poland", 105072130 },
+            { "Portugal", 100364837 },
+            { "Ukraine", 102264497 },
+            { "United Kingdom", 101165590 },
+            { "Netherlands", 102890719 },
+            { "Austria", 103883259 },
+            { "Norway", 103819153 },
+            { "Romania", 106670623 },
+            { "Belgium", 100565514 },
+            { "Bosnia and Herzegovina", 102869081 }, 
+            { "Bulgaria", 105333783 }, 
+            { "Croatia", 104688944 }, 
+            { "Cyprus", 106774002 },
+            { "Czech Republic", 104508036 }, 
+            { "Denmark", 104514075 }, 
+            { "Estonia", 102974008 }, 
+            { "Finland", 100456013 },
+            { "France", 105015875 }, 
+            { "Greece", 104677530 }, 
+            { "Hungary", 100288700 }, 
+            { "Iceland", 105238872 },
+            { "Ireland", 104738515 }, 
+            { "Italy", 103350119 }, 
+            { "Kosovo", 104640522 }, 
+            { "Latvia", 104341318 }, 
+            { "Liechtenstein", 100878084 },
+            { "Lithuania", 101464403 }, 
+            { "Luxembourg", 104042105 }, 
+            { "Malta", 100961908 }, 
+            { "Moldova", 106178099 }, 
+            { "Monaco", 101352147 },
+            { "Montenegro", 100733275 },
+            { "Belarus", 101705918 },
+            { "North Macedonia", 103420483 },
+            { "San Marino", 105730022 },
+            { "Albania", 102845717 },
+            { "Andorra", 106296266 },
+            { "Vatican City", 107163060 }
+        };
     }
 }

@@ -416,6 +416,7 @@ namespace LinkedinJobApplier.Config
                 string phone = "";
                 string email = "";
                 string name = "";
+                string companyname = "";
                 // Use an explicit wait to wait for the element to be present
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 IWebElement modalContent = wait.Until(ExpectedConditions.ElementExists(By.CssSelector(".artdeco-modal__content")));
@@ -469,10 +470,35 @@ namespace LinkedinJobApplier.Config
                 {
 
                 }
-               
-               
-                Config.PhoneAndEmails = string.IsNullOrEmpty(email) ? "": name + "|" + email + "|" + phone;
-                return string.IsNullOrEmpty(email)?name+"|":"" + email + "|" + phone;
+
+
+                try
+                {
+                    // Find the company name using an appropriate selector (assuming it's within the div with class "text-body-medium")
+                    companyname = driver.FindElement(By.CssSelector(".text-body-medium")).Text.Trim();
+                }
+                catch (Exception ex)
+                {
+                    // Handle the exception if needed
+                }
+                try
+                {
+                    companyname = companyname.Split(new string[] { "at" }, StringSplitOptions.None)[1];
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        companyname = companyname.Split('@')[1];
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                }
+                Config.PhoneAndEmails = RemoveEmojis(string.IsNullOrEmpty(email) ? "" : name + "^" + email + "^" + phone+"^" +companyname).Replace("  "," ");
+                return string.IsNullOrEmpty(email) ? name + "^" + companyname + "^" : email + "^" + phone;
+
             }
             catch (Exception ex)
             {
@@ -480,7 +506,16 @@ namespace LinkedinJobApplier.Config
                 return "";
             }
         }
+        public static string RemoveEmojis(string input)
+        {
+            // Define the regular expression pattern to match emojis
+            string emojiPattern = @"\p{Cs}";
 
+            // Remove emojis using regex
+            string result = Regex.Replace(input, emojiPattern, string.Empty);
+
+            return result;
+        }
         public static void GenerateUrls()
         {
             if (!System.IO.Directory.Exists("data"))
