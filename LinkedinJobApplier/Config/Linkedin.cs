@@ -92,63 +92,68 @@ namespace LinkedinJobApplier.Config
         {
             try
             {
-                string peopleLink = "https://www.linkedin.com/search/results/people/?keywords=" + title.Replace(" ", "%20") + "&origin=SWITCH_SEARCH_VERTICAL";
-                driver.Url = peopleLink;
-                
-                int totalPages = Utils.GetPageCountForInfoExtract(driver);
-                for (int page = 1; page < totalPages; page++)
+                foreach (var country in Config.europeanCountries)
                 {
-                    if (cancellationToken.IsCancellationRequested)
-                        break;
-                    var currentUrl = peopleLink + "&page=" + page;
-                    driver.Url = currentUrl;
-                    
+                                       //https://www.linkedin.com/search/results/people/?geoUrn=%5B%22101282230%22%5D&keywords=Purchasing%20Manager&origin=FACETED_SEARCH&sid=Kk-
+                    string peopleLink = "https://www.linkedin.com/search/results/people/?"+ LinkedinUrlGenerate.checkJobLocation(country) +"&keywords=" + title.Replace(" ", "%20") + "&origin=SWITCH_SEARCH_VERTICAL";
+                    driver.Url = peopleLink;
 
-                    ReadOnlyCollection<IWebElement> resultListElements = driver.FindElements(By.CssSelector(".reusable-search__entity-result-list.list-style-none"));
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
-                    List<string> links = new List<string>();
-                    foreach (IWebElement resultListElement in resultListElements)
+                    int totalPages = Utils.GetPageCountForInfoExtract(driver);
+                    for (int page = 1; page < totalPages; page++)
                     {
                         if (cancellationToken.IsCancellationRequested)
                             break;
-                        // Find all elements with the class "display-flex" within the current result list element
-                        ReadOnlyCollection<IWebElement> displayFlexElements = resultListElement.FindElements(By.CssSelector(".display-flex"));
+                        var currentUrl = peopleLink + "&page=" + page;
+                        driver.Url = currentUrl;
 
-                        foreach (IWebElement displayFlexElement in displayFlexElements)
+
+                        ReadOnlyCollection<IWebElement> resultListElements = driver.FindElements(By.CssSelector(".reusable-search__entity-result-list.list-style-none"));
+                        Thread.Sleep(TimeSpan.FromSeconds(5));
+                        List<string> links = new List<string>();
+                        foreach (IWebElement resultListElement in resultListElements)
                         {
                             if (cancellationToken.IsCancellationRequested)
                                 break;
-                            // Find anchor elements within each display-flex element
-                            ReadOnlyCollection<IWebElement> anchorElements = displayFlexElement.FindElements(By.TagName("a"));
+                            // Find all elements with the class "display-flex" within the current result list element
+                            ReadOnlyCollection<IWebElement> displayFlexElements = resultListElement.FindElements(By.CssSelector(".display-flex"));
 
-                            foreach (IWebElement anchorElement in anchorElements)
+                            foreach (IWebElement displayFlexElement in displayFlexElements)
                             {
                                 if (cancellationToken.IsCancellationRequested)
                                     break;
-                                string href = anchorElement.GetAttribute("href");
-                                links.Add(href.Split(new string[] { "?miniProfile" }, StringSplitOptions.None)[0]);
+                                // Find anchor elements within each display-flex element
+                                ReadOnlyCollection<IWebElement> anchorElements = displayFlexElement.FindElements(By.TagName("a"));
+
+                                foreach (IWebElement anchorElement in anchorElements)
+                                {
+                                    if (cancellationToken.IsCancellationRequested)
+                                        break;
+                                    string href = anchorElement.GetAttribute("href");
+                                    links.Add(href.Split(new string[] { "?miniProfile" }, StringSplitOptions.None)[0]);
+                                }
                             }
                         }
-                    }
-                    var ClearList = links.Distinct().Where(x => !x.Contains("SWITCH_SEARCH_VERTICAL"));
-                    foreach (var profile in ClearList)
-                    {
-                        if (cancellationToken.IsCancellationRequested)
-                            break;
-
-                        try
+                        var ClearList = links.Distinct().Where(x => !x.Contains("SWITCH_SEARCH_VERTICAL"));
+                        foreach (var profile in ClearList)
                         {
-                            driver.Url = profile + "/overlay/contact-info/";
-                            Thread.Sleep(TimeSpan.FromSeconds(1));
-                            var PhoneEmail = Utils.FindEmailAndPhoneNumbers(driver);
-                        }
-                        catch (Exception ex)
-                        {
+                            if (cancellationToken.IsCancellationRequested)
+                                break;
+
+                            try
+                            {
+                                driver.Url = profile + "/overlay/contact-info/";
+                                Thread.Sleep(TimeSpan.FromSeconds(1));
+                                var PhoneEmail = Utils.FindEmailAndPhoneNumbers(driver);
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
 
                         }
-
                     }
                 }
+                
             }
             catch (Exception ex)
             {

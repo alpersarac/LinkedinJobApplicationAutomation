@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -41,13 +42,14 @@ namespace LinkedinJobApplier
         delegate void UpdateInfoListboxDelegate(string PhoneEmail);
         private void frmMain_Load(object sender, EventArgs e)
         {
-
+            
 
             frmLicence frmLicence = new frmLicence(this);
             try
             {
                 string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
                 bool isConnectionOK = false;
+                radioChrome.Checked = true;
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
 
                 if (parsedLicenseTable != null && isConnectionOK == true)
@@ -104,7 +106,15 @@ namespace LinkedinJobApplier
             }
             else
             {
-                lblStatus.Text = text;
+                if (isinfoextratorRunTime)
+                {
+                    lblStatus.Text = lbxInfo.Items.Count.ToString();
+                }
+                else
+                {
+                    lblStatus.Text = text;
+                }
+                
             }
         }
         private void UpdatePhoneEmailListbox(string PhoneEmail)
@@ -201,6 +211,8 @@ namespace LinkedinJobApplier
             {
                 cancellationTokenSource = new CancellationTokenSource();
                 var cancellationToken = cancellationTokenSource.Token;
+                statusUpdateThread = new Thread(UpdateStatusLabelThread);
+                statusUpdateThread.Start();
                 if (isinfoextratorRunTime)
                 {
                     phoneEmailThread = new Thread(UpdateListPhoneEmailThread);
@@ -213,8 +225,6 @@ namespace LinkedinJobApplier
                 }
                 else
                 {
-                    statusUpdateThread = new Thread(UpdateStatusLabelThread);
-                    statusUpdateThread.Start();
                     operationThread = new Thread(() =>
                     {
                         Linkedin linkedin = new Linkedin();
@@ -299,6 +309,7 @@ namespace LinkedinJobApplier
                 if (isinfoextratorRunTime)
                 {
                     phoneEmailThread?.Abort();
+                    statusUpdateThread?.Abort();
 
                     operationThread.Abort();
                     operationThread.Join();
@@ -321,6 +332,9 @@ namespace LinkedinJobApplier
         public void AddElementsToList()
         {
             ClearAllSettings();
+            var checkedButton = this.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
+
+            Config.Config.Browser = checkedButton.Text.ToLower();
             Config.Config.Email = tbxEmail.Text;
             Config.Config.Password = tbxPassword.Text;
             Config.Config.ExperienceLevels.Add(cbxDatePosted.SelectedText);
@@ -427,5 +441,73 @@ namespace LinkedinJobApplier
         }
         #endregion
 
+        private void btnSave_Click_1(object sender, EventArgs e)
+        {
+            string infoList = "";
+            foreach (var item in lbxInfo.Items)
+            {
+                infoList += item + "*";
+            }
+            
+
+            SaveToCsv(infoList);
+        }
+        public static void SaveToCsv(string dataString)
+        {
+            // Split dataString into individual entries
+            string[] entries = dataString.Split('*');
+
+            // Create the CSV file using a SaveFileDialog
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "CSV Files|*.csv|All Files|*.*";
+                saveFileDialog.Title = "Save CSV File";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filename = saveFileDialog.FileName;
+
+                    // Write the data to the CSV file
+                    using (StreamWriter file = new StreamWriter(filename, append: true))
+                    {
+                        // Check if the file is empty, if so, write the header
+                        if (file.BaseStream.Length == 0)
+                        {
+                            file.WriteLine("name,email,phone,company");
+                        }
+
+                        foreach (string entry in entries)
+                        {
+                            // Split each entry by '|' to extract name, email, phone, and company values
+                            string[] values = entry.Split('|');
+
+                            if (values.Length != 4)
+                            {
+                                Console.WriteLine($"Skipping invalid entry: {entry}");
+                                continue;
+                            }
+
+                            string name = values[0];
+                            string email = values[1];
+                            string phone = values[2];
+                            string company = values[3];
+
+                            // Prepare the data to be saved in the CSV file
+                            string[] data = new string[] { name, email, phone, company };
+
+                            // Write the data to the CSV file
+                            file.WriteLine(string.Join(",", data));
+                        }
+                    }
+
+                    Console.WriteLine("Data saved to CSV file successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("File selection canceled. Data not saved.");
+                }
+            }
+        }
+       
     }
 }

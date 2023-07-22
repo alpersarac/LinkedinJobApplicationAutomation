@@ -75,6 +75,9 @@
             this.chbxEmail = new System.Windows.Forms.CheckBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.tbxTitle = new System.Windows.Forms.TextBox();
+            this.radioChrome = new System.Windows.Forms.RadioButton();
+            this.radioFirefox = new System.Windows.Forms.RadioButton();
+            this.btnSave = new System.Windows.Forms.Button();
             this.grbxCredentials.SuspendLayout();
             this.grbxPreferences.SuspendLayout();
             this.tabSelection.SuspendLayout();
@@ -508,6 +511,7 @@
             // 
             // tabInfoExtractor
             // 
+            this.tabInfoExtractor.Controls.Add(this.btnSave);
             this.tabInfoExtractor.Controls.Add(this.lbxInfo);
             this.tabInfoExtractor.Controls.Add(this.chbxPhoneNumber);
             this.tabInfoExtractor.Controls.Add(this.chbxEmail);
@@ -567,12 +571,46 @@
             this.tbxTitle.TabIndex = 0;
             this.tbxTitle.Text = "Recruiter Hunter";
             // 
+            // radioChrome
+            // 
+            this.radioChrome.AutoSize = true;
+            this.radioChrome.Location = new System.Drawing.Point(99, 140);
+            this.radioChrome.Name = "radioChrome";
+            this.radioChrome.Size = new System.Drawing.Size(68, 20);
+            this.radioChrome.TabIndex = 26;
+            this.radioChrome.TabStop = true;
+            this.radioChrome.Text = "Chrome";
+            this.radioChrome.UseVisualStyleBackColor = true;
+            // 
+            // radioFirefox
+            // 
+            this.radioFirefox.AutoSize = true;
+            this.radioFirefox.Location = new System.Drawing.Point(25, 140);
+            this.radioFirefox.Name = "radioFirefox";
+            this.radioFirefox.Size = new System.Drawing.Size(58, 20);
+            this.radioFirefox.TabIndex = 27;
+            this.radioFirefox.TabStop = true;
+            this.radioFirefox.Text = "Firefox";
+            this.radioFirefox.UseVisualStyleBackColor = true;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(589, 10);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 30);
+            this.btnSave.TabIndex = 5;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click_1);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1050, 511);
+            this.Controls.Add(this.radioFirefox);
+            this.Controls.Add(this.radioChrome);
             this.Controls.Add(this.tabSelection);
             this.Controls.Add(this.lblRemainingDays);
             this.Controls.Add(this.btnStopApplying);
@@ -649,6 +687,9 @@
         private System.Windows.Forms.TabControl tabSelection;
         private System.Windows.Forms.TabPage tabJobApplier;
         private System.Windows.Forms.TabPage tabInfoExtractor;
+        private System.Windows.Forms.RadioButton radioChrome;
+        private System.Windows.Forms.RadioButton radioFirefox;
+        private System.Windows.Forms.Button btnSave;
     }
 }
 

@@ -18,7 +18,7 @@ namespace LinkedinJobApplier.Config
                 {
                     //for (int i = 0; i < jobExperienceIndex; i++)
                     //{
-                        var url = Constants.LinkJobUrl + "?f_AL=true&keywords=" + keyword + this.jobType() + this.remote() + this.checkJobLocation(location) + this.jobExp(0) + this.datePosted() + this.salary() + this.sortBy();
+                        var url = Constants.LinkJobUrl + "?f_AL=true&keywords=" + keyword + this.jobType() + this.remote() + checkJobLocation(location) + this.jobExp(0) + this.datePosted() + this.salary() + this.sortBy();
                         path.Add(url);
                     //}
                 }
@@ -36,7 +36,7 @@ namespace LinkedinJobApplier.Config
                 return "";
             }
         }
-        public string checkJobLocation(string job)
+        public static string checkJobLocation(string job)
         {
             var jobLoc = "&location=" + job;
             switch (job.ToLower())
