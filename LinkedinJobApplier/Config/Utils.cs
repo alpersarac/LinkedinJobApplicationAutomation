@@ -496,8 +496,8 @@ namespace LinkedinJobApplier.Config
 
                     }
                 }
-                Config.PhoneAndEmails = RemoveEmojis(string.IsNullOrEmpty(email) ? "" : name + "|" + email + "|" + phone+"|"+companyname).Replace("  "," ");
-                return string.IsNullOrEmpty(email) ? name + "|" + companyname + "|" : email + "|" + phone;
+                Config.PhoneAndEmails = RemoveEmojis(string.IsNullOrEmpty(email) ? "" : name + "^" + email + "^" + phone+"^" +companyname).Replace("  "," ");
+                return string.IsNullOrEmpty(email) ? name + "^" + companyname + "^" : email + "^" + phone;
 
             }
             catch (Exception ex)

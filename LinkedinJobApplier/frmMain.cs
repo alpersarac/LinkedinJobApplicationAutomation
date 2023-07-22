@@ -125,7 +125,7 @@ namespace LinkedinJobApplier
             }
             else
             {
-                if (!lbxInfo.Items.Contains(PhoneEmail) && !string.IsNullOrEmpty(PhoneEmail) && PhoneEmail.Replace(" ", "") != "|")
+                if (!lbxInfo.Items.Contains(PhoneEmail) && !string.IsNullOrEmpty(PhoneEmail) && PhoneEmail.Replace(" ", "") != "^")
                 {
                     lbxInfo.Items.Add(PhoneEmail);
                 }
@@ -479,7 +479,7 @@ namespace LinkedinJobApplier
                         foreach (string entry in entries)
                         {
                             // Split each entry by '|' to extract name, email, phone, and company values
-                            string[] values = entry.Split('|');
+                            string[] values = entry.Split('^');
 
                             if (values.Length != 4)
                             {

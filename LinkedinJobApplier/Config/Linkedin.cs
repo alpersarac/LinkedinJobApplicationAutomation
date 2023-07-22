@@ -95,6 +95,7 @@ namespace LinkedinJobApplier.Config
                 foreach (var country in Config.europeanCountries)
                 {           
                     string peopleLink = "https://www.linkedin.com/search/results/people/?"+ "geoUrn=%5B%22"+ country.Value+ "%22%5D" + "&keywords=" + title.Replace(" ", "%20") + "&origin=SWITCH_SEARCH_VERTICAL";
+                    Console.WriteLine("Links####"+peopleLink);
                     driver.Url = peopleLink;
 
                     int totalPages = Utils.GetPageCountForInfoExtract(driver);
@@ -146,7 +147,7 @@ namespace LinkedinJobApplier.Config
                             }
                             catch (Exception ex)
                             {
-
+                                ExceptionLogger.LogException(ex);
                             }
 
                         }
@@ -156,7 +157,7 @@ namespace LinkedinJobApplier.Config
             }
             catch (Exception ex)
             {
-
+                ExceptionLogger.LogException(ex);
             }
             
         }
