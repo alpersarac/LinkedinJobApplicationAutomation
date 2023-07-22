@@ -93,9 +93,8 @@ namespace LinkedinJobApplier.Config
             try
             {
                 foreach (var country in Config.europeanCountries)
-                {
-                                       //https://www.linkedin.com/search/results/people/?geoUrn=%5B%22101282230%22%5D&keywords=Purchasing%20Manager&origin=FACETED_SEARCH&sid=Kk-
-                    string peopleLink = "https://www.linkedin.com/search/results/people/?"+ LinkedinUrlGenerate.checkJobLocation(country) +"&keywords=" + title.Replace(" ", "%20") + "&origin=SWITCH_SEARCH_VERTICAL";
+                {           
+                    string peopleLink = "https://www.linkedin.com/search/results/people/?"+ "geoUrn=%5B%22"+ country.Value+ "%22%5D" + "&keywords=" + title.Replace(" ", "%20") + "&origin=SWITCH_SEARCH_VERTICAL";
                     driver.Url = peopleLink;
 
                     int totalPages = Utils.GetPageCountForInfoExtract(driver);
