@@ -70,14 +70,15 @@
             this.tabSelection = new System.Windows.Forms.TabControl();
             this.tabJobApplier = new System.Windows.Forms.TabPage();
             this.tabInfoExtractor = new System.Windows.Forms.TabPage();
+            this.btnSave = new System.Windows.Forms.Button();
             this.lbxInfo = new System.Windows.Forms.ListBox();
-            this.chbxPhoneNumber = new System.Windows.Forms.CheckBox();
-            this.chbxEmail = new System.Windows.Forms.CheckBox();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.tbxTitle = new System.Windows.Forms.TextBox();
             this.radioChrome = new System.Windows.Forms.RadioButton();
             this.radioFirefox = new System.Windows.Forms.RadioButton();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblCurrentTitle = new System.Windows.Forms.Label();
+            this.lblCurrentCountry = new System.Windows.Forms.Label();
+            this.lblInfoPage = new System.Windows.Forms.Label();
             this.grbxCredentials.SuspendLayout();
             this.grbxPreferences.SuspendLayout();
             this.tabSelection.SuspendLayout();
@@ -511,12 +512,13 @@
             // 
             // tabInfoExtractor
             // 
+            this.tabInfoExtractor.Controls.Add(this.lblInfoPage);
+            this.tabInfoExtractor.Controls.Add(this.lblCurrentCountry);
+            this.tabInfoExtractor.Controls.Add(this.lblCurrentTitle);
+            this.tabInfoExtractor.Controls.Add(this.label10);
+            this.tabInfoExtractor.Controls.Add(this.label9);
             this.tabInfoExtractor.Controls.Add(this.btnSave);
             this.tabInfoExtractor.Controls.Add(this.lbxInfo);
-            this.tabInfoExtractor.Controls.Add(this.chbxPhoneNumber);
-            this.tabInfoExtractor.Controls.Add(this.chbxEmail);
-            this.tabInfoExtractor.Controls.Add(this.lblTitle);
-            this.tabInfoExtractor.Controls.Add(this.tbxTitle);
             this.tabInfoExtractor.Location = new System.Drawing.Point(4, 25);
             this.tabInfoExtractor.Name = "tabInfoExtractor";
             this.tabInfoExtractor.Padding = new System.Windows.Forms.Padding(3);
@@ -524,6 +526,16 @@
             this.tabInfoExtractor.TabIndex = 1;
             this.tabInfoExtractor.Text = "Info Extrator";
             this.tabInfoExtractor.UseVisualStyleBackColor = true;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(589, 10);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 30);
+            this.btnSave.TabIndex = 5;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click_1);
             // 
             // lbxInfo
             // 
@@ -533,43 +545,6 @@
             this.lbxInfo.Name = "lbxInfo";
             this.lbxInfo.Size = new System.Drawing.Size(655, 372);
             this.lbxInfo.TabIndex = 4;
-            // 
-            // chbxPhoneNumber
-            // 
-            this.chbxPhoneNumber.AutoSize = true;
-            this.chbxPhoneNumber.Location = new System.Drawing.Point(382, 13);
-            this.chbxPhoneNumber.Name = "chbxPhoneNumber";
-            this.chbxPhoneNumber.Size = new System.Drawing.Size(107, 20);
-            this.chbxPhoneNumber.TabIndex = 3;
-            this.chbxPhoneNumber.Text = "Phone Number";
-            this.chbxPhoneNumber.UseVisualStyleBackColor = true;
-            // 
-            // chbxEmail
-            // 
-            this.chbxEmail.AutoSize = true;
-            this.chbxEmail.Location = new System.Drawing.Point(322, 13);
-            this.chbxEmail.Name = "chbxEmail";
-            this.chbxEmail.Size = new System.Drawing.Size(54, 20);
-            this.chbxEmail.TabIndex = 2;
-            this.chbxEmail.Text = "Email";
-            this.chbxEmail.UseVisualStyleBackColor = true;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(6, 10);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(30, 16);
-            this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "Title:";
-            // 
-            // tbxTitle
-            // 
-            this.tbxTitle.Location = new System.Drawing.Point(42, 10);
-            this.tbxTitle.Name = "tbxTitle";
-            this.tbxTitle.Size = new System.Drawing.Size(258, 21);
-            this.tbxTitle.TabIndex = 0;
-            this.tbxTitle.Text = "Recruiter Hunter";
             // 
             // radioChrome
             // 
@@ -593,15 +568,50 @@
             this.radioFirefox.Text = "Firefox";
             this.radioFirefox.UseVisualStyleBackColor = true;
             // 
-            // btnSave
+            // label9
             // 
-            this.btnSave.Location = new System.Drawing.Point(589, 10);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 30);
-            this.btnSave.TabIndex = 5;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click_1);
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(26, 7);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(70, 16);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "Current Title";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(3, 28);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(93, 16);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "Current Country";
+            // 
+            // lblCurrentTitle
+            // 
+            this.lblCurrentTitle.AutoSize = true;
+            this.lblCurrentTitle.Location = new System.Drawing.Point(102, 7);
+            this.lblCurrentTitle.Name = "lblCurrentTitle";
+            this.lblCurrentTitle.Size = new System.Drawing.Size(52, 16);
+            this.lblCurrentTitle.TabIndex = 8;
+            this.lblCurrentTitle.Text = "               ";
+            // 
+            // lblCurrentCountry
+            // 
+            this.lblCurrentCountry.AutoSize = true;
+            this.lblCurrentCountry.Location = new System.Drawing.Point(102, 29);
+            this.lblCurrentCountry.Name = "lblCurrentCountry";
+            this.lblCurrentCountry.Size = new System.Drawing.Size(52, 16);
+            this.lblCurrentCountry.TabIndex = 9;
+            this.lblCurrentCountry.Text = "               ";
+            // 
+            // lblInfoPage
+            // 
+            this.lblInfoPage.AutoSize = true;
+            this.lblInfoPage.Location = new System.Drawing.Point(493, 24);
+            this.lblInfoPage.Name = "lblInfoPage";
+            this.lblInfoPage.Size = new System.Drawing.Size(52, 16);
+            this.lblInfoPage.TabIndex = 10;
+            this.lblInfoPage.Text = "               ";
             // 
             // frmMain
             // 
@@ -677,10 +687,6 @@
         private System.Windows.Forms.Label lblCommuting;
         private System.Windows.Forms.ComboBox cbxCommuting;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox tbxTitle;
-        private System.Windows.Forms.CheckBox chbxPhoneNumber;
-        private System.Windows.Forms.CheckBox chbxEmail;
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.ListBox lbxInfo;
         private System.Windows.Forms.Button btnStartApplying;
         private System.Windows.Forms.Button btnStopApplying;
@@ -690,6 +696,11 @@
         private System.Windows.Forms.RadioButton radioChrome;
         private System.Windows.Forms.RadioButton radioFirefox;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label lblCurrentCountry;
+        private System.Windows.Forms.Label lblCurrentTitle;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblInfoPage;
     }
 }
 

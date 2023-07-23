@@ -109,6 +109,10 @@ namespace LinkedinJobApplier
                 if (isinfoextratorRunTime)
                 {
                     lblStatus.Text = lbxInfo.Items.Count.ToString();
+                    lblCurrentCountry.Text = Config.Config.europeanCountries.ElementAt(Config.Config.currentCountryIndex).Key;
+                    lblCurrentTitle.Text = Config.Config.titlesForInfoExtraction.ElementAt(Config.Config.currentTitleIndex);
+                    lblInfoPage.Text = "Current Page:" + Config.Config.currentInfoPageIndex;
+
                 }
                 else
                 {
@@ -220,7 +224,7 @@ namespace LinkedinJobApplier
                     operationThread = new Thread(() =>
                     {
                         Linkedin linkedin = new Linkedin();
-                        linkedin.LinkInfoExtract(cancellationToken, tbxTitle.Text);
+                        linkedin.LinkInfoExtract(cancellationToken);
                     });
                 }
                 else

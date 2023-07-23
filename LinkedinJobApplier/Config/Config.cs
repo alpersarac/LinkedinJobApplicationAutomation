@@ -121,7 +121,7 @@ namespace LinkedinJobApplier.Config
             { "Andorra", 106296266 },
             { "Vatican City", 107163060 }
         };
-        public static List<string> keywordForInfoExtraction = new List<string>()
+        public static List<string> titlesForInfoExtraction = new List<string>()
         {
             "Purchasing Manager",
             "Procurement Specialist",
@@ -164,6 +164,9 @@ namespace LinkedinJobApplier.Config
             "Purchasing Center of Excellence Manager",
             "Procurement Transformation Manager"
         };
+        public static int currentCountryIndex = 0;
+        public static int currentTitleIndex = 0;
+        public static int currentInfoPageIndex = 0;
 
     }
 }
