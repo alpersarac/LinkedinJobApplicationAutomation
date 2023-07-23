@@ -67,10 +67,10 @@ namespace LinkedinJobApplier
                     else
                     {
                         LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
+                        isinfoextratorRunTime = parsedLicenseTable.isinfoextrator;
                         lblRemainingDays.Text = $"Remaining days: {Convert.ToInt32((DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd"))}";
                         SetDefaultItems();
                         SetTabsPages(parsedLicenseTable.isinfoextrator);
-                        isinfoextratorRunTime = parsedLicenseTable.isinfoextrator;
                     }
 
                 }
@@ -109,6 +109,10 @@ namespace LinkedinJobApplier
                 if (isinfoextratorRunTime)
                 {
                     lblStatus.Text = lbxInfo.Items.Count.ToString();
+                    lblCurrentCountry.Text = Config.Config.europeanCountries.ElementAt(Config.Config.currentCountryIndex).Key;
+                    lblCurrentTitle.Text = Config.Config.titlesForInfoExtraction.ElementAt(Config.Config.currentTitleIndex);
+                    lblInfoPage.Text = "Current Page:" + Config.Config.currentInfoPageIndex;
+
                 }
                 else
                 {
@@ -175,6 +179,7 @@ namespace LinkedinJobApplier
 
                 if (chbxRememberMe.Checked)
                 {
+                    saveIndexes();
                     UserDataManager userDataManager = new UserDataManager();
                     userDataManager.Username = tbxEmail.Text;
                     userDataManager.Password = tbxPassword.Text;
@@ -204,6 +209,13 @@ namespace LinkedinJobApplier
             }
 
         }
+        public void saveIndexes()
+        {
+            if (isinfoextratorRunTime)
+            {
+                IndexManager.SaveIndexes(Config.Config.currentInfoPageIndex, Config.Config.currentTitleIndex, Config.Config.currentCountryIndex);
+            }
+        }
         private async void btnStartApplying_Click(object sender, EventArgs e)
         {
             AddElementsToList();
@@ -220,7 +232,7 @@ namespace LinkedinJobApplier
                     operationThread = new Thread(() =>
                     {
                         Linkedin linkedin = new Linkedin();
-                        linkedin.LinkInfoExtract(cancellationToken, tbxTitle.Text);
+                        linkedin.LinkInfoExtract(cancellationToken);
                     });
                 }
                 else
@@ -308,6 +320,7 @@ namespace LinkedinJobApplier
                 btnStopApplying.ForeColor = Color.Black;
                 if (isinfoextratorRunTime)
                 {
+                    saveIndexes();
                     phoneEmailThread?.Abort();
                     statusUpdateThread?.Abort();
 
@@ -382,6 +395,14 @@ namespace LinkedinJobApplier
                 cbxVisaSponsorship.SelectedIndex = 0;
                 Config.Config.DatePosted.Clear();
                 Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
+
+                if (isinfoextratorRunTime)
+                {
+                    IndexManager.ReadIndexes(out Config.Config.currentInfoPageIndex, out Config.Config.currentTitleIndex, out Config.Config.currentCountryIndex);
+                    lblCurrentCountry.Text = Config.Config.europeanCountries.ElementAt(Config.Config.currentCountryIndex).Key;
+                    lblCurrentTitle.Text = Config.Config.titlesForInfoExtraction.ElementAt(Config.Config.currentTitleIndex);
+                    lblInfoPage.Text = "Current Page:" + Config.Config.currentInfoPageIndex;
+                }
 
                 UserDataManager userDataManager = new UserDataManager();
 
