@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LinkedinJobApplier.Config
 {
@@ -70,6 +74,7 @@ namespace LinkedinJobApplier.Config
 
         public static Dictionary<string, int> europeanCountries = new Dictionary<string, int>
         {
+            {"United States of America",103644278 },
             { "Germany", 101282230 },
             { "Serbia", 101855366 },
             { "Slovakia", 103119917 },
@@ -116,5 +121,49 @@ namespace LinkedinJobApplier.Config
             { "Andorra", 106296266 },
             { "Vatican City", 107163060 }
         };
+        public static List<string> keywordForInfoExtraction = new List<string>()
+        {
+            "Purchasing Manager",
+            "Procurement Specialist",
+            "Supply Chain Coordinator",
+            "Buyer",
+            "Purchasing Analyst",
+            "Vendor Relations Manager",
+            "Sourcing Strategist",
+            "Procurement Officer",
+            "Materials Planner",
+            "Inventory Control Supervisor",
+            "Purchasing Agent",
+            "Procurement Coordinator",
+            "Strategic Sourcing Manager",
+            "Purchase Order Administrator",
+            "Contract Negotiator",
+            "Supplier Quality Engineer",
+            "Logistics and Purchasing Coordinator",
+            "Senior Procurement Analyst",
+            "Purchasing Director",
+            "Procurement Operations Manager",
+            "Director of Purchasing",
+            "Procurement Manager",
+            "Supply Chain Director",
+            "Purchasing Operations Manager",
+            "Vice President of Procurement",
+            "Global Sourcing Manager",
+            "Chief Procurement Officer (CPO)",
+            "Materials Management Director",
+            "Strategic Sourcing Director",
+            "Purchasing and Logistics Manager",
+            "Procurement Strategy Manager",
+            "Director of Supplier Relations",
+            "Purchasing Excellence Manager",
+            "Procurement Project Manager",
+            "Senior Procurement Director",
+            "Purchasing and Contracting Manager",
+            "Director of Procurement Analytics",
+            "Vendor Management Director",
+            "Purchasing Center of Excellence Manager",
+            "Procurement Transformation Manager"
+        };
+
     }
 }
