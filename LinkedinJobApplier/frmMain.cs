@@ -404,6 +404,7 @@ namespace LinkedinJobApplier
                     lblInfoPage.Text = "Current Page:" + Config.Config.currentInfoPageIndex;
                 }
 
+
                 UserDataManager userDataManager = new UserDataManager();
 
                 userDataManager.LoadUserData();
