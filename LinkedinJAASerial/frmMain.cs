@@ -33,15 +33,15 @@ namespace LinkedinJAASerial
             {
                 if (!Checker.CheckEmail(tbxEmail.Text))
                 {
-                    MessageBox.Show("Please enter a valid email");
+                    MessageBox.Show("Please enter a valid email", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else if (string.IsNullOrEmpty(tbxEmail.Text))
                 {
-                    MessageBox.Show("Enter an email address");
+                    MessageBox.Show("Enter an email address", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else if (string.IsNullOrEmpty(cbxDays.GetItemText(cbxDays.SelectedItem)))
                 {
-                    MessageBox.Show("Select some days");
+                    MessageBox.Show("Select some days", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
@@ -55,7 +55,7 @@ namespace LinkedinJAASerial
                     }
                     else
                     {
-                        MessageBox.Show("Not able to insert a licence key to DB");
+                        MessageBox.Show("Not able to insert a licence key to DB", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

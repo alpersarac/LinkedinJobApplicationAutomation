@@ -33,18 +33,18 @@ namespace LinkedinJobApplier
                 bool isConnectionOK = false;
                 if (string.IsNullOrEmpty(licenseKey))
                 {
-                    MessageBox.Show("Enter a licence key");
+                    MessageBox.Show("Enter a licence key", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 if (!Checker.CheckEmail(tbxEmail.Text)|| string.IsNullOrEmpty(email))
                 {
-                    MessageBox.Show("Enter an valid email");
+                    MessageBox.Show("Enter an valid email", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(licenseKey,ref isConnectionOK);
                 if (parsedLicenseTable.expirydate < DateTime.Now)
                 {
-                    MessageBox.Show("Licence is expired");
+                    MessageBox.Show("Licence is expired", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else if (parsedLicenseTable!=null&&!parsedLicenseTable.isonline)
                 {
@@ -52,7 +52,7 @@ namespace LinkedinJobApplier
                     LicenseKeyManager.SaveLicenseKey(licenseKey);
                    
                     LicenseKeyManager.SetMacAddress(parsedLicenseTable, email, NetworkHelper.GetMacAddress());
-                    MessageBox.Show("Registration is successfully completed");
+                    MessageBox.Show("Registration is successfully completed", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     isRegistered = true;
                     this.Hide();
                     _frmMainObj.SetTabsPages(parsedLicenseTable.isinfoextrator);
@@ -61,7 +61,7 @@ namespace LinkedinJobApplier
                 }
                 else
                 {
-                    MessageBox.Show("Registration key is wrong");
+                    MessageBox.Show("Registration key is wrong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     isRegistered = false;
                 }
 
@@ -69,7 +69,7 @@ namespace LinkedinJobApplier
             catch (Exception ex)
             {
                 ExceptionLogger.LogException(ex);
-                MessageBox.Show("There is an exception please contact the developer");
+                MessageBox.Show("There is an exception please contact the developer", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -12,6 +12,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LinkedinJobApplier.Config
 {
@@ -337,8 +338,8 @@ namespace LinkedinJobApplier.Config
         }
 
         Utils.prGreen("All tasks completed!");
-        System.Windows.Forms.MessageBox.Show("All jobs are completed!");
-    }
+        System.Windows.Forms.MessageBox.Show("All jobs are completed!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
 
 }
 }
