@@ -32,6 +32,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chbxInfoExtrator = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbxDays = new System.Windows.Forms.ComboBox();
             this.rtbxLicence = new System.Windows.Forms.RichTextBox();
@@ -56,7 +57,6 @@
             this.rhtbxEncrypted = new System.Windows.Forms.RichTextBox();
             this.tbxEncryptLicence = new System.Windows.Forms.TextBox();
             this.btnDecrypt = new System.Windows.Forms.Button();
-            this.chbxInfoExtrator = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -95,10 +95,20 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(957, 392);
+            this.tabPage1.Size = new System.Drawing.Size(1103, 392);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Generation";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chbxInfoExtrator
+            // 
+            this.chbxInfoExtrator.AutoSize = true;
+            this.chbxInfoExtrator.Location = new System.Drawing.Point(453, 6);
+            this.chbxInfoExtrator.Name = "chbxInfoExtrator";
+            this.chbxInfoExtrator.Size = new System.Drawing.Size(90, 20);
+            this.chbxInfoExtrator.TabIndex = 20;
+            this.chbxInfoExtrator.Text = "Info Extrator";
+            this.chbxInfoExtrator.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -170,7 +180,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(957, 392);
+            this.tabPage2.Size = new System.Drawing.Size(1103, 392);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Search";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -274,7 +284,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(957, 392);
+            this.tabPage4.Size = new System.Drawing.Size(1103, 392);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Connection String";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -305,7 +315,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(957, 392);
+            this.tabPage5.Size = new System.Drawing.Size(1103, 392);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Decryption";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -334,16 +344,6 @@
             this.btnDecrypt.Text = "Encrypt";
             this.btnDecrypt.UseVisualStyleBackColor = true;
             this.btnDecrypt.Click += new System.EventHandler(this.btnEncrpt_Click_1);
-            // 
-            // chbxInfoExtrator
-            // 
-            this.chbxInfoExtrator.AutoSize = true;
-            this.chbxInfoExtrator.Location = new System.Drawing.Point(453, 6);
-            this.chbxInfoExtrator.Name = "chbxInfoExtrator";
-            this.chbxInfoExtrator.Size = new System.Drawing.Size(90, 20);
-            this.chbxInfoExtrator.TabIndex = 20;
-            this.chbxInfoExtrator.Text = "Info Extrator";
-            this.chbxInfoExtrator.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 

@@ -37,8 +37,8 @@
             this.lblSerialKey = new System.Windows.Forms.Label();
             this.tbxEmail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
-            this.logoPctrbx = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.logoPctrbx = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.logoPctrbx)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,16 +119,6 @@
             this.lblEmail.TabIndex = 7;
             this.lblEmail.Text = "Email";
             // 
-            // logoPctrbx
-            // 
-            this.logoPctrbx.Image = global::LinkedinJobApplier.Properties.Resources.terminal;
-            this.logoPctrbx.Location = new System.Drawing.Point(243, 12);
-            this.logoPctrbx.Name = "logoPctrbx";
-            this.logoPctrbx.Size = new System.Drawing.Size(80, 80);
-            this.logoPctrbx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.logoPctrbx.TabIndex = 8;
-            this.logoPctrbx.TabStop = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -139,6 +129,16 @@
             this.label1.Size = new System.Drawing.Size(134, 19);
             this.label1.TabIndex = 9;
             this.label1.Text = "Linkedin Applier";
+            // 
+            // logoPctrbx
+            // 
+            this.logoPctrbx.Image = global::LinkedinJobApplier.Properties.Resources.phoenix;
+            this.logoPctrbx.Location = new System.Drawing.Point(243, 12);
+            this.logoPctrbx.Name = "logoPctrbx";
+            this.logoPctrbx.Size = new System.Drawing.Size(80, 80);
+            this.logoPctrbx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.logoPctrbx.TabIndex = 8;
+            this.logoPctrbx.TabStop = false;
             // 
             // frmLicence
             // 

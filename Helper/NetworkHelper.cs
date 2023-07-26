@@ -28,5 +28,22 @@ namespace Helper
 
             return string.Empty; // MAC address not found
         }
+        public static List<string> GetMacAddresses()
+        {
+            List<string> macAddresses = new List<string>();
+            NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+            foreach (NetworkInterface networkInterface in networkInterfaces)
+            {
+                if (networkInterface.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
+                    networkInterface.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
+                {
+                    PhysicalAddress physicalAddress = networkInterface.GetPhysicalAddress();
+                    string macAddress = BitConverter.ToString(physicalAddress.GetAddressBytes());
+                    macAddresses.Add(macAddress);
+                }
+            }
+
+            return macAddresses;
+        }
     }
 }
