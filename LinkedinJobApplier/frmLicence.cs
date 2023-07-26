@@ -2,6 +2,7 @@
 using LinkedinJAASerial;
 using LinkedinJAASerialGenerator;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -41,12 +42,16 @@ namespace LinkedinJobApplier
                     return;
                 }
                 LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(licenseKey,ref isConnectionOK);
-                if (parsedLicenseTable!=null&&!parsedLicenseTable.isonline)
+                if (parsedLicenseTable.expirydate < DateTime.Now)
+                {
+                    MessageBox.Show("Licence is expired");
+                }
+                else if (parsedLicenseTable!=null&&!parsedLicenseTable.isonline)
                 {
                     // Encrypt and save the license key
                     LicenseKeyManager.SaveLicenseKey(licenseKey);
                    
-                    LicenseKeyManager.SetMacAddress(parsedLicenseTable, email, NetworkHelper.GetMacAddress());
+                    LicenseKeyManager.SetMacAddress(parsedLicenseTable, email, string.Join(",", NetworkHelper.GetMacAddress().ToArray()));
                     MessageBox.Show("Registration is successfully completed");
                     isRegistered = true;
                     this.Hide();

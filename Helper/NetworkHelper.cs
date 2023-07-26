@@ -10,10 +10,10 @@ namespace Helper
 {
     public static class NetworkHelper
     {
-        public static string GetMacAddress()
+        public static List<string> GetMacAddress()
         {
             NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-
+            List<string> macAddresses = new List<string>();
             foreach (NetworkInterface networkInterface in networkInterfaces)
             {
                 if (networkInterface.OperationalStatus == OperationalStatus.Up &&
@@ -22,11 +22,11 @@ namespace Helper
                     PhysicalAddress physicalAddress = networkInterface.GetPhysicalAddress();
                     byte[] macBytes = physicalAddress.GetAddressBytes();
                     string macAddress = BitConverter.ToString(macBytes);
-                    return macAddress;
+                    macAddresses.Add(macAddress);
                 }
             }
 
-            return string.Empty; // MAC address not found
+            return macAddresses; // MAC address not found
         }
     }
 }

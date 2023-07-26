@@ -54,15 +54,19 @@ namespace LinkedinJobApplier
 
                 if (parsedLicenseTable != null && isConnectionOK == true)
                 {
-                    if (parsedLicenseTable.macAddress != NetworkHelper.GetMacAddress())
-                    {
-                        MessageBox.Show("Oops you are trying use your licence on different device");
-                        Application.Exit();
-                    }
-                    else if (parsedLicenseTable.expirydate < DateTime.Now)
+                    if (parsedLicenseTable.expirydate < DateTime.Now)
                     {
                         this.Hide();
                         frmLicence.ShowDialog();
+                    }
+                    else if (string.IsNullOrEmpty(parsedLicenseTable.macAddress))
+                    {
+                        MessageBox.Show("Oops you are trying use your licence on different device");
+                    }
+                    else if(NetworkHelper.GetMacAddress().Contains(parsedLicenseTable.macAddress))
+                    {
+                        MessageBox.Show("Oops you are trying use your licence on different device");
+                        Application.Exit();
                     }
                     else
                     {
