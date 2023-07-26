@@ -51,7 +51,7 @@ namespace LinkedinJobApplier
                     // Encrypt and save the license key
                     LicenseKeyManager.SaveLicenseKey(licenseKey);
                    
-                    LicenseKeyManager.SetMacAddress(parsedLicenseTable, email, string.Join(",", NetworkHelper.GetMacAddress().ToArray()));
+                    LicenseKeyManager.SetMacAddress(parsedLicenseTable, email, NetworkHelper.GetMacAddress());
                     MessageBox.Show("Registration is successfully completed");
                     isRegistered = true;
                     this.Hide();
