@@ -10,23 +10,23 @@ namespace Helper
 {
     public static class NetworkHelper
     {
+
         public static List<string> GetMacAddress()
         {
-            NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
             List<string> macAddresses = new List<string>();
+            NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
             foreach (NetworkInterface networkInterface in networkInterfaces)
             {
-                if (networkInterface.OperationalStatus == OperationalStatus.Up &&
-                    networkInterface.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                if (networkInterface.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
+                    networkInterface.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
                 {
                     PhysicalAddress physicalAddress = networkInterface.GetPhysicalAddress();
-                    byte[] macBytes = physicalAddress.GetAddressBytes();
-                    string macAddress = BitConverter.ToString(macBytes);
+                    string macAddress = BitConverter.ToString(physicalAddress.GetAddressBytes()).Replace("-", ":");
                     macAddresses.Add(macAddress);
                 }
             }
 
-            return macAddresses; // MAC address not found
+            return macAddresses;
         }
     }
 }

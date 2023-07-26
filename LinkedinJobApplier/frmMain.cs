@@ -61,9 +61,9 @@ namespace LinkedinJobApplier
                     }
                     else if (string.IsNullOrEmpty(parsedLicenseTable.macAddress))
                     {
-                        MessageBox.Show("Oops you are trying use your licence on different device");
+                        MessageBox.Show("Make sure that you have internet connection");
                     }
-                    else if(NetworkHelper.GetMacAddress().Contains(parsedLicenseTable.macAddress))
+                    else if(!NetworkHelper.GetMacAddress().Contains(parsedLicenseTable.macAddress))
                     {
                         MessageBox.Show("Oops you are trying use your licence on different device");
                         Application.Exit();
