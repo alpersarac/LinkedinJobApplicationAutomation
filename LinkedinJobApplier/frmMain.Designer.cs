@@ -70,15 +70,15 @@
             this.tabSelection = new System.Windows.Forms.TabControl();
             this.tabJobApplier = new System.Windows.Forms.TabPage();
             this.tabInfoExtractor = new System.Windows.Forms.TabPage();
+            this.lblInfoPage = new System.Windows.Forms.Label();
+            this.lblCurrentCountry = new System.Windows.Forms.Label();
+            this.lblCurrentTitle = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbxInfo = new System.Windows.Forms.ListBox();
             this.radioChrome = new System.Windows.Forms.RadioButton();
             this.radioFirefox = new System.Windows.Forms.RadioButton();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.lblCurrentTitle = new System.Windows.Forms.Label();
-            this.lblCurrentCountry = new System.Windows.Forms.Label();
-            this.lblInfoPage = new System.Windows.Forms.Label();
             this.grbxCredentials.SuspendLayout();
             this.grbxPreferences.SuspendLayout();
             this.tabSelection.SuspendLayout();
@@ -527,6 +527,51 @@
             this.tabInfoExtractor.Text = "Info Extrator";
             this.tabInfoExtractor.UseVisualStyleBackColor = true;
             // 
+            // lblInfoPage
+            // 
+            this.lblInfoPage.AutoSize = true;
+            this.lblInfoPage.Location = new System.Drawing.Point(493, 24);
+            this.lblInfoPage.Name = "lblInfoPage";
+            this.lblInfoPage.Size = new System.Drawing.Size(52, 16);
+            this.lblInfoPage.TabIndex = 10;
+            this.lblInfoPage.Text = "               ";
+            // 
+            // lblCurrentCountry
+            // 
+            this.lblCurrentCountry.AutoSize = true;
+            this.lblCurrentCountry.Location = new System.Drawing.Point(102, 29);
+            this.lblCurrentCountry.Name = "lblCurrentCountry";
+            this.lblCurrentCountry.Size = new System.Drawing.Size(52, 16);
+            this.lblCurrentCountry.TabIndex = 9;
+            this.lblCurrentCountry.Text = "               ";
+            // 
+            // lblCurrentTitle
+            // 
+            this.lblCurrentTitle.AutoSize = true;
+            this.lblCurrentTitle.Location = new System.Drawing.Point(102, 7);
+            this.lblCurrentTitle.Name = "lblCurrentTitle";
+            this.lblCurrentTitle.Size = new System.Drawing.Size(52, 16);
+            this.lblCurrentTitle.TabIndex = 8;
+            this.lblCurrentTitle.Text = "               ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(3, 28);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(93, 16);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "Current Country";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(26, 7);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(70, 16);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "Current Title";
+            // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(589, 10);
@@ -567,51 +612,6 @@
             this.radioFirefox.TabStop = true;
             this.radioFirefox.Text = "Firefox";
             this.radioFirefox.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(26, 7);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(70, 16);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "Current Title";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 28);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(93, 16);
-            this.label10.TabIndex = 7;
-            this.label10.Text = "Current Country";
-            // 
-            // lblCurrentTitle
-            // 
-            this.lblCurrentTitle.AutoSize = true;
-            this.lblCurrentTitle.Location = new System.Drawing.Point(102, 7);
-            this.lblCurrentTitle.Name = "lblCurrentTitle";
-            this.lblCurrentTitle.Size = new System.Drawing.Size(52, 16);
-            this.lblCurrentTitle.TabIndex = 8;
-            this.lblCurrentTitle.Text = "               ";
-            // 
-            // lblCurrentCountry
-            // 
-            this.lblCurrentCountry.AutoSize = true;
-            this.lblCurrentCountry.Location = new System.Drawing.Point(102, 29);
-            this.lblCurrentCountry.Name = "lblCurrentCountry";
-            this.lblCurrentCountry.Size = new System.Drawing.Size(52, 16);
-            this.lblCurrentCountry.TabIndex = 9;
-            this.lblCurrentCountry.Text = "               ";
-            // 
-            // lblInfoPage
-            // 
-            this.lblInfoPage.AutoSize = true;
-            this.lblInfoPage.Location = new System.Drawing.Point(493, 24);
-            this.lblInfoPage.Name = "lblInfoPage";
-            this.lblInfoPage.Size = new System.Drawing.Size(52, 16);
-            this.lblInfoPage.TabIndex = 10;
-            this.lblInfoPage.Text = "               ";
             // 
             // frmMain
             // 
