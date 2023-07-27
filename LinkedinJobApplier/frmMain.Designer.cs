@@ -155,6 +155,7 @@
             // 
             this.lblPasswordInfo.AutoSize = true;
             this.lblPasswordInfo.Font = new System.Drawing.Font("Century Gothic", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPasswordInfo.ForeColor = System.Drawing.Color.OrangeRed;
             this.lblPasswordInfo.Location = new System.Drawing.Point(6, 103);
             this.lblPasswordInfo.Name = "lblPasswordInfo";
             this.lblPasswordInfo.Size = new System.Drawing.Size(209, 13);

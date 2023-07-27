@@ -61,11 +61,11 @@ namespace LinkedinJobApplier
                     }
                     else if (string.IsNullOrEmpty(parsedLicenseTable.macAddress))
                     {
-                        MessageBox.Show("Make sure that you have internet connection");
+                        MessageBox.Show("Make sure that you have internet connection", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if(!NetworkHelper.GetMacAddresses().Contains(parsedLicenseTable.macAddress))
                     {
-                        MessageBox.Show("Oops you are trying use your licence on different device");
+                        MessageBox.Show("Oops you are trying use your licence on different device", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         Application.Exit();
                     }
                     else
@@ -86,12 +86,12 @@ namespace LinkedinJobApplier
                 else if (isConnectionOK == false)
                 {
 
-                    MessageBox.Show("Unable to connect DB");
+                    MessageBox.Show("Unable to connect DB", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     Application.Exit();
                 }
                 else
                 {
-                    MessageBox.Show("Fatal Error please contact the developer");
+                    MessageBox.Show("Fatal Error please contact the developer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Application.Exit();
                 }
             }
@@ -260,7 +260,11 @@ namespace LinkedinJobApplier
         {
             try
             {
-
+                if (string.IsNullOrEmpty(tbxLocation.Text))
+                {
+                    MessageBox.Show("Please enter a location", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 lbxLocations.Items.Add(tbxLocation.Text);
                 Config.Config.Location.Add(tbxLocation.Text);
                 tbxLocation.Text = "";
@@ -275,6 +279,11 @@ namespace LinkedinJobApplier
         {
             try
             {
+                if (string.IsNullOrEmpty(tbxKeywords.Text))
+                {
+                    MessageBox.Show("Please enter a keyword", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 lbxKeywords.Items.Add(tbxKeywords.Text);
                 Config.Config.Keywords.Add(tbxKeywords.Text);
                 tbxKeywords.Text = "";
@@ -453,6 +462,7 @@ namespace LinkedinJobApplier
             if (isinfoextratorRunTime)
             {
                 (tabSelection.TabPages[0] as TabPage).Enabled = false;
+                
                 tabSelection.SelectedTab = tabInfoExtractor;
                 btnStartApplying.Text = "Start Extracting";
                 btnStopApplying.Text = "Stop Extracting";
@@ -460,6 +470,13 @@ namespace LinkedinJobApplier
             else
             {
                 (tabSelection.TabPages[1] as TabPage).Enabled = false;
+                TabPage tabInfoExtractor = tabSelection.TabPages["tabInfoExtractor"];
+
+                if (tabInfoExtractor != null)
+                {
+                    // Hide the tab page
+                    tabSelection.TabPages.Remove(tabInfoExtractor);
+                }
                 tabSelection.SelectedTab = tabJobApplier;
                 btnStartApplying.Text = "Start Applying";
                 btnStopApplying.Text = "Stop Applying";
