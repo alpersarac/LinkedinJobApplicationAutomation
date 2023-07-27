@@ -55,7 +55,7 @@ namespace LinkedinJAASerial
                     }
                     else
                     {
-                        MessageBox.Show("Not able to insert a licence key to DB", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Not able to insert a licence key to DB", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

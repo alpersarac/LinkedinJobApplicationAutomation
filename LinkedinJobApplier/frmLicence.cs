@@ -69,7 +69,7 @@ namespace LinkedinJobApplier
             catch (Exception ex)
             {
                 ExceptionLogger.LogException(ex);
-                MessageBox.Show("There is an exception please contact the developer", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is an exception please contact the developer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

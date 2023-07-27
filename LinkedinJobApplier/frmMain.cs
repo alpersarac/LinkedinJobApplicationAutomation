@@ -91,7 +91,7 @@ namespace LinkedinJobApplier
                 }
                 else
                 {
-                    MessageBox.Show("Fatal Error please contact the developer", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Fatal Error please contact the developer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Application.Exit();
                 }
             }
