@@ -22,19 +22,25 @@
         "Entry"
         {
         "MsmKey" = "8:_19C56616FCF9E3022EA58A9859BB658B"
-        "OwnerKey" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+        "OwnerKey" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_248E19C50B27A7383E496EA7EBA6FDE5"
-        "OwnerKey" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+        "OwnerKey" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_38DE2CCA6EE1951F471C79348AF03C83"
-        "OwnerKey" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+        "OwnerKey" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -46,13 +52,13 @@
         "Entry"
         {
         "MsmKey" = "8:_97671F3BC0CAD9C0E742BB5C0F283A58"
-        "OwnerKey" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+        "OwnerKey" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_984136670080309B8F218550F0350330"
-        "OwnerKey" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+        "OwnerKey" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -69,14 +75,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_D649389A6B7AB4C7EE27006113A223D3"
-        "OwnerKey" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+        "OwnerKey" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -94,7 +94,7 @@
         "Entry"
         {
         "MsmKey" = "8:_E3A9D2B3E316659FFEA2650FF9093E04"
-        "OwnerKey" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+        "OwnerKey" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -106,7 +106,7 @@
         "Entry"
         {
         "MsmKey" = "8:_F3E1C5F4944CB2078928741668BF5E30"
-        "OwnerKey" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+        "OwnerKey" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -118,7 +118,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+        "OwnerKey" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -677,7 +677,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:LinkedinJob Applier Setup"
         "ProductCode" = "8:{9E3112BE-D62B-4726-8309-255945E4898F}"
-        "PackageCode" = "8:{02C912B4-6128-46A9-9F60-1BF55DB9B2FA}"
+        "PackageCode" = "8:{148E4CA6-35A1-4B88-B1DC-9303CC2CD817}"
         "UpgradeCode" = "8:{A9368155-E180-4A60-BADD-8789BB5E59D5}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -797,7 +797,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_17FF50DDF50E44279CB2488BB1A2A972"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_321595433A394869A165FD3F87C85F26"
             {
             "Name" = "8:Linkedin Applier"
             "Arguments" = "8:"
@@ -805,13 +805,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+            "Target" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
             "Folder" = "8:_F7B1B033A20B41579124F71DBB2F9249"
             "WorkingFolder" = "8:_A6AFBF0576C14F7D8609AFA0C9ECBBCB"
             "Icon" = "8:_A12FD5616D6A4FAE823D4D35ECEDE61D"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8A2F23BEB8074852A2EA9F0B6522A671"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6A1FC8FA89574C90BAA28906666AC0CA"
             {
             "Name" = "8:Linkedin Applier"
             "Arguments" = "8:"
@@ -819,7 +819,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+            "Target" = "8:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
             "Folder" = "8:_EAEE349FC483426B9D8F23418A0B9842"
             "WorkingFolder" = "8:_A6AFBF0576C14F7D8609AFA0C9ECBBCB"
             "Icon" = "8:_A12FD5616D6A4FAE823D4D35ECEDE61D"
@@ -1224,7 +1224,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C4DF14F9E61C494BA225F6FE6B9D7A97"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2567F0BD9EDA42D1ABBC1FBCC2F2236A"
             {
             "SourcePath" = "8:..\\LinkedinJobApplier\\obj\\Debug\\LinkedinJobApplier.exe"
             "TargetName" = "8:"

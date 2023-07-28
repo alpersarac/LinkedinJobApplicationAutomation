@@ -32,92 +32,97 @@ namespace LinkedinJobApplier
         bool isinfoextratorRunTime = false;
 
         #endregion
-        
+
         public frmMain()
         {
             InitializeComponent();
-            this.Paint += MainForm_Paint;
+
             //client = new HttpClient();
             //client.BaseAddress = new Uri("https://your-api-url/");
-        }
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-            // Set the colors for the gradient (fresh colors - pastel shades)
-            Color colorStart = Color.FromArgb(220, 240, 250); // Starting color (light blue)
-            Color colorEnd = Color.FromArgb(250, 240, 220);   // Ending color (light yellow)
-
-            // Get the dimensions of the drawing area.
-            Rectangle rect = this.ClientRectangle;
-
-            // Create a linear gradient brush using the form's ClientRectangle.
-            using (LinearGradientBrush brush = new LinearGradientBrush(rect, colorStart, colorEnd, LinearGradientMode.Vertical))
-            {
-                // Fill the rectangle with the gradient brush.
-                e.Graphics.FillRectangle(brush, rect);
-            }
         }
 
         delegate void UpdateStatusLabelDelegate(string text);
         delegate void UpdateInfoListboxDelegate(string PhoneEmail);
-        private void frmMain_Load(object sender, EventArgs e)
+        private async void frmMain_Load(object sender, EventArgs e)
         {
             frmLicence frmLicence = new frmLicence(this);
+            DateTime? currentDateTime = new DateTime();
             try
             {
-                string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
-                bool isConnectionOK = false;
-                radioChrome.Checked = true;
-                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
-
-                if (parsedLicenseTable != null && isConnectionOK == true)
+                currentDateTime = WordTimerManager.GetCurrentDateTime();
+                
+                try
                 {
-                    if (parsedLicenseTable.expirydate < DateTime.Now)
+                    if (currentDateTime == null)
                     {
-                        this.Hide();
-                        frmLicence.ShowDialog();
-                    }
-                    else if (string.IsNullOrEmpty(parsedLicenseTable.macAddress))
-                    {
-                        MessageBox.Show("Make sure that you have internet connection", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if(!NetworkHelper.GetMacAddresses().Contains(parsedLicenseTable.macAddress))
-                    {
-                        MessageBox.Show("Oops you are trying use your licence on different device", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Unable connect to internet, please check your internet connection", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         Application.Exit();
                     }
                     else
                     {
-                        LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
-                        isinfoextratorRunTime = parsedLicenseTable.isinfoextrator;
-                        lblRemainingDays.Text = $"Remaining days: {Convert.ToInt32((DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd"))}";
-                        SetDefaultItems();
-                        SetTabsPages(parsedLicenseTable.isinfoextrator);
-                    }
+                        string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
+                        bool isConnectionOK = false;
+                        radioChrome.Checked = true;
+                        LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
 
+                        if (parsedLicenseTable != null && isConnectionOK == true)
+                        {
+
+                            if (parsedLicenseTable.expirydate < currentDateTime /*DateTime.Now*/)
+                            {
+                                this.Hide();
+                                frmLicence.ShowDialog();
+                            }
+                            else if (string.IsNullOrEmpty(parsedLicenseTable.macAddress))
+                            {
+                                MessageBox.Show("Make sure that you have internet connection", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            else if (!NetworkHelper.GetMacAddresses().Contains(parsedLicenseTable.macAddress))
+                            {
+                                MessageBox.Show("Oops you are trying use your licence on different device", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                Application.Exit();
+                            }
+                            else
+                            {
+                                LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
+                                isinfoextratorRunTime = parsedLicenseTable.isinfoextrator;
+                                lblRemainingDays.Text = $"Remaining days: {Convert.ToInt32((DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd"))}";
+                                SetDefaultItems();
+                                SetTabsPages(parsedLicenseTable.isinfoextrator);
+                            }
+
+                        }
+                        else if (parsedLicenseTable == null && isConnectionOK == true)
+                        {
+                            this.Hide();
+                            frmLicence.ShowDialog();
+                        }
+                        else if (isConnectionOK == false)
+                        {
+
+                            MessageBox.Show("Unable to connect DB", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            Application.Exit();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Fatal Error please contact the developer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Application.Exit();
+                        }
+                    }
+                    
                 }
-                else if (parsedLicenseTable == null && isConnectionOK == true)
+                catch (Exception ex)
                 {
+                    ExceptionLogger.LogException(ex);
                     this.Hide();
                     frmLicence.ShowDialog();
-                }
-                else if (isConnectionOK == false)
-                {
-
-                    MessageBox.Show("Unable to connect DB", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    Application.Exit();
-                }
-                else
-                {
-                    MessageBox.Show("Fatal Error please contact the developer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
                 }
             }
             catch (Exception ex)
             {
                 ExceptionLogger.LogException(ex);
-                this.Hide();
-                frmLicence.ShowDialog();
             }
+
         }
         private void UpdateStatusLabel(string text)
         {
@@ -139,7 +144,7 @@ namespace LinkedinJobApplier
                 {
                     lblStatus.Text = text;
                 }
-                
+
             }
         }
         private void UpdatePhoneEmailListbox(string PhoneEmail)
@@ -239,7 +244,7 @@ namespace LinkedinJobApplier
         }
         private async void btnStartApplying_Click(object sender, EventArgs e)
         {
-            
+
             AddElementsToList();
             try
             {
@@ -516,7 +521,7 @@ namespace LinkedinJobApplier
             {
                 infoList += item + "*";
             }
-            
+
 
             SaveToCsv(infoList);
         }
@@ -576,6 +581,6 @@ namespace LinkedinJobApplier
                 }
             }
         }
-       
+
     }
 }
