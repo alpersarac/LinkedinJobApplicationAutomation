@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -29,21 +30,37 @@ namespace LinkedinJobApplier
         Thread operationThread = null;
         private HttpClient client;
         bool isinfoextratorRunTime = false;
+
         #endregion
         
         public frmMain()
         {
             InitializeComponent();
-            client = new HttpClient();
-            client.BaseAddress = new Uri("https://your-api-url/");
+            this.Paint += MainForm_Paint;
+            //client = new HttpClient();
+            //client.BaseAddress = new Uri("https://your-api-url/");
+        }
+        private void MainForm_Paint(object sender, PaintEventArgs e)
+        {
+            // Set the colors for the gradient (fresh colors - pastel shades)
+            Color colorStart = Color.FromArgb(220, 240, 250); // Starting color (light blue)
+            Color colorEnd = Color.FromArgb(250, 240, 220);   // Ending color (light yellow)
+
+            // Get the dimensions of the drawing area.
+            Rectangle rect = this.ClientRectangle;
+
+            // Create a linear gradient brush using the form's ClientRectangle.
+            using (LinearGradientBrush brush = new LinearGradientBrush(rect, colorStart, colorEnd, LinearGradientMode.Vertical))
+            {
+                // Fill the rectangle with the gradient brush.
+                e.Graphics.FillRectangle(brush, rect);
+            }
         }
 
         delegate void UpdateStatusLabelDelegate(string text);
         delegate void UpdateInfoListboxDelegate(string PhoneEmail);
         private void frmMain_Load(object sender, EventArgs e)
         {
-            
-
             frmLicence frmLicence = new frmLicence(this);
             try
             {
@@ -222,6 +239,7 @@ namespace LinkedinJobApplier
         }
         private async void btnStartApplying_Click(object sender, EventArgs e)
         {
+            
             AddElementsToList();
             try
             {
@@ -255,6 +273,17 @@ namespace LinkedinJobApplier
                 ExceptionLogger.LogException(ex);
             }
 
+        }
+        public bool CheckForRequiredItems()
+        {
+            if (!isinfoextratorRunTime)
+            {
+                if (lbxKeywords.Items.Count == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         private void btnAddCountry_Click(object sender, EventArgs e)
         {
@@ -403,6 +432,7 @@ namespace LinkedinJobApplier
         {
             try
             {
+                radioFirefox.Checked = true;
                 cbxDatePosted.SelectedIndex = 0;
                 cbxCommuting.SelectedIndex = 0;
                 cbxVisaSponsorship.SelectedIndex = 0;
@@ -459,25 +489,20 @@ namespace LinkedinJobApplier
         }
         public void SetTabsPages(bool isinfoextratorRunTime)
         {
+            this.Size = new Size(1058, 509);
             if (isinfoextratorRunTime)
             {
-                (tabSelection.TabPages[0] as TabPage).Enabled = false;
-                
-                tabSelection.SelectedTab = tabInfoExtractor;
+                grbxInfo.Location = new Point(354, 6);
+                grbxPreferences.Visible = false;
+                grbxInfo.Visible = true;
                 btnStartApplying.Text = "Start Extracting";
                 btnStopApplying.Text = "Stop Extracting";
             }
             else
             {
-                (tabSelection.TabPages[1] as TabPage).Enabled = false;
-                TabPage tabInfoExtractor = tabSelection.TabPages["tabInfoExtractor"];
-
-                if (tabInfoExtractor != null)
-                {
-                    // Hide the tab page
-                    tabSelection.TabPages.Remove(tabInfoExtractor);
-                }
-                tabSelection.SelectedTab = tabJobApplier;
+                grbxInfo.Visible = false;
+                grbxPreferences.Visible = true;
+                grbxPreferences.Location = new Point(354, 6);
                 btnStartApplying.Text = "Start Applying";
                 btnStopApplying.Text = "Stop Applying";
             }
