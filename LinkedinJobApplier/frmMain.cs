@@ -35,15 +35,14 @@ namespace LinkedinJobApplier
 
         public frmMain()
         {
-            InitializeComponent();
-
+            InitializeComponent();          
             //client = new HttpClient();
             //client.BaseAddress = new Uri("https://your-api-url/");
         }
 
         delegate void UpdateStatusLabelDelegate(string text);
         delegate void UpdateInfoListboxDelegate(string PhoneEmail);
-        private async void frmMain_Load(object sender, EventArgs e)
+        private void frmMain_Load(object sender, EventArgs e)
         {
             frmLicence frmLicence = new frmLicence(this);
             DateTime? currentDateTime = new DateTime();
@@ -242,40 +241,43 @@ namespace LinkedinJobApplier
                 IndexManager.SaveIndexes(Config.Config.currentInfoPageIndex, Config.Config.currentTitleIndex, Config.Config.currentCountryIndex);
             }
         }
-        private async void btnStartApplying_Click(object sender, EventArgs e)
+        private void btnStartApplying_Click(object sender, EventArgs e)
         {
 
-            AddElementsToList();
-            try
+            if (CheckForRequiredItems())
             {
-                cancellationTokenSource = new CancellationTokenSource();
-                var cancellationToken = cancellationTokenSource.Token;
-                statusUpdateThread = new Thread(UpdateStatusLabelThread);
-                statusUpdateThread.Start();
-                if (isinfoextratorRunTime)
+                AddElementsToList();
+                try
                 {
-                    phoneEmailThread = new Thread(UpdateListPhoneEmailThread);
-                    phoneEmailThread.Start();
-                    operationThread = new Thread(() =>
+                    cancellationTokenSource = new CancellationTokenSource();
+                    var cancellationToken = cancellationTokenSource.Token;
+                    statusUpdateThread = new Thread(UpdateStatusLabelThread);
+                    statusUpdateThread.Start();
+                    if (isinfoextratorRunTime)
                     {
-                        Linkedin linkedin = new Linkedin();
-                        linkedin.LinkInfoExtract(cancellationToken);
-                    });
-                }
-                else
-                {
-                    operationThread = new Thread(() =>
+                        phoneEmailThread = new Thread(UpdateListPhoneEmailThread);
+                        phoneEmailThread.Start();
+                        operationThread = new Thread(() =>
+                        {
+                            Linkedin linkedin = new Linkedin();
+                            linkedin.LinkInfoExtract(cancellationToken);
+                        });
+                    }
+                    else
                     {
-                        Linkedin linkedin = new Linkedin();
-                        linkedin.LinkJobApply(cancellationToken);
-                    });
-                }
+                        operationThread = new Thread(() =>
+                        {
+                            Linkedin linkedin = new Linkedin();
+                            linkedin.LinkJobApply(cancellationToken);
+                        });
+                    }
 
-                operationThread.Start();
-            }
-            catch (Exception ex)
-            {
-                ExceptionLogger.LogException(ex);
+                    operationThread.Start();
+                }
+                catch (Exception ex)
+                {
+                    ExceptionLogger.LogException(ex);
+                } 
             }
 
         }
@@ -283,10 +285,65 @@ namespace LinkedinJobApplier
         {
             if (!isinfoextratorRunTime)
             {
-                if (lbxKeywords.Items.Count == 0)
+                if (string.IsNullOrEmpty(tbxEmail.Text))
                 {
+                    MessageBox.Show("Please enter an Email", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
                     return false;
                 }
+                if (string.IsNullOrEmpty(tbxPassword.Text))
+                {
+                    MessageBox.Show("Please enter a Password", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    return false;
+                }
+                if (lbxKeywords.Items.Count == 0)
+                {
+                    MessageBox.Show("Please add at least one Keyword", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (lbxLocations.Items.Count == 0)
+                {
+                    MessageBox.Show("Please add at least one Location", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (cbxDatePosted.SelectedIndex== -1)
+                {
+                    MessageBox.Show("Please select a Date Posted option", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    return false;
+                }
+                if (cbxCommuting.SelectedIndex== -1)
+                {
+                    MessageBox.Show("Please select a Commuting option", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    return false;
+                }
+                if (cbxVisaSponsorship.SelectedIndex== -1)
+                {
+                    MessageBox.Show("Please select a Visa Sponsorship option", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    return false;
+                }
+                if (string.IsNullOrEmpty(tbxCity.Text))
+                {
+                    MessageBox.Show("Please enter a City", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    return false;
+                }
+                if (string.IsNullOrEmpty(tbxNoticePeriod.Text))
+                {
+                    MessageBox.Show("Please enter a Notice Period value", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    return false;
+                }
+                if (string.IsNullOrEmpty(tbxSalary.Text))
+                {
+                    MessageBox.Show("Please enter some Salary", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    return false;
+                }
+                
             }
             return true;
         }
@@ -495,6 +552,7 @@ namespace LinkedinJobApplier
         public void SetTabsPages(bool isinfoextratorRunTime)
         {
             this.Size = new Size(1058, 509);
+            
             if (isinfoextratorRunTime)
             {
                 grbxInfo.Location = new Point(354, 6);
@@ -582,5 +640,40 @@ namespace LinkedinJobApplier
             }
         }
 
+        private void lbxLocations_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                int index = lbxLocations.IndexFromPoint(e.Location);
+
+                if (index != ListBox.NoMatches)
+                {
+                    // Remove the selected item from the ListBox
+                    lbxLocations.Items.RemoveAt(index);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void lbxKeywords_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                int index = lbxKeywords.IndexFromPoint(e.Location);
+
+                if (index != ListBox.NoMatches)
+                {
+                    // Remove the selected item from the ListBox
+                    lbxKeywords.Items.RemoveAt(index);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
     }
 }

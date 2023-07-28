@@ -110,9 +110,9 @@
             this.lblUserName.ForeColor = System.Drawing.Color.DarkGreen;
             this.lblUserName.Location = new System.Drawing.Point(10, 43);
             this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(64, 16);
+            this.lblUserName.Size = new System.Drawing.Size(35, 16);
             this.lblUserName.TabIndex = 2;
-            this.lblUserName.Text = "Username:";
+            this.lblUserName.Text = "Email";
             // 
             // tbxPassword
             // 
@@ -449,6 +449,7 @@
             this.lbxKeywords.Name = "lbxKeywords";
             this.lbxKeywords.Size = new System.Drawing.Size(279, 84);
             this.lbxKeywords.TabIndex = 5;
+            this.lbxKeywords.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbxKeywords_MouseDoubleClick);
             // 
             // label1
             // 
@@ -493,6 +494,7 @@
             this.lbxLocations.Name = "lbxLocations";
             this.lbxLocations.Size = new System.Drawing.Size(279, 84);
             this.lbxLocations.TabIndex = 0;
+            this.lbxLocations.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbxLocations_MouseDoubleClick);
             // 
             // lblStatus
             // 
