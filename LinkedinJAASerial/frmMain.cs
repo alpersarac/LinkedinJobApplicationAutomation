@@ -31,7 +31,13 @@ namespace LinkedinJAASerial
         {
             try
             {
-                if (!Checker.CheckEmail(tbxEmail.Text))
+               
+                DateTime? currentDateTime = WordTimerManager.GetCurrentDateTime();
+                if (currentDateTime==null)
+                {
+                    MessageBox.Show("Unable to connect internet", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (!Checker.CheckEmail(tbxEmail.Text))
                 {
                     MessageBox.Show("Please enter a valid email", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -48,7 +54,7 @@ namespace LinkedinJAASerial
                     rtbxLicence.Text = "";
                     int days = Convert.ToInt32(cbxDays.GetItemText(cbxDays.SelectedItem));
                     string serialKey = LicenseKeyVerifier.GenerateLicenseKey(tbxEmail.Text);
-                    var result = DatabaseConnector.InsertLicenceTable(new LicenceTable { email = "", isactive = false, isdeleted = false, serialkey = serialKey, expirydate = DateTime.Now.AddDays(days), macAddress = "NOTUSED" , isinfoextrator=chbxInfoExtrator.Checked});
+                    var result = DatabaseConnector.InsertLicenceTable(new LicenceTable { email = "", isactive = false, isdeleted = false, serialkey = serialKey, expirydate = currentDateTime.Value.AddDays(days), macAddress = "NOTUSED", isinfoextrator = chbxInfoExtrator.Checked });
                     if (result == true)
                     {
                         rtbxLicence.Text = serialKey;

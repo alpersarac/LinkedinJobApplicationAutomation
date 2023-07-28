@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -29,78 +30,99 @@ namespace LinkedinJobApplier
         Thread operationThread = null;
         private HttpClient client;
         bool isinfoextratorRunTime = false;
+
         #endregion
-        
+
         public frmMain()
         {
             InitializeComponent();
-            client = new HttpClient();
-            client.BaseAddress = new Uri("https://your-api-url/");
+
+            //client = new HttpClient();
+            //client.BaseAddress = new Uri("https://your-api-url/");
         }
 
         delegate void UpdateStatusLabelDelegate(string text);
         delegate void UpdateInfoListboxDelegate(string PhoneEmail);
-        private void frmMain_Load(object sender, EventArgs e)
+        private async void frmMain_Load(object sender, EventArgs e)
         {
-            
-
             frmLicence frmLicence = new frmLicence(this);
+            DateTime? currentDateTime = new DateTime();
             try
             {
-                string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
-                bool isConnectionOK = false;
-                radioChrome.Checked = true;
-                LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
-
-                if (parsedLicenseTable != null && isConnectionOK == true)
+                currentDateTime = WordTimerManager.GetCurrentDateTime();
+                
+                try
                 {
-                    if (parsedLicenseTable.expirydate < DateTime.Now)
+                    if (currentDateTime == null)
                     {
-                        this.Hide();
-                        frmLicence.ShowDialog();
-                    }
-                    else if (string.IsNullOrEmpty(parsedLicenseTable.macAddress))
-                    {
-                        MessageBox.Show("Make sure that you have internet connection", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if(!NetworkHelper.GetMacAddresses().Contains(parsedLicenseTable.macAddress))
-                    {
-                        MessageBox.Show("Oops you are trying use your licence on different device", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Unable connect to internet, please check your internet connection", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         Application.Exit();
                     }
                     else
                     {
-                        LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
-                        isinfoextratorRunTime = parsedLicenseTable.isinfoextrator;
-                        lblRemainingDays.Text = $"Remaining days: {Convert.ToInt32((DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd"))}";
-                        SetDefaultItems();
-                        SetTabsPages(parsedLicenseTable.isinfoextrator);
-                    }
+                        string readLicenseKey = LicenseKeyManager.ReadLicenseKey();
+                        bool isConnectionOK = false;
+                        radioChrome.Checked = true;
+                        LicenceTable parsedLicenseTable = LicenseKeyManager.ParseLicenseKey(readLicenseKey, ref isConnectionOK);
 
+                        if (parsedLicenseTable != null && isConnectionOK == true)
+                        {
+
+                            if (parsedLicenseTable.expirydate < currentDateTime /*DateTime.Now*/)
+                            {
+                                this.Hide();
+                                frmLicence.ShowDialog();
+                            }
+                            else if (string.IsNullOrEmpty(parsedLicenseTable.macAddress))
+                            {
+                                MessageBox.Show("Make sure that you have internet connection", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            else if (!NetworkHelper.GetMacAddresses().Contains(parsedLicenseTable.macAddress))
+                            {
+                                MessageBox.Show("Oops you are trying use your licence on different device", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                Application.Exit();
+                            }
+                            else
+                            {
+                                LicenseKeyManager.setOnlineStatus(parsedLicenseTable, true);
+                                isinfoextratorRunTime = parsedLicenseTable.isinfoextrator;
+                                lblRemainingDays.Text = $"Remaining days: {Convert.ToInt32((DateTime.Now.Date - parsedLicenseTable.expirydate.Date).ToString("dd"))}";
+                                SetDefaultItems();
+                                SetTabsPages(parsedLicenseTable.isinfoextrator);
+                            }
+
+                        }
+                        else if (parsedLicenseTable == null && isConnectionOK == true)
+                        {
+                            this.Hide();
+                            frmLicence.ShowDialog();
+                        }
+                        else if (isConnectionOK == false)
+                        {
+
+                            MessageBox.Show("Unable to connect DB", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            Application.Exit();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Fatal Error please contact the developer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Application.Exit();
+                        }
+                    }
+                    
                 }
-                else if (parsedLicenseTable == null && isConnectionOK == true)
+                catch (Exception ex)
                 {
+                    ExceptionLogger.LogException(ex);
                     this.Hide();
                     frmLicence.ShowDialog();
-                }
-                else if (isConnectionOK == false)
-                {
-
-                    MessageBox.Show("Unable to connect DB", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    Application.Exit();
-                }
-                else
-                {
-                    MessageBox.Show("Fatal Error please contact the developer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
                 }
             }
             catch (Exception ex)
             {
                 ExceptionLogger.LogException(ex);
-                this.Hide();
-                frmLicence.ShowDialog();
             }
+
         }
         private void UpdateStatusLabel(string text)
         {
@@ -122,7 +144,7 @@ namespace LinkedinJobApplier
                 {
                     lblStatus.Text = text;
                 }
-                
+
             }
         }
         private void UpdatePhoneEmailListbox(string PhoneEmail)
@@ -222,6 +244,7 @@ namespace LinkedinJobApplier
         }
         private async void btnStartApplying_Click(object sender, EventArgs e)
         {
+
             AddElementsToList();
             try
             {
@@ -255,6 +278,17 @@ namespace LinkedinJobApplier
                 ExceptionLogger.LogException(ex);
             }
 
+        }
+        public bool CheckForRequiredItems()
+        {
+            if (!isinfoextratorRunTime)
+            {
+                if (lbxKeywords.Items.Count == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         private void btnAddCountry_Click(object sender, EventArgs e)
         {
@@ -403,6 +437,7 @@ namespace LinkedinJobApplier
         {
             try
             {
+                radioFirefox.Checked = true;
                 cbxDatePosted.SelectedIndex = 0;
                 cbxCommuting.SelectedIndex = 0;
                 cbxVisaSponsorship.SelectedIndex = 0;
@@ -459,25 +494,20 @@ namespace LinkedinJobApplier
         }
         public void SetTabsPages(bool isinfoextratorRunTime)
         {
+            this.Size = new Size(1058, 509);
             if (isinfoextratorRunTime)
             {
-                (tabSelection.TabPages[0] as TabPage).Enabled = false;
-                
-                tabSelection.SelectedTab = tabInfoExtractor;
+                grbxInfo.Location = new Point(354, 6);
+                grbxPreferences.Visible = false;
+                grbxInfo.Visible = true;
                 btnStartApplying.Text = "Start Extracting";
                 btnStopApplying.Text = "Stop Extracting";
             }
             else
             {
-                (tabSelection.TabPages[1] as TabPage).Enabled = false;
-                TabPage tabInfoExtractor = tabSelection.TabPages["tabInfoExtractor"];
-
-                if (tabInfoExtractor != null)
-                {
-                    // Hide the tab page
-                    tabSelection.TabPages.Remove(tabInfoExtractor);
-                }
-                tabSelection.SelectedTab = tabJobApplier;
+                grbxInfo.Visible = false;
+                grbxPreferences.Visible = true;
+                grbxPreferences.Location = new Point(354, 6);
                 btnStartApplying.Text = "Start Applying";
                 btnStopApplying.Text = "Stop Applying";
             }
@@ -491,7 +521,7 @@ namespace LinkedinJobApplier
             {
                 infoList += item + "*";
             }
-            
+
 
             SaveToCsv(infoList);
         }
@@ -551,6 +581,6 @@ namespace LinkedinJobApplier
                 }
             }
         }
-       
+
     }
 }

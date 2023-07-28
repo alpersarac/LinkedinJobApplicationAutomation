@@ -132,7 +132,7 @@
             // 
             // logoPctrbx
             // 
-            this.logoPctrbx.Image = global::LinkedinJobApplier.Properties.Resources.phoenix;
+            this.logoPctrbx.Image = global::LinkedinJobApplier.Properties.Resources.linkedinApplierIcon;
             this.logoPctrbx.Location = new System.Drawing.Point(243, 12);
             this.logoPctrbx.Name = "logoPctrbx";
             this.logoPctrbx.Size = new System.Drawing.Size(80, 80);
