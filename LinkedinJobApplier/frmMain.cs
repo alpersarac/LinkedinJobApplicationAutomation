@@ -35,8 +35,7 @@ namespace LinkedinJobApplier
 
         public frmMain()
         {
-            InitializeComponent();
-
+            InitializeComponent();          
             //client = new HttpClient();
             //client.BaseAddress = new Uri("https://your-api-url/");
         }
@@ -583,5 +582,22 @@ namespace LinkedinJobApplier
             }
         }
 
+        private void lbxLocations_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                int index = lbxLocations.IndexFromPoint(e.Location);
+
+                if (index != ListBox.NoMatches)
+                {
+                    // Remove the selected item from the ListBox
+                    lbxLocations.Items.RemoveAt(index);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
     }
 }

@@ -493,6 +493,7 @@
             this.lbxLocations.Name = "lbxLocations";
             this.lbxLocations.Size = new System.Drawing.Size(279, 84);
             this.lbxLocations.TabIndex = 0;
+            this.lbxLocations.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbxLocations_MouseDoubleClick);
             // 
             // lblStatus
             // 
