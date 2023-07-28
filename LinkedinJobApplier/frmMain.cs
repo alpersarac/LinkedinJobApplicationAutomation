@@ -495,6 +495,7 @@ namespace LinkedinJobApplier
         public void SetTabsPages(bool isinfoextratorRunTime)
         {
             this.Size = new Size(1058, 509);
+            
             if (isinfoextratorRunTime)
             {
                 grbxInfo.Location = new Point(354, 6);
