@@ -49,7 +49,6 @@ namespace LinkedinJobApplier
             try
             {
                 currentDateTime = WordTimerManager.GetCurrentDateTime();
-                
                 try
                 {
                     if (currentDateTime == null)
@@ -79,6 +78,7 @@ namespace LinkedinJobApplier
                             else if (!NetworkHelper.GetMacAddresses().Contains(parsedLicenseTable.macAddress))
                             {
                                 MessageBox.Show("Oops you are trying use your licence on different device", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                LicenseKeyManager.SetMacAddressAttempt(parsedLicenseTable.id, NetworkHelper.GetMacAddress());
                                 Application.Exit();
                             }
                             else
@@ -675,5 +675,6 @@ namespace LinkedinJobApplier
 
             }
         }
+
     }
 }

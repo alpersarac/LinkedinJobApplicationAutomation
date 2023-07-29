@@ -322,7 +322,41 @@ namespace LinkedinJAASerial
             }
             return true;
         }
+        public static bool UpdateMacAddressAttemptById(int id, string macAddressAttempt)
+        {
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    string query = "UPDATE LicenceTable SET macAddressAttempt = @macAddressAttempt WHERE id = @id";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        command.Parameters.AddWithValue("@macAddressAttempt", macAddressAttempt);
 
+                        
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            // Update successful
+                            return true;
+                        }
+                        else
+                        {
+                            // No rows were updated (id not found)
+                            Console.WriteLine("No rows were updated. The specified id was not found.");
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred while updating macAddressAttempt: " + ex.Message);
+                return false;
+            }
+        }
         public static void UpdateLicenceTable(LicenceTable licenceTable)
         {
             try
