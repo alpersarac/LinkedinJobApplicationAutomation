@@ -46,6 +46,7 @@
             // 
             this.tbxLicence.Location = new System.Drawing.Point(107, 164);
             this.tbxLicence.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxLicence.MaxLength = 350;
             this.tbxLicence.Name = "tbxLicence";
             this.tbxLicence.Size = new System.Drawing.Size(362, 21);
             this.tbxLicence.TabIndex = 0;
@@ -106,6 +107,7 @@
             // 
             this.tbxEmail.Location = new System.Drawing.Point(108, 209);
             this.tbxEmail.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxEmail.MaxLength = 100;
             this.tbxEmail.Name = "tbxEmail";
             this.tbxEmail.Size = new System.Drawing.Size(362, 21);
             this.tbxEmail.TabIndex = 6;

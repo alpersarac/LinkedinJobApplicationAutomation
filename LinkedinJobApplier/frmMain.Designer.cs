@@ -85,7 +85,7 @@
             this.btnStartApplying.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnStartApplying.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartApplying.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btnStartApplying.Location = new System.Drawing.Point(35, 186);
+            this.btnStartApplying.Location = new System.Drawing.Point(35, 189);
             this.btnStartApplying.Margin = new System.Windows.Forms.Padding(4);
             this.btnStartApplying.Name = "btnStartApplying";
             this.btnStartApplying.Size = new System.Drawing.Size(132, 79);
@@ -98,7 +98,8 @@
             // 
             this.tbxEmail.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxEmail.ForeColor = System.Drawing.Color.DarkGreen;
-            this.tbxEmail.Location = new System.Drawing.Point(94, 40);
+            this.tbxEmail.Location = new System.Drawing.Point(94, 43);
+            this.tbxEmail.MaxLength = 100;
             this.tbxEmail.Name = "tbxEmail";
             this.tbxEmail.Size = new System.Drawing.Size(233, 21);
             this.tbxEmail.TabIndex = 1;
@@ -108,7 +109,7 @@
             this.lblUserName.AutoSize = true;
             this.lblUserName.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUserName.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblUserName.Location = new System.Drawing.Point(10, 43);
+            this.lblUserName.Location = new System.Drawing.Point(10, 46);
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(35, 16);
             this.lblUserName.TabIndex = 2;
@@ -118,7 +119,8 @@
             // 
             this.tbxPassword.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxPassword.ForeColor = System.Drawing.Color.DarkGreen;
-            this.tbxPassword.Location = new System.Drawing.Point(94, 67);
+            this.tbxPassword.Location = new System.Drawing.Point(94, 70);
+            this.tbxPassword.MaxLength = 100;
             this.tbxPassword.Name = "tbxPassword";
             this.tbxPassword.PasswordChar = '*';
             this.tbxPassword.Size = new System.Drawing.Size(233, 21);
@@ -129,7 +131,7 @@
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPassword.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblPassword.Location = new System.Drawing.Point(10, 72);
+            this.lblPassword.Location = new System.Drawing.Point(10, 75);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(61, 16);
             this.lblPassword.TabIndex = 4;
@@ -146,7 +148,7 @@
             this.grbxCredentials.Controls.Add(this.tbxPassword);
             this.grbxCredentials.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbxCredentials.ForeColor = System.Drawing.Color.DarkGreen;
-            this.grbxCredentials.Location = new System.Drawing.Point(12, 6);
+            this.grbxCredentials.Location = new System.Drawing.Point(12, 9);
             this.grbxCredentials.Name = "grbxCredentials";
             this.grbxCredentials.Size = new System.Drawing.Size(336, 122);
             this.grbxCredentials.TabIndex = 6;
@@ -157,7 +159,7 @@
             this.lblPasswordInfo.AutoSize = true;
             this.lblPasswordInfo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPasswordInfo.ForeColor = System.Drawing.Color.OrangeRed;
-            this.lblPasswordInfo.Location = new System.Drawing.Point(6, 103);
+            this.lblPasswordInfo.Location = new System.Drawing.Point(6, 106);
             this.lblPasswordInfo.Name = "lblPasswordInfo";
             this.lblPasswordInfo.Size = new System.Drawing.Size(242, 16);
             this.lblPasswordInfo.TabIndex = 10;
@@ -169,7 +171,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label2.Location = new System.Drawing.Point(10, 17);
+            this.label2.Location = new System.Drawing.Point(10, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(188, 16);
             this.label2.TabIndex = 6;
@@ -180,7 +182,7 @@
             this.chbxRememberMe.AutoSize = true;
             this.chbxRememberMe.BackColor = System.Drawing.Color.Transparent;
             this.chbxRememberMe.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbxRememberMe.Location = new System.Drawing.Point(885, 442);
+            this.chbxRememberMe.Location = new System.Drawing.Point(885, 445);
             this.chbxRememberMe.Name = "chbxRememberMe";
             this.chbxRememberMe.Size = new System.Drawing.Size(146, 20);
             this.chbxRememberMe.TabIndex = 7;
@@ -217,7 +219,7 @@
             this.grbxPreferences.Controls.Add(this.lbxLocations);
             this.grbxPreferences.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbxPreferences.ForeColor = System.Drawing.Color.DarkGreen;
-            this.grbxPreferences.Location = new System.Drawing.Point(354, 6);
+            this.grbxPreferences.Location = new System.Drawing.Point(354, 9);
             this.grbxPreferences.Name = "grbxPreferences";
             this.grbxPreferences.Size = new System.Drawing.Size(677, 430);
             this.grbxPreferences.TabIndex = 7;
@@ -228,7 +230,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Silver;
-            this.label8.Location = new System.Drawing.Point(426, 262);
+            this.label8.Location = new System.Drawing.Point(426, 265);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(66, 16);
             this.label8.TabIndex = 25;
@@ -237,7 +239,8 @@
             // tbxNoticePeriod
             // 
             this.tbxNoticePeriod.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxNoticePeriod.Location = new System.Drawing.Point(429, 238);
+            this.tbxNoticePeriod.Location = new System.Drawing.Point(429, 241);
+            this.tbxNoticePeriod.MaxLength = 100;
             this.tbxNoticePeriod.Name = "tbxNoticePeriod";
             this.tbxNoticePeriod.Size = new System.Drawing.Size(174, 21);
             this.tbxNoticePeriod.TabIndex = 24;
@@ -246,7 +249,7 @@
             // 
             this.lblNoticePeriod.AutoSize = true;
             this.lblNoticePeriod.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNoticePeriod.Location = new System.Drawing.Point(426, 219);
+            this.lblNoticePeriod.Location = new System.Drawing.Point(426, 222);
             this.lblNoticePeriod.Name = "lblNoticePeriod";
             this.lblNoticePeriod.Size = new System.Drawing.Size(120, 16);
             this.lblNoticePeriod.TabIndex = 23;
@@ -256,7 +259,7 @@
             // 
             this.lblCommuting.AutoSize = true;
             this.lblCommuting.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCommuting.Location = new System.Drawing.Point(12, 339);
+            this.lblCommuting.Location = new System.Drawing.Point(12, 342);
             this.lblCommuting.Name = "lblCommuting";
             this.lblCommuting.Size = new System.Drawing.Size(115, 16);
             this.lblCommuting.TabIndex = 21;
@@ -270,7 +273,7 @@
             this.cbxCommuting.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.cbxCommuting.Location = new System.Drawing.Point(15, 358);
+            this.cbxCommuting.Location = new System.Drawing.Point(15, 361);
             this.cbxCommuting.Name = "cbxCommuting";
             this.cbxCommuting.Size = new System.Drawing.Size(143, 24);
             this.cbxCommuting.TabIndex = 20;
@@ -279,7 +282,7 @@
             // 
             this.lblVisaSponsorship.AutoSize = true;
             this.lblVisaSponsorship.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVisaSponsorship.Location = new System.Drawing.Point(12, 275);
+            this.lblVisaSponsorship.Location = new System.Drawing.Point(12, 278);
             this.lblVisaSponsorship.Name = "lblVisaSponsorship";
             this.lblVisaSponsorship.Size = new System.Drawing.Size(129, 16);
             this.lblVisaSponsorship.TabIndex = 19;
@@ -293,7 +296,7 @@
             this.cbxVisaSponsorship.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.cbxVisaSponsorship.Location = new System.Drawing.Point(15, 294);
+            this.cbxVisaSponsorship.Location = new System.Drawing.Point(15, 297);
             this.cbxVisaSponsorship.Name = "cbxVisaSponsorship";
             this.cbxVisaSponsorship.Size = new System.Drawing.Size(143, 24);
             this.cbxVisaSponsorship.TabIndex = 18;
@@ -303,7 +306,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Silver;
-            this.label7.Location = new System.Drawing.Point(231, 262);
+            this.label7.Location = new System.Drawing.Point(231, 265);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 16);
             this.label7.TabIndex = 17;
@@ -314,7 +317,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Silver;
-            this.label6.Location = new System.Drawing.Point(231, 340);
+            this.label6.Location = new System.Drawing.Point(231, 343);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(107, 16);
             this.label6.TabIndex = 16;
@@ -324,7 +327,7 @@
             // 
             this.lblSalaryExpectation.AutoSize = true;
             this.lblSalaryExpectation.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSalaryExpectation.Location = new System.Drawing.Point(231, 216);
+            this.lblSalaryExpectation.Location = new System.Drawing.Point(231, 219);
             this.lblSalaryExpectation.Name = "lblSalaryExpectation";
             this.lblSalaryExpectation.Size = new System.Drawing.Size(112, 16);
             this.lblSalaryExpectation.TabIndex = 15;
@@ -333,7 +336,8 @@
             // tbxSalary
             // 
             this.tbxSalary.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxSalary.Location = new System.Drawing.Point(234, 238);
+            this.tbxSalary.Location = new System.Drawing.Point(234, 241);
+            this.tbxSalary.MaxLength = 100;
             this.tbxSalary.Name = "tbxSalary";
             this.tbxSalary.Size = new System.Drawing.Size(174, 21);
             this.tbxSalary.TabIndex = 14;
@@ -342,7 +346,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(231, 294);
+            this.label5.Location = new System.Drawing.Point(231, 297);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(76, 16);
             this.label5.TabIndex = 13;
@@ -351,7 +355,8 @@
             // tbxCity
             // 
             this.tbxCity.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxCity.Location = new System.Drawing.Point(234, 316);
+            this.tbxCity.Location = new System.Drawing.Point(234, 319);
+            this.tbxCity.MaxLength = 100;
             this.tbxCity.Name = "tbxCity";
             this.tbxCity.Size = new System.Drawing.Size(174, 21);
             this.tbxCity.TabIndex = 12;
@@ -360,7 +365,7 @@
             // 
             this.btnClearKeywords.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnClearKeywords.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearKeywords.Location = new System.Drawing.Point(541, 175);
+            this.btnClearKeywords.Location = new System.Drawing.Point(541, 178);
             this.btnClearKeywords.Name = "btnClearKeywords";
             this.btnClearKeywords.Size = new System.Drawing.Size(75, 28);
             this.btnClearKeywords.TabIndex = 11;
@@ -372,7 +377,7 @@
             // 
             this.btnClearLocation.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnClearLocation.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearLocation.Location = new System.Drawing.Point(219, 174);
+            this.btnClearLocation.Location = new System.Drawing.Point(219, 177);
             this.btnClearLocation.Name = "btnClearLocation";
             this.btnClearLocation.Size = new System.Drawing.Size(75, 28);
             this.btnClearLocation.TabIndex = 10;
@@ -384,7 +389,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 216);
+            this.label4.Location = new System.Drawing.Point(12, 219);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 16);
             this.label4.TabIndex = 9;
@@ -400,7 +405,7 @@
             "Past Month",
             "Past Week",
             "Past 24 Hours"});
-            this.cbxDatePosted.Location = new System.Drawing.Point(15, 235);
+            this.cbxDatePosted.Location = new System.Drawing.Point(15, 238);
             this.cbxDatePosted.Name = "cbxDatePosted";
             this.cbxDatePosted.Size = new System.Drawing.Size(143, 24);
             this.cbxDatePosted.TabIndex = 8;
@@ -411,7 +416,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label3.Location = new System.Drawing.Point(334, 17);
+            this.label3.Location = new System.Drawing.Point(334, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(62, 16);
             this.label3.TabIndex = 8;
@@ -421,7 +426,8 @@
             // 
             this.tbxKeywords.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxKeywords.ForeColor = System.Drawing.Color.DarkGreen;
-            this.tbxKeywords.Location = new System.Drawing.Point(337, 40);
+            this.tbxKeywords.Location = new System.Drawing.Point(337, 43);
+            this.tbxKeywords.MaxLength = 100;
             this.tbxKeywords.Name = "tbxKeywords";
             this.tbxKeywords.Size = new System.Drawing.Size(196, 21);
             this.tbxKeywords.TabIndex = 7;
@@ -431,7 +437,7 @@
             this.btnAddKeyword.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnAddKeyword.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddKeyword.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btnAddKeyword.Location = new System.Drawing.Point(541, 38);
+            this.btnAddKeyword.Location = new System.Drawing.Point(541, 41);
             this.btnAddKeyword.Name = "btnAddKeyword";
             this.btnAddKeyword.Size = new System.Drawing.Size(75, 26);
             this.btnAddKeyword.TabIndex = 6;
@@ -445,7 +451,7 @@
             this.lbxKeywords.ForeColor = System.Drawing.Color.DarkGreen;
             this.lbxKeywords.FormattingEnabled = true;
             this.lbxKeywords.ItemHeight = 16;
-            this.lbxKeywords.Location = new System.Drawing.Point(337, 68);
+            this.lbxKeywords.Location = new System.Drawing.Point(337, 71);
             this.lbxKeywords.Name = "lbxKeywords";
             this.lbxKeywords.Size = new System.Drawing.Size(279, 84);
             this.lbxKeywords.TabIndex = 5;
@@ -456,7 +462,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label1.Location = new System.Drawing.Point(12, 17);
+            this.label1.Location = new System.Drawing.Point(12, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 16);
             this.label1.TabIndex = 4;
@@ -466,7 +472,8 @@
             // 
             this.tbxLocation.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxLocation.ForeColor = System.Drawing.Color.DarkGreen;
-            this.tbxLocation.Location = new System.Drawing.Point(15, 40);
+            this.tbxLocation.Location = new System.Drawing.Point(15, 43);
+            this.tbxLocation.MaxLength = 100;
             this.tbxLocation.Name = "tbxLocation";
             this.tbxLocation.Size = new System.Drawing.Size(196, 21);
             this.tbxLocation.TabIndex = 3;
@@ -476,7 +483,7 @@
             this.btnAddCountry.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnAddCountry.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddCountry.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btnAddCountry.Location = new System.Drawing.Point(219, 38);
+            this.btnAddCountry.Location = new System.Drawing.Point(219, 41);
             this.btnAddCountry.Name = "btnAddCountry";
             this.btnAddCountry.Size = new System.Drawing.Size(75, 26);
             this.btnAddCountry.TabIndex = 2;
@@ -490,7 +497,7 @@
             this.lbxLocations.ForeColor = System.Drawing.Color.DarkGreen;
             this.lbxLocations.FormattingEnabled = true;
             this.lbxLocations.ItemHeight = 16;
-            this.lbxLocations.Location = new System.Drawing.Point(15, 68);
+            this.lbxLocations.Location = new System.Drawing.Point(15, 71);
             this.lbxLocations.Name = "lbxLocations";
             this.lbxLocations.Size = new System.Drawing.Size(279, 84);
             this.lbxLocations.TabIndex = 0;
@@ -501,7 +508,7 @@
             this.lblStatus.AutoSize = true;
             this.lblStatus.BackColor = System.Drawing.Color.Transparent;
             this.lblStatus.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(351, 446);
+            this.lblStatus.Location = new System.Drawing.Point(351, 449);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(40, 16);
             this.lblStatus.TabIndex = 8;
@@ -512,7 +519,7 @@
             this.btnStopApplying.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnStopApplying.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStopApplying.ForeColor = System.Drawing.Color.OrangeRed;
-            this.btnStopApplying.Location = new System.Drawing.Point(175, 186);
+            this.btnStopApplying.Location = new System.Drawing.Point(175, 189);
             this.btnStopApplying.Margin = new System.Windows.Forms.Padding(4);
             this.btnStopApplying.Name = "btnStopApplying";
             this.btnStopApplying.Size = new System.Drawing.Size(132, 79);
@@ -526,7 +533,7 @@
             this.lblRemainingDays.AutoSize = true;
             this.lblRemainingDays.BackColor = System.Drawing.Color.Transparent;
             this.lblRemainingDays.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemainingDays.Location = new System.Drawing.Point(9, 446);
+            this.lblRemainingDays.Location = new System.Drawing.Point(9, 449);
             this.lblRemainingDays.Name = "lblRemainingDays";
             this.lblRemainingDays.Size = new System.Drawing.Size(49, 16);
             this.lblRemainingDays.TabIndex = 14;
@@ -536,7 +543,7 @@
             // 
             this.lblCurrentCountry.AutoSize = true;
             this.lblCurrentCountry.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentCountry.Location = new System.Drawing.Point(12, 38);
+            this.lblCurrentCountry.Location = new System.Drawing.Point(12, 41);
             this.lblCurrentCountry.Name = "lblCurrentCountry";
             this.lblCurrentCountry.Size = new System.Drawing.Size(93, 16);
             this.lblCurrentCountry.TabIndex = 7;
@@ -546,7 +553,7 @@
             // 
             this.lblCurrentTitle.AutoSize = true;
             this.lblCurrentTitle.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentTitle.Location = new System.Drawing.Point(35, 17);
+            this.lblCurrentTitle.Location = new System.Drawing.Point(35, 20);
             this.lblCurrentTitle.Name = "lblCurrentTitle";
             this.lblCurrentTitle.Size = new System.Drawing.Size(70, 16);
             this.lblCurrentTitle.TabIndex = 6;
@@ -555,7 +562,7 @@
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(598, 20);
+            this.btnSave.Location = new System.Drawing.Point(598, 23);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 30);
             this.btnSave.TabIndex = 5;
@@ -569,7 +576,7 @@
             this.lbxInfo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbxInfo.FormattingEnabled = true;
             this.lbxInfo.ItemHeight = 16;
-            this.lbxInfo.Location = new System.Drawing.Point(18, 64);
+            this.lbxInfo.Location = new System.Drawing.Point(18, 67);
             this.lbxInfo.Name = "lbxInfo";
             this.lbxInfo.Size = new System.Drawing.Size(655, 340);
             this.lbxInfo.TabIndex = 4;
@@ -579,7 +586,7 @@
             this.radioChrome.AutoSize = true;
             this.radioChrome.BackColor = System.Drawing.Color.Transparent;
             this.radioChrome.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioChrome.Location = new System.Drawing.Point(99, 134);
+            this.radioChrome.Location = new System.Drawing.Point(99, 137);
             this.radioChrome.Name = "radioChrome";
             this.radioChrome.Size = new System.Drawing.Size(68, 20);
             this.radioChrome.TabIndex = 26;
@@ -593,7 +600,7 @@
             this.radioFirefox.AutoSize = true;
             this.radioFirefox.BackColor = System.Drawing.Color.Transparent;
             this.radioFirefox.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioFirefox.Location = new System.Drawing.Point(25, 134);
+            this.radioFirefox.Location = new System.Drawing.Point(25, 137);
             this.radioFirefox.Name = "radioFirefox";
             this.radioFirefox.Size = new System.Drawing.Size(58, 20);
             this.radioFirefox.TabIndex = 27;
@@ -610,7 +617,7 @@
             this.grbxInfo.Controls.Add(this.lblCurrentTitle);
             this.grbxInfo.Controls.Add(this.lblCurrentCountry);
             this.grbxInfo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grbxInfo.Location = new System.Drawing.Point(1067, 6);
+            this.grbxInfo.Location = new System.Drawing.Point(1067, 9);
             this.grbxInfo.Name = "grbxInfo";
             this.grbxInfo.Size = new System.Drawing.Size(677, 430);
             this.grbxInfo.TabIndex = 28;
@@ -620,7 +627,7 @@
             // 
             this.lblInfoPage.AutoSize = true;
             this.lblInfoPage.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfoPage.Location = new System.Drawing.Point(501, 28);
+            this.lblInfoPage.Location = new System.Drawing.Point(501, 31);
             this.lblInfoPage.Name = "lblInfoPage";
             this.lblInfoPage.Size = new System.Drawing.Size(91, 16);
             this.lblInfoPage.TabIndex = 8;
