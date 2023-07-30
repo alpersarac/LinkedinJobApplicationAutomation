@@ -1,4 +1,5 @@
 ﻿using Helper;
+using Helper.MyNamespace;
 using LinkedinJAASerial;
 using LinkedinJAASerialGenerator;
 using LinkedinJobApplier.Config;
@@ -46,6 +47,7 @@ namespace LinkedinJobApplier
         {
             frmLicence frmLicence = new frmLicence(this);
             bool isAcceptedUpdate = false;
+            lblVersion.Text=$"Version {UpdateHelper.GetCurrentAppVersion()}";
             if (UpdateHelper.CheckForUpdates(ref isAcceptedUpdate))
             {
                 if (isAcceptedUpdate)
@@ -690,10 +692,5 @@ namespace LinkedinJobApplier
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            frmUpdate frmUpdate = new frmUpdate();
-            frmUpdate.ShowDialog();
-        }
     }
 }
