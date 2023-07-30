@@ -32,7 +32,7 @@ namespace Helper
 
                 if (IsUpdateAvailable(localVersion, latestVersion))
                 {
-                    var messageboxResult = MessageBox.Show("An update is available. Click OK, then install the update", "Update Available", MessageBoxButtons.YesNo);
+                    var messageboxResult = MessageBox.Show("An update is available. Click YES, then install the update", "Update Available", MessageBoxButtons.YesNo);
                     if (messageboxResult == DialogResult.Yes)
                     {
                         DownloadAndInstallUpdate(latestVersion);
