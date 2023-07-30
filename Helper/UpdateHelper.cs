@@ -7,6 +7,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Helper
@@ -19,20 +20,20 @@ namespace Helper
         private static string ftpUsername = "alper";
         private static string ftpPassword = "Sarac.4242";
 
-        private static void CheckForUpdates()
+        public static void CheckForUpdates()
         {
             try
             {
                 string localVersion = GetLocalVersion();
                 string latestVersion = GetLatestVersion();
 
-                //if (IsUpdateAvailable(localVersion, latestVersion))
-                //{
-                //    if (MessageBox.Show("An update is available. Do you want to download and install it?", "Update Available", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                //    {
-                //        DownloadAndInstallUpdate();
-                //    }
-                //}
+                if (IsUpdateAvailable(localVersion, latestVersion))
+                {
+                    if (MessageBox.Show("An update is available. Do you want to download and install it?", "Update Available", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        DownloadAndInstallUpdate();
+                    }
+                }
             }
             catch (Exception ex)
             {

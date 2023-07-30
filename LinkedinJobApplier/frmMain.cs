@@ -676,5 +676,10 @@ namespace LinkedinJobApplier
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmUpdate frmUpdate = new frmUpdate();
+            frmUpdate.ShowDialog();
+        }
     }
 }
