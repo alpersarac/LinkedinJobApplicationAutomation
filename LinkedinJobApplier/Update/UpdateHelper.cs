@@ -20,6 +20,7 @@ namespace Helper
     using System.IO;
     using System.IO.Compression;
     using System.Net;
+    using Application = System.Windows.Forms.Application;
 
     namespace MyNamespace
     {
@@ -34,6 +35,10 @@ namespace Helper
             {
                 try
                 {
+                    string appPath = Application.ExecutablePath;
+                    FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(appPath);
+                    
+                    MessageBox.Show(fileVersionInfo.FileVersion);
                     isAcceptedUpdate = true;
                     string localVersion = GetCurrentAppVersion();
                     string latestVersion = GetLatestVersion();
