@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Helper
@@ -19,25 +22,27 @@ namespace Helper
         private static string ftpUsername = "alper";
         private static string ftpPassword = "Sarac.4242";
 
-        private static void CheckForUpdates()
+        public static bool CheckForUpdates()
         {
             try
             {
+                
                 string localVersion = GetLocalVersion();
                 string latestVersion = GetLatestVersion();
 
-                //if (IsUpdateAvailable(localVersion, latestVersion))
-                //{
-                //    if (MessageBox.Show("An update is available. Do you want to download and install it?", "Update Available", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                //    {
-                //        DownloadAndInstallUpdate();
-                //    }
-                //}
+                if (IsUpdateAvailable(localVersion, latestVersion))
+                {
+                    if (MessageBox.Show("An update is available. Do you want to download and install it?", "Update Available", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        DownloadAndInstallUpdate(latestVersion);
+                        return true;
+                    }
+                }
+                return false;
             }
             catch (Exception ex)
             {
-                // Handle any errors during update checking
-                //MessageBox.Show("Error checking for updates: " + ex.Message);
+                return false;
             }
         }
 
@@ -92,18 +97,33 @@ namespace Helper
             return latest > currentVersion;
         }
 
-        private static void DownloadAndInstallUpdate()
+        private static void DownloadAndInstallUpdate(string latestVersion)
         {
-            string updateFilePath = Path.Combine(localAppPath, "Update.zip");
+            string updateFolder = Path.Combine(localAppPath, "UpdateTemp"); // New folder for the update
+            string updateFilePath = Path.Combine(updateFolder, "Update.zip");
             string updateUrl = ftpServerUrl + "Update.zip";
-
+            
             try
             {
+                if (Directory.Exists(updateFolder))
+                {
+                    foreach (string existingFile in Directory.EnumerateFiles(updateFolder))
+                    {
+                        File.Delete(existingFile);
+                    }
+                }
+                
                 FtpWebRequest request = (FtpWebRequest)WebRequest.Create(updateUrl);
                 request.Method = WebRequestMethods.Ftp.DownloadFile;
                 request.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
                 request.UsePassive = false; // Explicitly set Passive Mode to false
                 request.Proxy = new WebProxy();
+
+                // Create the update folder if it doesn't exist
+                if (!Directory.Exists(updateFolder))
+                {
+                    Directory.CreateDirectory(updateFolder);
+                }
 
                 using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
                 {
@@ -120,21 +140,80 @@ namespace Helper
                         }
                     }
                 }
-
-                // Extract the update files here (you can use a library like SharpZipLib or built-in ZipArchive class)
-
+                
+                // Extract the update files to the update folder
+                ZipFile.ExtractToDirectory(updateFilePath, updateFolder);
                 // Run the update executable (e.g., Updater.exe) to install the update
-                string updaterPath = Path.Combine(localAppPath, "Updater.exe");
+                string updaterPath = Path.Combine(updateFolder, "Setup.exe");
+                
                 Process.Start(updaterPath);
+                Thread.Sleep(4000);
+                // Wait for the update process to complete
+                Process updaterProcess = Process.GetProcessesByName("Setup").FirstOrDefault();
+                if (updaterProcess != null)
+                {
+                    updaterProcess.WaitForExit();
+                    if (Directory.Exists(updateFolder))
+                    {
+                        Directory.Delete(updateFolder, true);
+                        CreateOrUpdateVersionFile(latestVersion);
+                    }
 
-                // Close the application to allow the updater to take over
-                //Application.Exit();
+                }
+
+                // Delete the update folder and its contents after the update is completed
+                
             }
             catch (WebException ex)
             {
                 // Handle any errors during the update process
-               // MessageBox.Show("Error updating application: " + ex.Message);
+                // MessageBox.Show("Error updating application: " + ex.Message);
             }
         }
+
+        private static string GetCurrentAppVersion()
+        {
+            try
+            {
+                // Get the version information from the executing assembly.
+                Version version = Assembly.GetExecutingAssembly().GetName().Version;
+                return version.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting current app version: {ex.Message}");
+                return "0.0.0.0"; // Default version if the version cannot be retrieved.
+            }
+        }
+
+        private static void CreateOrUpdateVersionFile(string version)
+        {
+            string versionFilePath = Path.Combine(localAppPath, localVersionFilePath);
+
+            try
+            {
+                // Check if the version file exists and read its content.
+                if (File.Exists(versionFilePath))
+                {
+                    string existingVersion = File.ReadAllText(versionFilePath);
+
+                    if (existingVersion == version)
+                    {
+                        // The version file already exists and has the same version.
+                        Console.WriteLine("Version file already exists with the same version.");
+                        return;
+                    }
+                }
+
+                // Write the version information to the file or update the existing file.
+                File.WriteAllText(versionFilePath, version);
+                Console.WriteLine($"Version file {(File.Exists(versionFilePath) ? "updated" : "created")} with version: {version}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating or updating version file: {ex.Message}");
+            }
+        }
+
     }
 }

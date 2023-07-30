@@ -45,10 +45,14 @@ namespace LinkedinJobApplier
         private void frmMain_Load(object sender, EventArgs e)
         {
             frmLicence frmLicence = new frmLicence(this);
-            DateTime? currentDateTime = new DateTime();
+            if (UpdateHelper.CheckForUpdates())
+            {
+                System.Diagnostics.Process.Start(Application.ExecutablePath);
+                Application.Exit();
+            }
             try
             {
-                currentDateTime = WordTimerManager.GetCurrentDateTime();
+                DateTime? currentDateTime = WordTimerManager.GetCurrentDateTime();
                 try
                 {
                     if (currentDateTime == null)
@@ -676,5 +680,10 @@ namespace LinkedinJobApplier
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmUpdate frmUpdate = new frmUpdate();
+            frmUpdate.ShowDialog();
+        }
     }
 }
