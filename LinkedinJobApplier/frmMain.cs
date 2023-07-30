@@ -45,10 +45,20 @@ namespace LinkedinJobApplier
         private void frmMain_Load(object sender, EventArgs e)
         {
             frmLicence frmLicence = new frmLicence(this);
-            if (UpdateHelper.CheckForUpdates())
+            bool isAcceptedUpdate = false;
+            if (UpdateHelper.CheckForUpdates(ref isAcceptedUpdate))
             {
-                System.Diagnostics.Process.Start(Application.ExecutablePath);
-                Application.Exit();
+                if (isAcceptedUpdate)
+                {
+                    System.Diagnostics.Process.Start(Application.ExecutablePath);
+                    Application.Exit();
+                }
+                else
+                {
+                    Application.Exit();
+
+                }
+
             }
             try
             {

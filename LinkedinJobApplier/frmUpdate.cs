@@ -20,7 +20,7 @@ namespace LinkedinJobApplier
 
         private void frmUpdate_Load(object sender, EventArgs e)
         {
-            UpdateHelper.CheckForUpdates();
+            //UpdateHelper.CheckForUpdates();
         }
     }
 }

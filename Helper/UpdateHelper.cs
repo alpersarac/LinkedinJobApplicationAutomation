@@ -22,21 +22,28 @@ namespace Helper
         private static string ftpUsername = "alper";
         private static string ftpPassword = "Sarac.4242";
 
-        public static bool CheckForUpdates()
+        public static bool CheckForUpdates(ref bool isAcceptedUpdate)
         {
             try
             {
-                
-                string localVersion = GetLocalVersion();
+                isAcceptedUpdate = true;
+                string localVersion = GetCurrentAppVersion();
                 string latestVersion = GetLatestVersion();
 
                 if (IsUpdateAvailable(localVersion, latestVersion))
                 {
-                    if (MessageBox.Show("An update is available. Do you want to download and install it?", "Update Available", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    var messageboxResult = MessageBox.Show("An update is available. Click OK, then install the update", "Update Available", MessageBoxButtons.YesNo);
+                    if (messageboxResult == DialogResult.Yes)
                     {
                         DownloadAndInstallUpdate(latestVersion);
                         return true;
                     }
+                    else
+                    {
+                        isAcceptedUpdate = false;
+                        return true;
+                    }
+                    
                 }
                 return false;
             }
@@ -153,10 +160,13 @@ namespace Helper
                 if (updaterProcess != null)
                 {
                     updaterProcess.WaitForExit();
+                    
                     if (Directory.Exists(updateFolder))
                     {
                         Directory.Delete(updateFolder, true);
-                        CreateOrUpdateVersionFile(latestVersion);
+                        
+                        //CreateOrUpdateVersionFile(latestVersion);
+                        
                     }
 
                 }
