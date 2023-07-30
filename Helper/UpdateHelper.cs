@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
@@ -21,7 +22,7 @@ namespace Helper
         private static string ftpUsername = "alper";
         private static string ftpPassword = "Sarac.4242";
 
-        public static void CheckForUpdates()
+        public static bool CheckForUpdates()
         {
             try
             {
@@ -33,15 +34,15 @@ namespace Helper
                 {
                     if (MessageBox.Show("An update is available. Do you want to download and install it?", "Update Available", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        DownloadAndInstallUpdate();
-                        CreateOrUpdateVersionFile(latestVersion);
+                        DownloadAndInstallUpdate(latestVersion);
+                        return true;
                     }
                 }
+                return false;
             }
             catch (Exception ex)
             {
-                // Handle any errors during update checking
-                //MessageBox.Show("Error checking for updates: " + ex.Message);
+                return false;
             }
         }
 
@@ -96,14 +97,22 @@ namespace Helper
             return latest > currentVersion;
         }
 
-        private static void DownloadAndInstallUpdate()
+        private static void DownloadAndInstallUpdate(string latestVersion)
         {
             string updateFolder = Path.Combine(localAppPath, "UpdateTemp"); // New folder for the update
             string updateFilePath = Path.Combine(updateFolder, "Update.zip");
             string updateUrl = ftpServerUrl + "Update.zip";
-
+            
             try
             {
+                if (Directory.Exists(updateFolder))
+                {
+                    foreach (string existingFile in Directory.EnumerateFiles(updateFolder))
+                    {
+                        File.Delete(existingFile);
+                    }
+                }
+                
                 FtpWebRequest request = (FtpWebRequest)WebRequest.Create(updateUrl);
                 request.Method = WebRequestMethods.Ftp.DownloadFile;
                 request.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
@@ -131,26 +140,29 @@ namespace Helper
                         }
                     }
                 }
-
+                
                 // Extract the update files to the update folder
                 ZipFile.ExtractToDirectory(updateFilePath, updateFolder);
-
                 // Run the update executable (e.g., Updater.exe) to install the update
-                string updaterPath = Path.Combine(updateFolder, "Updater.msi");
+                string updaterPath = Path.Combine(updateFolder, "Setup.exe");
+                
                 Process.Start(updaterPath);
-
+                Thread.Sleep(4000);
                 // Wait for the update process to complete
-                Process updaterProcess = Process.GetProcessesByName("Updater").FirstOrDefault();
+                Process updaterProcess = Process.GetProcessesByName("Setup").FirstOrDefault();
                 if (updaterProcess != null)
                 {
                     updaterProcess.WaitForExit();
+                    if (Directory.Exists(updateFolder))
+                    {
+                        Directory.Delete(updateFolder, true);
+                        CreateOrUpdateVersionFile(latestVersion);
+                    }
+
                 }
 
                 // Delete the update folder and its contents after the update is completed
-                if (Directory.Exists(updateFolder))
-                {
-                    Directory.Delete(updateFolder, true);
-                }
+                
             }
             catch (WebException ex)
             {
