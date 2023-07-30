@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -123,9 +124,9 @@ namespace Helper
                 }
 
                 // Extract the update files here (you can use a library like SharpZipLib or built-in ZipArchive class)
-
+                ZipFile.ExtractToDirectory(updateFilePath, localAppPath);
                 // Run the update executable (e.g., Updater.exe) to install the update
-                string updaterPath = Path.Combine(localAppPath, "Updater.exe");
+                string updaterPath = Path.Combine(localAppPath, "Updater.msi");
                 Process.Start(updaterPath);
 
                 // Close the application to allow the updater to take over
