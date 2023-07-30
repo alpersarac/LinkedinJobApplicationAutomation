@@ -78,7 +78,7 @@ namespace LinkedinJobApplier
                             else if (!NetworkHelper.GetMacAddresses().Contains(parsedLicenseTable.macAddress))
                             {
                                 MessageBox.Show("Oops you are trying use your licence on different device", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                LicenseKeyManager.SetMacAddressAttempt(parsedLicenseTable.id, NetworkHelper.GetMacAddress());
+                                LicenseKeyManager.SetMacAddressAttempt(parsedLicenseTable.id, NetworkHelper.GetActiveMacAddress());
                                 Application.Exit();
                             }
                             else

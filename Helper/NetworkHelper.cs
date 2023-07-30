@@ -10,23 +10,34 @@ namespace Helper
 {
     public static class NetworkHelper
     {
-        public static string GetMacAddress()
+        public static string GetActiveMacAddress()
         {
+            NetworkInterface activeInterface = null;
+
+            // Get all network interfaces on the system
             NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
 
+            // Find the active network interface
             foreach (NetworkInterface networkInterface in networkInterfaces)
             {
                 if (networkInterface.OperationalStatus == OperationalStatus.Up &&
-                    networkInterface.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                    (networkInterface.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
+                     networkInterface.NetworkInterfaceType == NetworkInterfaceType.Wireless80211))
                 {
-                    PhysicalAddress physicalAddress = networkInterface.GetPhysicalAddress();
-                    byte[] macBytes = physicalAddress.GetAddressBytes();
-                    string macAddress = BitConverter.ToString(macBytes);
-                    return macAddress;
+                    activeInterface = networkInterface;
+                    break; // Stop after finding the first active interface
                 }
             }
 
-            return string.Empty; // MAC address not found
+            if (activeInterface != null)
+            {
+                PhysicalAddress physicalAddress = activeInterface.GetPhysicalAddress();
+                return BitConverter.ToString(physicalAddress.GetAddressBytes());
+            }
+            else
+            {
+                return null; // No active network interface found
+            }
         }
         public static List<string> GetMacAddresses()
         {
