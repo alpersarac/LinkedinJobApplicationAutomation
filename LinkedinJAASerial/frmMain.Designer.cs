@@ -57,12 +57,28 @@
             this.rhtbxEncrypted = new System.Windows.Forms.RichTextBox();
             this.tbxEncryptLicence = new System.Windows.Forms.TextBox();
             this.btnDecrypt = new System.Windows.Forms.Button();
+            this.ftpTab = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.btnEncrypt = new System.Windows.Forms.Button();
+            this.tbxFtpPasswordEncrypted = new System.Windows.Forms.TextBox();
+            this.tbxFtpPassword = new System.Windows.Forms.TextBox();
+            this.tbxFtpUserNameEncrypted = new System.Windows.Forms.TextBox();
+            this.tbxFtpUserName = new System.Windows.Forms.TextBox();
+            this.tbxIpEncrypted = new System.Windows.Forms.TextBox();
+            this.tbxIpClear = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.ftpTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // backgroundWorker1
@@ -76,6 +92,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.ftpTab);
             this.tabControl1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
@@ -345,6 +362,133 @@
             this.btnDecrypt.UseVisualStyleBackColor = true;
             this.btnDecrypt.Click += new System.EventHandler(this.btnEncrpt_Click_1);
             // 
+            // ftpTab
+            // 
+            this.ftpTab.Controls.Add(this.button1);
+            this.ftpTab.Controls.Add(this.textBox1);
+            this.ftpTab.Controls.Add(this.textBox2);
+            this.ftpTab.Controls.Add(this.textBox3);
+            this.ftpTab.Controls.Add(this.textBox4);
+            this.ftpTab.Controls.Add(this.textBox5);
+            this.ftpTab.Controls.Add(this.textBox6);
+            this.ftpTab.Controls.Add(this.btnEncrypt);
+            this.ftpTab.Controls.Add(this.tbxFtpPasswordEncrypted);
+            this.ftpTab.Controls.Add(this.tbxFtpPassword);
+            this.ftpTab.Controls.Add(this.tbxFtpUserNameEncrypted);
+            this.ftpTab.Controls.Add(this.tbxFtpUserName);
+            this.ftpTab.Controls.Add(this.tbxIpEncrypted);
+            this.ftpTab.Controls.Add(this.tbxIpClear);
+            this.ftpTab.Location = new System.Drawing.Point(4, 25);
+            this.ftpTab.Name = "ftpTab";
+            this.ftpTab.Padding = new System.Windows.Forms.Padding(3);
+            this.ftpTab.Size = new System.Drawing.Size(1103, 392);
+            this.ftpTab.TabIndex = 5;
+            this.ftpTab.Text = "FTP";
+            this.ftpTab.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(520, 144);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(410, 33);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Decrypt";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(735, 107);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(195, 21);
+            this.textBox1.TabIndex = 12;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(520, 107);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(195, 21);
+            this.textBox2.TabIndex = 11;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(735, 70);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(195, 21);
+            this.textBox3.TabIndex = 10;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(520, 70);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(195, 21);
+            this.textBox4.TabIndex = 9;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(735, 30);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(195, 21);
+            this.textBox5.TabIndex = 8;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(520, 30);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(195, 21);
+            this.textBox6.TabIndex = 7;
+            // 
+            // btnEncrypt
+            // 
+            this.btnEncrypt.Location = new System.Drawing.Point(28, 144);
+            this.btnEncrypt.Name = "btnEncrypt";
+            this.btnEncrypt.Size = new System.Drawing.Size(410, 33);
+            this.btnEncrypt.TabIndex = 6;
+            this.btnEncrypt.Text = "Encrypt";
+            this.btnEncrypt.UseVisualStyleBackColor = true;
+            this.btnEncrypt.Click += new System.EventHandler(this.btnEncrypt_Click);
+            // 
+            // tbxFtpPasswordEncrypted
+            // 
+            this.tbxFtpPasswordEncrypted.Location = new System.Drawing.Point(243, 107);
+            this.tbxFtpPasswordEncrypted.Name = "tbxFtpPasswordEncrypted";
+            this.tbxFtpPasswordEncrypted.Size = new System.Drawing.Size(195, 21);
+            this.tbxFtpPasswordEncrypted.TabIndex = 5;
+            // 
+            // tbxFtpPassword
+            // 
+            this.tbxFtpPassword.Location = new System.Drawing.Point(28, 107);
+            this.tbxFtpPassword.Name = "tbxFtpPassword";
+            this.tbxFtpPassword.Size = new System.Drawing.Size(195, 21);
+            this.tbxFtpPassword.TabIndex = 4;
+            // 
+            // tbxFtpUserNameEncrypted
+            // 
+            this.tbxFtpUserNameEncrypted.Location = new System.Drawing.Point(243, 70);
+            this.tbxFtpUserNameEncrypted.Name = "tbxFtpUserNameEncrypted";
+            this.tbxFtpUserNameEncrypted.Size = new System.Drawing.Size(195, 21);
+            this.tbxFtpUserNameEncrypted.TabIndex = 3;
+            // 
+            // tbxFtpUserName
+            // 
+            this.tbxFtpUserName.Location = new System.Drawing.Point(28, 70);
+            this.tbxFtpUserName.Name = "tbxFtpUserName";
+            this.tbxFtpUserName.Size = new System.Drawing.Size(195, 21);
+            this.tbxFtpUserName.TabIndex = 2;
+            // 
+            // tbxIpEncrypted
+            // 
+            this.tbxIpEncrypted.Location = new System.Drawing.Point(243, 30);
+            this.tbxIpEncrypted.Name = "tbxIpEncrypted";
+            this.tbxIpEncrypted.Size = new System.Drawing.Size(195, 21);
+            this.tbxIpEncrypted.TabIndex = 1;
+            // 
+            // tbxIpClear
+            // 
+            this.tbxIpClear.Location = new System.Drawing.Point(28, 30);
+            this.tbxIpClear.Name = "tbxIpClear";
+            this.tbxIpClear.Size = new System.Drawing.Size(195, 21);
+            this.tbxIpClear.TabIndex = 0;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -367,6 +511,8 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.ftpTab.ResumeLayout(false);
+            this.ftpTab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -400,6 +546,21 @@
         private System.Windows.Forms.Button btnDecrypt;
         private System.Windows.Forms.ListView lwStats;
         private System.Windows.Forms.CheckBox chbxInfoExtrator;
+        private System.Windows.Forms.TabPage ftpTab;
+        private System.Windows.Forms.Button btnEncrypt;
+        private System.Windows.Forms.TextBox tbxFtpPasswordEncrypted;
+        private System.Windows.Forms.TextBox tbxFtpPassword;
+        private System.Windows.Forms.TextBox tbxFtpUserNameEncrypted;
+        private System.Windows.Forms.TextBox tbxFtpUserName;
+        private System.Windows.Forms.TextBox tbxIpEncrypted;
+        private System.Windows.Forms.TextBox tbxIpClear;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox6;
     }
 }
 

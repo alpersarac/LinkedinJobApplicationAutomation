@@ -38,14 +38,13 @@ namespace Helper
                     string appPath = Application.ExecutablePath;
                     FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(appPath);
                     
-                    MessageBox.Show(fileVersionInfo.FileVersion);
                     isAcceptedUpdate = true;
                     string localVersion = GetCurrentAppVersion();
                     string latestVersion = GetLatestVersion();
 
                     if (IsUpdateAvailable(localVersion, latestVersion))
                     {
-                        var messageboxResult = MessageBox.Show("An update is available. Click YES, then install the update", "Update Available", MessageBoxButtons.YesNo);
+                        var messageboxResult = MessageBox.Show("An update is available. Click YES, then install the update", "Update Available", MessageBoxButtons.YesNo,MessageBoxIcon.Information);
                         if (messageboxResult == DialogResult.Yes)
                         {
                             DownloadAndInstallUpdate(latestVersion);
@@ -89,8 +88,7 @@ namespace Helper
                 catch (Exception ex)
                 {
                     ExceptionLogger.LogException(ex);
-                    // Handle any errors during the update process
-                    // MessageBox.Show("Error updating application: " + ex.Message);
+                    
                 }
 
                 return responseData;
@@ -157,8 +155,7 @@ namespace Helper
                 catch (Exception ex)
                 {
                     ExceptionLogger.LogException(ex);
-                    // Handle any errors during the update process
-                    // MessageBox.Show("Error updating application: " + ex.Message);
+                    
                 }
             }
 

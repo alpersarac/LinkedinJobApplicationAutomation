@@ -189,5 +189,12 @@ namespace LinkedinJAASerial
 
             rhtbxEncrypted.Text = BasicEncryption.EncryptConnectionString(tbxEncryptLicence.Text);
         }
+
+        private void btnEncrypt_Click(object sender, EventArgs e)
+        {
+            tbxIpEncrypted.Text = BasicEncryption.EncryptConnectionString(tbxIpClear.Text);
+            tbxFtpUserNameEncrypted.Text = BasicEncryption.EncryptConnectionString(tbxFtpUserName.Text);
+            tbxFtpPasswordEncrypted.Text = BasicEncryption.EncryptConnectionString(tbxIpEncrypted.Text);
+        }
     }
 }
