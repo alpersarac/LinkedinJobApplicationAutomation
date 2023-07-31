@@ -38,14 +38,13 @@ namespace Helper
                     string appPath = Application.ExecutablePath;
                     FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(appPath);
                     
-                    MessageBox.Show(fileVersionInfo.FileVersion);
                     isAcceptedUpdate = true;
                     string localVersion = GetCurrentAppVersion();
                     string latestVersion = GetLatestVersion();
 
                     if (IsUpdateAvailable(localVersion, latestVersion))
                     {
-                        var messageboxResult = MessageBox.Show("An update is available. Click YES, then install the update", "Update Available", MessageBoxButtons.YesNo);
+                        var messageboxResult = MessageBox.Show("An update is available. Click YES, then install the update", "Update Available", MessageBoxButtons.YesNo,MessageBoxIcon.Information);
                         if (messageboxResult == DialogResult.Yes)
                         {
                             DownloadAndInstallUpdate(latestVersion);
@@ -89,8 +88,7 @@ namespace Helper
                 catch (Exception ex)
                 {
                     ExceptionLogger.LogException(ex);
-                    // Handle any errors during the update process
-                    // MessageBox.Show("Error updating application: " + ex.Message);
+                    
                 }
 
                 return responseData;
@@ -151,29 +149,13 @@ namespace Helper
                     string updaterPath = Path.Combine(updateFolder, "Setup.exe");
 
                     Process.Start(updaterPath);
-                    Thread.Sleep(4000);
+                    Application.Exit();
 
-                    // Wait for the update process to complete
-                    Process updaterProcess = Process.GetProcessesByName("Setup").FirstOrDefault();
-                    if (updaterProcess != null)
-                    {
-                        updaterProcess.WaitForExit();
-
-                        if (Directory.Exists(updateFolder))
-                        {
-                            Directory.Delete(updateFolder, true);
-
-                            //CreateOrUpdateVersionFile(latestVersion);
-                        }
-                    }
-
-                    // Delete the update folder and its contents after the update is completed
                 }
                 catch (Exception ex)
                 {
                     ExceptionLogger.LogException(ex);
-                    // Handle any errors during the update process
-                    // MessageBox.Show("Error updating application: " + ex.Message);
+                    
                 }
             }
 
@@ -191,6 +173,26 @@ namespace Helper
                     return "0.0.0"; // Default version if the version cannot be retrieved.
                 }
             }
+            public static void ClearUpdateFolder()
+            {
+                string updateFolder = Path.Combine(localAppPath, "UpdateTemp"); // New folder for the update
+                string updateFilePath = Path.Combine(updateFolder, "Update.zip");
+                string updateUrl = Path.Combine(ftpServerUrl, "Update.zip");
+                if (Directory.Exists(updateFolder))
+                {
+                    Directory.Delete(updateFolder, true);
+
+                    //CreateOrUpdateVersionFile(latestVersion);
+                }
+                //if (Directory.Exists(updateFolder))
+                //{
+                //    foreach (string existingFile in Directory.EnumerateFiles(updateFolder))
+                //    {
+                //        File.Delete(existingFile);
+                //    }
+                //}
+            }
+
         }
     }
 
