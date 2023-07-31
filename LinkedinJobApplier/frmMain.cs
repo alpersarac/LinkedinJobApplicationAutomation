@@ -64,6 +64,14 @@ namespace LinkedinJobApplier
             }
             try
             {
+                try
+                {
+                    UpdateHelper.ClearUpdateFolder();
+                }
+                catch (Exception)
+                {
+
+                }
                 DateTime? currentDateTime = WordTimerManager.GetCurrentDateTime();
                 try
                 {

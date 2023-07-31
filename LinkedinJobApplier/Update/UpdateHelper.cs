@@ -151,23 +151,8 @@ namespace Helper
                     string updaterPath = Path.Combine(updateFolder, "Setup.exe");
 
                     Process.Start(updaterPath);
-                    Thread.Sleep(4000);
+                    Application.Exit();
 
-                    // Wait for the update process to complete
-                    Process updaterProcess = Process.GetProcessesByName("Setup").FirstOrDefault();
-                    if (updaterProcess != null)
-                    {
-                        updaterProcess.WaitForExit();
-
-                        if (Directory.Exists(updateFolder))
-                        {
-                            Directory.Delete(updateFolder, true);
-
-                            //CreateOrUpdateVersionFile(latestVersion);
-                        }
-                    }
-
-                    // Delete the update folder and its contents after the update is completed
                 }
                 catch (Exception ex)
                 {
@@ -190,6 +175,25 @@ namespace Helper
                     ExceptionLogger.LogException(ex);
                     return "0.0.0"; // Default version if the version cannot be retrieved.
                 }
+            }
+            public static void ClearUpdateFolder()
+            {
+                string updateFolder = Path.Combine(localAppPath, "UpdateTemp"); // New folder for the update
+                string updateFilePath = Path.Combine(updateFolder, "Update.zip");
+                string updateUrl = Path.Combine(ftpServerUrl, "Update.zip");
+                if (Directory.Exists(updateFolder))
+                {
+                    Directory.Delete(updateFolder, true);
+
+                    //CreateOrUpdateVersionFile(latestVersion);
+                }
+                //if (Directory.Exists(updateFolder))
+                //{
+                //    foreach (string existingFile in Directory.EnumerateFiles(updateFolder))
+                //    {
+                //        File.Delete(existingFile);
+                //    }
+                //}
             }
         }
     }
