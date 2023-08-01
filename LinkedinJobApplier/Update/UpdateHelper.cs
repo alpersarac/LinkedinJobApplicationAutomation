@@ -30,6 +30,22 @@ namespace Helper
             private static string localAppPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Legend", "LinkedinJob Applier Setup");
             private static string ftpUsername = "alper";
             private static string ftpPassword = "Sarac.4242";
+            static UpdateHelper()
+            {
+                try
+                {
+                    ftpServerUrl= BasicEncryption.DecryptConnectionString(ftpServerUrl);
+                    localAppPath= Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Legend", "LinkedinJob Applier Setup");
+                    ftpUsername= BasicEncryption.DecryptConnectionString(ftpUsername);
+                    ftpPassword= BasicEncryption.DecryptConnectionString(ftpPassword);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                Console.WriteLine("tst");
+            }
 
             public static bool CheckForUpdates(ref bool isAcceptedUpdate)
             {
