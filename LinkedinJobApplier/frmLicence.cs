@@ -22,6 +22,8 @@ namespace LinkedinJobApplier
         {
             InitializeComponent();
             _frmMainObj = frmMainObj;
+            this.TopMost = true;
+            this.ShowDialog();
             this.BringToFront();
         }
 
