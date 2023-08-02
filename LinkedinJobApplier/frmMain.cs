@@ -2,6 +2,7 @@
 using Helper.MyNamespace;
 using LinkedinJAASerial;
 using LinkedinJAASerialGenerator;
+using LinkedinJobApplier.Browser;
 using LinkedinJobApplier.Config;
 using Newtonsoft.Json;
 using OpenQA.Selenium;
@@ -586,6 +587,11 @@ namespace LinkedinJobApplier
                         }
                     }
 
+                }
+                if (!FirefoxHelper.IsFirefoxInstalled())
+                {
+                    btnStartApplying.Enabled = false;
+                    btnStopApplying.Enabled = false;
                 }
 
 
