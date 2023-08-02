@@ -39,12 +39,11 @@ namespace Helper
                     ftpUsername= BasicEncryption.DecryptConnectionString(ftpUsername);
                     ftpPassword= BasicEncryption.DecryptConnectionString(ftpPassword);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    ExceptionLogger.LogException(ex);
                 }
-                Console.WriteLine("tst");
+               
             }
 
             public static bool CheckForUpdates(ref bool isAcceptedUpdate)
