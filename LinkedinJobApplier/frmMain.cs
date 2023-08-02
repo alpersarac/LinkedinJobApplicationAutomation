@@ -26,6 +26,7 @@ namespace LinkedinJobApplier
     {
         #region Variables
         CancellationTokenSource cancellationTokenSource = null;
+        Thread splashThread = null;
         Thread statusUpdateThread = null;
         Thread phoneEmailThread = null;
         Thread operationThread = null;
@@ -36,6 +37,8 @@ namespace LinkedinJobApplier
 
         public frmMain()
         {
+            splashThread = new Thread(StartSplash);
+            splashThread.Start();
             InitializeComponent();          
             //client = new HttpClient();
             //client.BaseAddress = new Uri("https://your-api-url/");
@@ -45,11 +48,14 @@ namespace LinkedinJobApplier
         delegate void UpdateInfoListboxDelegate(string PhoneEmail);
         private void frmMain_Load(object sender, EventArgs e)
         {
+
             frmLicence frmLicence = new frmLicence(this);
+
             bool isAcceptedUpdate = false;
             lblVersion.Text=$"Version {UpdateHelper.GetCurrentAppVersion()}";
             if (UpdateHelper.CheckForUpdates(ref isAcceptedUpdate))
             {
+                splashThread.Abort();
                 if (isAcceptedUpdate)
                 {
                     System.Diagnostics.Process.Start(Application.ExecutablePath);
@@ -70,11 +76,12 @@ namespace LinkedinJobApplier
                 }
                 catch (Exception)
                 {
-
+                    splashThread.Abort();
                 }
                 DateTime? currentDateTime = WordTimerManager.GetCurrentDateTime();
                 try
                 {
+                    splashThread.Abort();
                     if (currentDateTime == null)
                     {
                         MessageBox.Show("Unable connect to internet, please check your internet connection", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -94,6 +101,7 @@ namespace LinkedinJobApplier
                             {
                                 this.Hide();
                                 frmLicence.ShowDialog();
+                                
                             }
                             else if (string.IsNullOrEmpty(parsedLicenseTable.macAddress))
                             {
@@ -119,6 +127,7 @@ namespace LinkedinJobApplier
                         {
                             this.Hide();
                             frmLicence.ShowDialog();
+                            
                         }
                         else if (isConnectionOK == false)
                         {
@@ -137,6 +146,7 @@ namespace LinkedinJobApplier
                 catch (Exception ex)
                 {
                     ExceptionLogger.LogException(ex);
+                    splashThread.Abort();
                     this.Hide();
                     frmLicence.ShowDialog();
                 }
@@ -146,6 +156,10 @@ namespace LinkedinJobApplier
                 ExceptionLogger.LogException(ex);
             }
 
+        }
+        public void StartSplash()
+        {
+            Application.Run(new frmSplash());
         }
         private void UpdateStatusLabel(string text)
         {
