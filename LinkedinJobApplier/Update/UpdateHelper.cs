@@ -26,10 +26,25 @@ namespace Helper
     {
         public static class UpdateHelper
         {
-            private static string ftpServerUrl = "ftp://87.248.157.31/";
+            private static string ftpServerUrl = "iws://10.571.480.64/";//"ftp://87.248.157.31/";
             private static string localAppPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Legend", "LinkedinJob Applier Setup");
-            private static string ftpUsername = "alper";
-            private static string ftpPassword = "Sarac.4242";
+            private static string ftpUsername = "doshu";
+            private static string ftpPassword = "Vdudf.7575";
+            static UpdateHelper()
+            {
+                try
+                {
+                    ftpServerUrl= BasicEncryption.DecryptConnectionString(ftpServerUrl);
+                    localAppPath= Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Legend", "LinkedinJob Applier Setup");
+                    ftpUsername= BasicEncryption.DecryptConnectionString(ftpUsername);
+                    ftpPassword= BasicEncryption.DecryptConnectionString(ftpPassword);
+                }
+                catch (Exception ex)
+                {
+                    ExceptionLogger.LogException(ex);
+                }
+               
+            }
 
             public static bool CheckForUpdates(ref bool isAcceptedUpdate)
             {
@@ -67,17 +82,18 @@ namespace Helper
 
             private static string GetLatestVersion()
             {
-                string latestVersionUrl = Path.Combine(ftpServerUrl, "version.txt");
                 string responseData = string.Empty;
-
-                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(latestVersionUrl);
-                request.Method = WebRequestMethods.Ftp.DownloadFile;
-                request.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
-                request.UsePassive = false; // Explicitly set Passive Mode to false
-                request.Proxy = new WebProxy();
-
                 try
                 {
+                    string latestVersionUrl = Path.Combine(ftpServerUrl, "version.txt");
+                   
+
+                    FtpWebRequest request = (FtpWebRequest)WebRequest.Create(latestVersionUrl);
+                    request.Method = WebRequestMethods.Ftp.DownloadFile;
+                    request.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+                    request.UsePassive = false; // Explicitly set Passive Mode to false
+                    request.Proxy = new WebProxy();
+
                     using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
                     using (Stream responseStream = response.GetResponseStream())
                     using (StreamReader reader = new StreamReader(responseStream))

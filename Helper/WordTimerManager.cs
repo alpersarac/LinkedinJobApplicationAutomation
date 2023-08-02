@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinkedinJobApplier;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -31,9 +32,9 @@ namespace Helper
                     }
                 }
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException ex)
             {
-                Console.WriteLine($"Error while fetching data: {e.Message}");
+                ExceptionLogger.LogException(ex);
                 return null;
             }
         }
