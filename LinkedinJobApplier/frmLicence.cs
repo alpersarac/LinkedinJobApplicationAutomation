@@ -22,6 +22,7 @@ namespace LinkedinJobApplier
         {
             InitializeComponent();
             _frmMainObj = frmMainObj;
+            this.BringToFront();
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -86,6 +87,7 @@ namespace LinkedinJobApplier
         private void frmLicence_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
+           
         }
 
         private void btnExit_Click(object sender, EventArgs e)
