@@ -588,11 +588,11 @@ namespace LinkedinJobApplier
                     }
 
                 }
-                if (!FirefoxHelper.IsFirefoxInstalled())
-                {
-                    btnStartApplying.Enabled = false;
-                    btnStopApplying.Enabled = false;
-                }
+                //if (!FirefoxHelper.IsFirefoxInstalled())
+                //{
+                //    btnStartApplying.Enabled = false;
+                //    btnStopApplying.Enabled = false;
+                //}
 
 
             }
