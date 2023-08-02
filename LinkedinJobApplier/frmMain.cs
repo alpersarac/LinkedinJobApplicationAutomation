@@ -100,8 +100,10 @@ namespace LinkedinJobApplier
                             if (parsedLicenseTable.expirydate < currentDateTime /*DateTime.Now*/)
                             {
                                 this.Hide();
+                                frmLicence.TopMost = true;
                                 frmLicence.ShowDialog();
-                                
+                                frmLicence.BringToFront();
+
                             }
                             else if (string.IsNullOrEmpty(parsedLicenseTable.macAddress))
                             {
@@ -126,8 +128,10 @@ namespace LinkedinJobApplier
                         else if (parsedLicenseTable == null && isConnectionOK == true)
                         {
                             this.Hide();
+                            frmLicence.TopMost = true;
                             frmLicence.ShowDialog();
-                            
+                            frmLicence.BringToFront();
+
                         }
                         else if (isConnectionOK == false)
                         {
@@ -148,7 +152,9 @@ namespace LinkedinJobApplier
                     ExceptionLogger.LogException(ex);
                     splashThread.Abort();
                     this.Hide();
+                    frmLicence.TopMost = true;
                     frmLicence.ShowDialog();
+                    frmLicence.BringToFront();
                 }
             }
             catch (Exception ex)
