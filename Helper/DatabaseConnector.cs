@@ -10,7 +10,7 @@ namespace LinkedinJAASerial
     public static class DatabaseConnector
     {
 
-        private static string ConnectionString = "Vhuyhu=10.571.480.64;Gdwdedvh=OlqnhglqDssolhu;Xvhu Lg=vd;Sdvvzrug=Vdudf.7575;";
+        private static string ConnectionString = "";
 
         static DatabaseConnector()
         {
