@@ -15,8 +15,8 @@ namespace LinkedinJobApplicationAutomation.Config
         public static string FirefoxProfileRootDir = @"C:\Users\90507\AppData\Roaming\Mozilla\Firefox\Profiles\0cv53qd2.default-release-1687006000021";
         // If you left above field empty enter your Linkedin password and username below
         // Linkedin credits
-        public static string Email = "Alper.sarac42@gmail.com";
-        public static string Password = "Alper.77";
+        public static string Email = "";
+        public static string Password = "";
 
         // These settings are for running Linkedin job apply bot
         public static string LinkedinBotProPasswrod = "";
