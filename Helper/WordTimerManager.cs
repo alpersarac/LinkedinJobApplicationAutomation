@@ -32,11 +32,12 @@ namespace Helper
                     }
                 }
             }
-            catch (HttpRequestException ex)
+            catch (Exception ex)
             {
                 ExceptionLogger.LogException(ex);
-                return null;
+                return DateTime.Now;
             }
+
         }
     }
 }
