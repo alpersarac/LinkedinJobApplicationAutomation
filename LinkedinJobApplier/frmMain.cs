@@ -105,6 +105,7 @@ namespace LinkedinJobApplier
                                 frmLicence.ShowDialog();
                                 frmLicence.BringToFront();
 
+
                             }
                             else if (string.IsNullOrEmpty(parsedLicenseTable.macAddress))
                             {
