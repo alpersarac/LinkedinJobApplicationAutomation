@@ -284,6 +284,11 @@ namespace LinkedinJobApplier.Config
                                                     Utils.CheckTermsAndConditionsCheckbox(driver);
                                                     Utils.SelectVisaRequirement(driver, "No");
                                                     Utils.SelectCommuteComfort(driver, "Yes");
+                                                    Utils.SelectRelocationOption(driver, "Yes");
+                                                    //for (int h = 0; h < 5; h++)
+                                                    //{
+                                                    //    Utils.EnterYearsOfExperience(driver, 4);
+                                                    //}
                                                     Utils.EnterStartDate(driver, "14days");
                                                     if (currentValueOfPercent != previousValueOfPercent)
                                                     {
