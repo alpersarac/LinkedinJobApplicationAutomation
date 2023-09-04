@@ -32,6 +32,7 @@ namespace LinkedinJobApplier.Config
         public static string VisaRequirement = "";
         public static string CommutePreference = "";
         public static string NoticePeriod = "";
+        public static bool HighAccuracy = false;
 
        
         public static string PhoneAndEmails = "";
