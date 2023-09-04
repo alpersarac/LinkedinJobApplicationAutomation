@@ -264,6 +264,7 @@ namespace LinkedinJobApplier
                     userDataManager.cbxCommutingIndex = cbxCommuting.SelectedIndex;
                     userDataManager.cbxVisaSponsorIndex = cbxVisaSponsorship.SelectedIndex;
                     userDataManager.NoticePeriodInDays = tbxNoticePeriod.Text;
+                    userDataManager.HighAccuracy = chbxHighAccuracy.Checked;
 
                     // Save the user data to a file
                     userDataManager.SaveUserData();
@@ -507,6 +508,7 @@ namespace LinkedinJobApplier
             Config.Config.NoticePeriod = tbxNoticePeriod.Text;
             Config.Config.SalaryExpectation = tbxSalary.Text;
             Config.Config.DatePosted.Add(cbxDatePosted.GetItemText(this.cbxDatePosted.SelectedItem));
+            Config.Config.HighAccuracy = chbxHighAccuracy.Checked;
             foreach (var location in lbxLocations.Items.Cast<string>().ToList())
             {
                 if (!string.IsNullOrEmpty(location))
@@ -570,6 +572,7 @@ namespace LinkedinJobApplier
                     cbxCommuting.SelectedIndex = userDataManager.cbxCommutingIndex;
                     cbxVisaSponsorship.SelectedIndex = userDataManager.cbxVisaSponsorIndex;
                     tbxNoticePeriod.Text = userDataManager.NoticePeriodInDays;
+                    chbxHighAccuracy.Checked = userDataManager.HighAccuracy;
 
                     foreach (var location in userDataManager.Locations)
                     {

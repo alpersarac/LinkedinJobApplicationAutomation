@@ -19,7 +19,7 @@ namespace LinkedinJobApplier.Config
                 if (Config.HighAccuracy)
                 {
                     concatenatedKeyword = "(" + string.Join(" OR ", Config.Keywords.ConvertAll(keyword => "\"" + keyword + "\"")) + ")";
-                     = Constants.LinkJobUrl + "?f_AL=true&keywords=" + concatenatedKeyword + this.jobType() + this.remote() + checkJobLocation(location) + this.jobExp(0) + this.datePosted() + this.salary() + this.sortBy();
+                     url= Constants.LinkJobUrl + "?f_AL=true&keywords=" + concatenatedKeyword + this.jobType() + this.remote() + checkJobLocation(location) + this.jobExp(0) + this.datePosted() + this.salary() + this.sortBy();
                     path.Add(url);
                 }
                 else

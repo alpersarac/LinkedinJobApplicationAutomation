@@ -25,6 +25,7 @@ namespace LinkedinJobApplier.Config
         public int cbxVisaSponsorIndex { get; set; }
         public int cbxCommutingIndex { get; set; }
         public bool RememberMe { get; set; }
+        public bool HighAccuracy { get; set; }
 
         public UserDataManager()
         {
@@ -35,7 +36,7 @@ namespace LinkedinJobApplier.Config
         public void SaveUserData()
         {
             string dataToSave = $"{Username}|{Password}|{Status}|{string.Join(",", Locations)}|{string.Join(",", Keywords)}|{cbxDatePostedIndex}|{RememberMe}|{City}" +
-                $"|{SalaryExpectation}|{cbxVisaSponsorIndex}|{cbxCommutingIndex}|{NoticePeriodInDays}";
+                $"|{SalaryExpectation}|{cbxVisaSponsorIndex}|{cbxCommutingIndex}|{NoticePeriodInDays}|{HighAccuracy}";
             File.WriteAllText(FilePath, dataToSave);
         }
 
@@ -45,7 +46,7 @@ namespace LinkedinJobApplier.Config
             {
                 string data = File.ReadAllText(FilePath);
                 string[] parts = data.Split('|');
-                if (parts.Length != 12)
+                if (parts.Length != 13)
                 {
                     throw new InvalidDataException("Invalid data format in the file.");
                 }
@@ -62,6 +63,7 @@ namespace LinkedinJobApplier.Config
                 cbxVisaSponsorIndex = int.Parse(parts[9]);
                 cbxCommutingIndex = int.Parse(parts[10]);
                 NoticePeriodInDays = parts[11];
+                HighAccuracy = bool.Parse(parts[12]);
             }
         }
     }
