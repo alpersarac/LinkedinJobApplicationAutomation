@@ -568,6 +568,38 @@ namespace LinkedinJobApplier.Config
                 return false;
             }
         }
+        public static void EnterYearsOfExperience(IWebDriver driver, int years)
+        {
+            try
+            {
+                string partialLabel = "How many";
+
+                // Find the label element that contains the partial label text
+                IWebElement labelElement = driver.FindElement(By.XPath($"//label[contains(., '{partialLabel}')]"));
+
+                if (labelElement != null)
+                {
+                    // Get the 'for' attribute value to locate the associated input element
+                    string inputId = labelElement.GetAttribute("for");
+
+                    // Find the input element using its 'id'
+                    IWebElement inputElement = driver.FindElement(By.Id(inputId));
+
+                    if (inputElement != null)
+                    {
+                        // Clear the input field and input the years of experience
+                        inputElement.Clear();
+                        inputElement.SendKeys(years.ToString());
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Handle exception
+            }
+        }
+
+
         public static void EnterStartDate(IWebDriver driver, string startDate)
         {
             try
@@ -634,6 +666,28 @@ namespace LinkedinJobApplier.Config
                 // Handle exception
             }
         }
+        public static void SelectRelocationOption(IWebDriver driver, string option)
+        {
+            try
+            {
+                string desiredLabel = "Are you willing to relocate to Luxembourg?";
+                IWebElement mainLabelElement = driver.FindElement(By.CssSelector("span[aria-hidden='true']"));
+
+                if (mainLabelElement.Text.Contains(desiredLabel))
+                {
+                    IWebElement selectElement = driver.FindElement(By.Id("text-entity-list-form-component-formElement-urn-li-jobs-applyformcommon-easyApplyFormElement-3677904578-93966635-multipleChoice"));
+                    SelectElement select = new SelectElement(selectElement);
+
+                    // Select the desired option using its visible text
+                    select.SelectByText(option);
+                }
+            }
+            catch (Exception)
+            {
+                // Handle exception
+            }
+        }
+
 
         public static void SelectVisaRequirement(IWebDriver driver,string option)
         {
