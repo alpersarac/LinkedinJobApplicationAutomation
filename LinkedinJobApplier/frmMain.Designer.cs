@@ -76,6 +76,7 @@
             this.grbxInfo = new System.Windows.Forms.GroupBox();
             this.lblInfoPage = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
+            this.cbxHighAccuracy = new System.Windows.Forms.CheckBox();
             this.grbxCredentials.SuspendLayout();
             this.grbxPreferences.SuspendLayout();
             this.grbxInfo.SuspendLayout();
@@ -643,12 +644,23 @@
             this.lblVersion.TabIndex = 29;
             this.lblVersion.Text = "Version";
             // 
+            // cbxHighAccuracy
+            // 
+            this.cbxHighAccuracy.AutoSize = true;
+            this.cbxHighAccuracy.Location = new System.Drawing.Point(12, 396);
+            this.cbxHighAccuracy.Name = "cbxHighAccuracy";
+            this.cbxHighAccuracy.Size = new System.Drawing.Size(146, 20);
+            this.cbxHighAccuracy.TabIndex = 30;
+            this.cbxHighAccuracy.Text = "High Accuracy(Sniper)";
+            this.cbxHighAccuracy.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1753, 470);
+            this.Controls.Add(this.cbxHighAccuracy);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.grbxPreferences);
             this.Controls.Add(this.grbxInfo);
@@ -728,6 +740,7 @@
         private System.Windows.Forms.GroupBox grbxInfo;
         private System.Windows.Forms.Label lblInfoPage;
         private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.CheckBox cbxHighAccuracy;
     }
 }
 
